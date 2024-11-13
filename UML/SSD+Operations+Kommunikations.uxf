@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>580</y>
+      <w>410</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>operation contract
+
+Operation: findCustomer(customerID)
+Use case: Order processing
+Precondition: An instance of SaleOrder so
+
+
+Postcondition:
+c was assoiated with so 
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>570</x>
+      <y>70</y>
+      <w>60</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>CEO</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>890</x>
+      <y>100</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>:System
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>120</y>
+      <w>30</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;370.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>150</y>
+      <w>30</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;340.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>220</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>addShift(startTime, expectedEndTime)
+lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>170</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>createTask(startDate, endDate, CustomerID, description)
+lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>340</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>saveTask()
+lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>380</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>requests confirmation of input
+lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>700</x>
+      <y>100</y>
+      <w>140</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Larman 173-184</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>80</y>
+      <w>410</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>operation contract
+
+Operation: createTask(startDate:localDate, endDate:localDate,
+CustomerID:int,description:String)
+Use case: Create Task
+Precondition:
+
+Postcondition:
+SaleOrder so has been created 
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>310</y>
+      <w>410</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>operation contract
+
+Operation: findProduct(barcode:String, quantity:int)
+Use case: Order Processing
+Precondition: An instance of SaleOrder so
+ 
+
+
+Postcondition:
+A SaleOrderLine instance sol was created 
+sol was associated with so 
+sol.quantity became quantity
+p was associated with sol
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>440</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>confirmsInput()
+lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>530</x>
+      <y>270</y>
+      <w>450</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>opt 
+fg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>520</x>
+      <y>200</y>
+      <w>470</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Loop (more shifts)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>280</y>
+      <w>410</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>addShift(startTime, expectedEndTime, employeeID)
+lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+</diagram>
