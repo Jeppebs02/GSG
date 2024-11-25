@@ -4,22 +4,21 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>7</x>
-      <y>350</y>
-      <w>455</w>
-      <h>147</h>
+      <x>196</x>
+      <y>448</y>
+      <w>315</w>
+      <h>133</h>
     </coordinates>
     <panel_attributes>(Optional)operation contract
 
-Operation: addShift(startTime:localDateTime, expectedEndTime:localDateTime, employeeID:String)
+Operation: addEmployee(shift:Shift, employeeID:String)
 
 Use case: Create Task
 Precondition: Task t has been created
+Shift s has been created
  
 
 Postcondition:
-Shift s has been created
-Shift s has been assosiated to Task t
 Employee e has been assosiated to Shift s
 </panel_attributes>
     <additional_attributes/>
@@ -27,8 +26,8 @@ Employee e has been assosiated to Shift s
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>385</x>
-      <y>0</y>
+      <x>574</x>
+      <y>98</y>
       <w>42</w>
       <h>77</h>
     </coordinates>
@@ -38,8 +37,8 @@ Employee e has been assosiated to Shift s
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>609</x>
-      <y>21</y>
+      <x>798</x>
+      <y>119</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -50,8 +49,8 @@ Employee e has been assosiated to Shift s
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>637</x>
-      <y>35</y>
+      <x>826</x>
+      <y>133</y>
       <w>21</w>
       <h>210</h>
     </coordinates>
@@ -61,8 +60,8 @@ Employee e has been assosiated to Shift s
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
-      <y>56</y>
+      <x>560</x>
+      <y>154</y>
       <w>21</w>
       <h>182</h>
     </coordinates>
@@ -73,8 +72,8 @@ layer=0</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
-      <y>105</y>
+      <x>560</x>
+      <y>203</y>
       <w>287</w>
       <h>28</h>
     </coordinates>
@@ -85,8 +84,8 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
-      <y>70</y>
+      <x>560</x>
+      <y>168</y>
       <w>287</w>
       <h>28</h>
     </coordinates>
@@ -97,8 +96,8 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
-      <y>189</y>
+      <x>560</x>
+      <y>287</y>
       <w>287</w>
       <h>28</h>
     </coordinates>
@@ -109,8 +108,8 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>476</x>
-      <y>21</y>
+      <x>665</x>
+      <y>119</y>
       <w>98</w>
       <h>21</h>
     </coordinates>
@@ -120,8 +119,8 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>7</y>
+      <x>189</x>
+      <y>105</y>
       <w>322</w>
       <h>140</h>
     </coordinates>
@@ -143,8 +142,8 @@ Task t has been created
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>175</y>
+      <x>189</x>
+      <y>273</y>
       <w>322</w>
       <h>147</h>
     </coordinates>
@@ -167,8 +166,8 @@ Shift s has been assosiated to Task t
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>350</x>
-      <y>91</y>
+      <x>539</x>
+      <y>189</y>
       <w>329</w>
       <h>98</h>
     </coordinates>
@@ -179,8 +178,8 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
-      <y>147</y>
+      <x>560</x>
+      <y>245</y>
       <w>287</w>
       <h>28</h>
     </coordinates>
@@ -192,8 +191,8 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>854</x>
-      <y>168</y>
+      <x>1043</x>
+      <y>266</y>
       <w>483</w>
       <h>217</h>
     </coordinates>
@@ -209,8 +208,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>861</x>
-      <y>371</y>
+      <x>1050</x>
+      <y>469</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -220,8 +219,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>896</x>
-      <y>574</y>
+      <x>1085</x>
+      <y>672</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -231,8 +230,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1736</x>
-      <y>469</y>
+      <x>1925</x>
+      <y>567</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -242,8 +241,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1379</x>
-      <y>364</y>
+      <x>1568</x>
+      <y>462</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -253,8 +252,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1736</x>
-      <y>413</y>
+      <x>1925</x>
+      <y>511</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -264,8 +263,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>686</x>
-      <y>469</y>
+      <x>875</x>
+      <y>567</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -275,8 +274,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1309</x>
-      <y>469</y>
+      <x>1498</x>
+      <y>567</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -286,8 +285,8 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>714</x>
-      <y>378</y>
+      <x>903</x>
+      <y>476</y>
       <w>161</w>
       <h>105</h>
     </coordinates>
@@ -298,8 +297,8 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>924</x>
-      <y>385</y>
+      <x>1113</x>
+      <y>483</y>
       <w>266</w>
       <h>203</h>
     </coordinates>
@@ -321,8 +320,8 @@ description:String); Task
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1442</x>
-      <y>357</y>
+      <x>1631</x>
+      <y>455</y>
       <w>343</w>
       <h>70</h>
     </coordinates>
@@ -333,8 +332,8 @@ description:String); Task
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1764</x>
-      <y>427</y>
+      <x>1953</x>
+      <y>525</y>
       <w>210</w>
       <h>56</h>
     </coordinates>
@@ -345,8 +344,8 @@ description:String); Task
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1421</x>
-      <y>350</y>
+      <x>1610</x>
+      <y>448</y>
       <w>287</w>
       <h>133</h>
     </coordinates>
@@ -364,8 +363,8 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>924</x>
-      <y>357</y>
+      <x>1113</x>
+      <y>455</y>
       <w>469</w>
       <h>42</h>
     </coordinates>
@@ -378,8 +377,8 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1449</x>
-      <y>469</y>
+      <x>1638</x>
+      <y>567</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -389,8 +388,8 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1344</x>
-      <y>378</y>
+      <x>1533</x>
+      <y>476</y>
       <w>119</w>
       <h>105</h>
     </coordinates>
@@ -404,8 +403,8 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>357</x>
-      <y>133</y>
+      <x>546</x>
+      <y>231</y>
       <w>315</w>
       <h>56</h>
     </coordinates>
