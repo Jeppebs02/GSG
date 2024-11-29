@@ -11,13 +11,15 @@ public class Task {
     private LocalDateTime date;
     private List<Shift> shifts;
     private Report report;
+    private User user;
 
-    public Task(String description, String location, LocalDateTime date, Report report) {
+    public Task(String description, String location, LocalDateTime date, Report report, User user) {
     	this.description = description;
     	this.location = location;
     	this.date = date;
     	this.approval = true;
     	this.report = report;
+    	this.user = user;;
     	shifts = new ArrayList<>();
     }
     
@@ -76,5 +78,13 @@ public class Task {
 	 */
 	public void setReport(Report report) {
 		this.report = report;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

@@ -5,12 +5,10 @@ public class Rating {
     private String securityComment;
     private int serviceScore;
     private String serviceComment;
-    private Report report; // Association with Report (1..*)
     private Employee employee;
     
-    public Rating(Report report, Employee empolyee) {
+    public Rating(Employee empolyee) {
     	this.employee = empolyee;
-    	this.report = report;
     }
 
     // Getters and Setters
@@ -46,12 +44,5 @@ public class Rating {
         this.serviceComment = serviceComment;
     }
 
-    public Report getReport() {
-        return report;
-    }
-
-    public void setReport(Report report) {
-        this.report = report;
-    }
 }
 
