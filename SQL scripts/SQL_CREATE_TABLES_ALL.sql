@@ -17,10 +17,11 @@ CREATE TABLE [User] (
     LastName NVARCHAR(20) NOT NULL,
     Email NVARCHAR(30) NOT NULL UNIQUE,
     PhoneNr NVARCHAR(20) NOT NULL,
-    AccountPrivileges NVARCHAR(20) NOT NULL,
+    AccountPrivileges NVARCHAR(20) NOT NULL, --ENUM
     [Type] NVARCHAR(20) NOT NULL,
     Address_ID INT NOT NULL,
-    CONSTRAINT FK_User_Address FOREIGN KEY (Address_ID) REFERENCES Address(ID)
+    CONSTRAINT FK_User_Address FOREIGN KEY (Address_ID) REFERENCES Address(ID),
+	CONSTRAINT CK_AccountPrivileges CHECK (AccountPrivileges IN ('CEO', 'MANAGER', 'EMPLOYEE', 'CUSTOMER', 'GUEST'))
 );
 
 -- Table: Business
@@ -111,18 +112,22 @@ CREATE TABLE Rating (
 CREATE TABLE Alarm (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     [Time] DATETIME NOT NULL,
-    "Description" NVARCHAR(500),
+    Description NVARCHAR(500),
     Notify NVARCHAR(100),
-    "Classification" NVARCHAR(50),
+    Classification NVARCHAR(20) NOT NULL,
     Report_ID INT NOT NULL,
-    CONSTRAINT FK_Alarm_Report FOREIGN KEY (Report_ID) REFERENCES Report(ReportNr)
+    CONSTRAINT FK_Alarm_Report FOREIGN KEY (Report_ID) REFERENCES Report(ReportNr),
+    CONSTRAINT CK_Alarm_Classification CHECK (Classification IN ('GREEN', 'RED'))
 );
+
 
 -- Table: Availability
 CREATE TABLE Availability (
     ID INT IDENTITY(1,1) PRIMARY KEY,
     [Date] DATE NOT NULL,
-    Unavailable BIT NOT NULL,
+    Unavailable NVARCHAR(20) NOT NULL,
     Employee_ID INT NOT NULL,
-    CONSTRAINT FK_Availability_Employee FOREIGN KEY (Employee_ID) REFERENCES Employee(ID)
+    CONSTRAINT FK_Availability_Employee FOREIGN KEY (Employee_ID) REFERENCES Employee(ID),
+    CONSTRAINT CK_Availability_Unavailable CHECK (Unavailable IN ('SICK', 'HOLIDAY', 'UNAVAILABLE', 'INJURED'))
 );
+
