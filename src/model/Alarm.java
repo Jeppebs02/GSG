@@ -7,10 +7,12 @@ public class Alarm {
     private String description;
     private String notify;
     private Classification classification; // Uses the Classification enum
+    private Report report;
 
-    public Alarm(LocalDateTime time, Classification classification) {
+    public Alarm(LocalDateTime time, Classification classification, Report report) {
     	this.classification = classification;
     	this.time = time;
+    	this.report = report;
     }
     
     // Getters and Setters
@@ -45,4 +47,12 @@ public class Alarm {
     public void setClassification(Classification classification) {
         this.classification = classification;
     }
+
+	public Report getReport() {
+		return report;
+	}
+
+	public void setReport(Report report) {
+		this.report = report;
+	}
 }

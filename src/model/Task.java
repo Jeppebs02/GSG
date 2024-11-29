@@ -10,12 +10,14 @@ public class Task {
     private boolean approval;
     private LocalDateTime date;
     private List<Shift> shifts;
+    private Report report;
 
-    public Task(String description, String location, LocalDateTime date) {
+    public Task(String description, String location, LocalDateTime date, Report report) {
     	this.description = description;
     	this.location = location;
     	this.date = date;
     	this.approval = true;
+    	this.report = report;
     	shifts = new ArrayList<>();
     }
     
@@ -60,5 +62,19 @@ public class Task {
 	
 	public void setShifts(List<Shift> shifts) {
 		this.shifts = shifts;
+	}
+
+	/**
+	 * @return the report
+	 */
+	public Report getReport() {
+		return report;
+	}
+
+	/**
+	 * @param report the report to set
+	 */
+	public void setReport(Report report) {
+		this.report = report;
 	}
 }
