@@ -19,7 +19,7 @@ public class User {
         this.email = email;
         this.phoneNr = phoneNr;
         this.address = address;
-        this.setAccountPrivileges(accountPrivileges);
+        this.accountPrivileges = accountPrivileges;
     }
 
     // Getters and Setters
