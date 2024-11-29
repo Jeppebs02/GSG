@@ -58,12 +58,7 @@ public class Task {
 
 	
 	public List<Shift> getShifts() {
-		return shifts;
-	}
-
-	
-	public void setShifts(List<Shift> shifts) {
-		this.shifts = shifts;
+		return new ArrayList<>(shifts);
 	}
 
 	/**

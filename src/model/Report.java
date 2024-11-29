@@ -81,17 +81,8 @@ public class Report {
         return new ArrayList<>(alarms);
     }
 
-    public void setAlarms(List<Alarm> alarms) {
-        this.alarms = alarms;
-    }
-
-	
 	public List<Rating> getRatings() {
-		return ratings;
+		return new ArrayList<>(ratings);
 	}
 
-	
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
 }

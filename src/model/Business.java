@@ -29,11 +29,4 @@ public class Business extends User {
         this.companyName = companyName;
     }
 
-    @Override
-    public String toString() {
-        return "Business{" +
-                "cvr='" + cvr + '\'' +
-                ", companyName='" + companyName + '\'' +
-                "} " + super.toString();
-    }
 }

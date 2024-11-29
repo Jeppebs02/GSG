@@ -87,16 +87,4 @@ public class User {
 	this.accountPrivileges = accountPrivileges;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userName='" + userName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNr='" + phoneNr + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    
-    }
 }

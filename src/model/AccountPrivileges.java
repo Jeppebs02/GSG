@@ -3,7 +3,7 @@ package model;
 public enum AccountPrivileges {
 
 	CEO,
-	MANGAER,
+	MANAGER,
 	EMPLOYEE,
 	CUSTOMER,
 	GUEST

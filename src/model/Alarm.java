@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Alarm {
     private LocalDateTime time;
     private String description;
-    private String notify;
+    private boolean notify;
     private Classification classification; // Uses the Classification enum
 
     public Alarm(LocalDateTime time, Classification classification) {
@@ -30,11 +30,11 @@ public class Alarm {
         this.description = description;
     }
 
-    public String getNotify() {
+    public boolean getNotify() {
         return notify;
     }
 
-    public void setNotify(String notify) {
+    public void setNotify(boolean notify) {
         this.notify = notify;
     }
 

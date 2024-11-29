@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Employee extends User {
     private int employeeID;
 	private String cpr;
@@ -8,7 +11,7 @@ public class Employee extends User {
     private String accountNr;
     private String registrationNr;
     private String department;
-    
+    private List<Availability> unavailabilities;
 
     // Constructor
     public Employee(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges, int employeeID, String cpr, String securityClearance, String certification, String accountNr, String registrationNr, String department) {
@@ -20,12 +23,13 @@ public class Employee extends User {
     	this.accountNr = accountNr;
     	this.registrationNr = registrationNr;
     	this.department = department;
+    	unavailabilities = new ArrayList<>();
 }
 
     public Employee(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address,
             AccountPrivileges accountPrivileges, String cpr, String securityClearance, String certification,
             String accountNr, String registrationNr, String department) {
-this(userName, passWord, firstName, lastName, email, phoneNr, address, accountPrivileges, 10, cpr, securityClearance, certification, accountNr, registrationNr, department);
+    		this(userName, passWord, firstName, lastName, email, phoneNr, address, accountPrivileges, 10, cpr, securityClearance, certification, accountNr, registrationNr, department);
     }
    
     // Getters and Setters
@@ -77,15 +81,15 @@ this(userName, passWord, firstName, lastName, email, phoneNr, address, accountPr
         this.department = department;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "cpr='" + cpr + '\'' +
-                ", securityClearance='" + securityClearance + '\'' +
-                ", certification='" + certification + '\'' +
-                ", accountNr='" + accountNr + '\'' +
-                ", registrationNr='" + registrationNr + '\'' +
-                ", department='" + department + '\'' +
-                "} " + super.toString();
-    }
+    public int getEmployeeID() {
+		return employeeID;
+	}
+
+	public void setEmployeeID(int employeeID) {
+		this.employeeID = employeeID;
+	}
+
+	public List<Availability> getUnavailabilities() {
+		return new ArrayList<>(unavailabilities);
+	}
 }
