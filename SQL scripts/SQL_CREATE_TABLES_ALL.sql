@@ -21,7 +21,7 @@ CREATE TABLE [User] (
     [Type] NVARCHAR(20) NOT NULL,
     Address_ID INT NOT NULL,
     CONSTRAINT FK_User_Address FOREIGN KEY (Address_ID) REFERENCES Address(ID),
-	CONSTRAINT CK_AccountPrivileges CHECK (AccountPrivileges IN ('CEO', 'MANAGER', 'EMPLOYEE', 'CUSTOMER', 'GUEST')
+	CONSTRAINT CK_AccountPrivileges CHECK (AccountPrivileges IN ('CEO', 'MANAGER', 'EMPLOYEE', 'CUSTOMER', 'GUEST'))
 );
 
 -- Table: Business
