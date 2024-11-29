@@ -11,9 +11,8 @@ public class Employee extends User {
     
 
     // Constructor
-    public Employee(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address,
-            int employeeID, String cpr, String securityClearance, String certification, String accountNr, String registrationNr, String department) {
-    	super(userName, passWord, firstName, lastName, email, phoneNr, address);
+    public Employee(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges, int employeeID, String cpr, String securityClearance, String certification, String accountNr, String registrationNr, String department) {
+    	super(userName, passWord, firstName, lastName, email, phoneNr, address, accountPrivileges);
     	this.employeeID = employeeID;
     	this.cpr = cpr;
     	this.securityClearance = securityClearance;
@@ -24,9 +23,9 @@ public class Employee extends User {
 }
 
     public Employee(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address,
-            String cpr, String securityClearance, String certification, String accountNr, String registrationNr, String department) {
-    	this(userName, passWord, firstName, lastName, email, phoneNr, address, 10, cpr, securityClearance, certification, accountNr, registrationNr, department);
- 
+            AccountPrivileges accountPrivileges, String cpr, String securityClearance, String certification,
+            String accountNr, String registrationNr, String department) {
+this(userName, passWord, firstName, lastName, email, phoneNr, address, accountPrivileges, 10, cpr, securityClearance, certification, accountNr, registrationNr, department);
     }
    
     // Getters and Setters
