@@ -6,6 +6,6 @@ public interface EmployeeDBIF {
 	
 
 	
-	public Employee findEmployeeByID(int employeeID);	
+	public Employee findEmployeeByUserID(int userID) throws Exception ;	
 	
 }
