@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1">
-  <zoom_level>9</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>126</x>
       <y>450</y>
       <w>405</w>
       <h>171</h>
+=======
+      <x>8</x>
+      <y>536</y>
+      <w>360</w>
+      <h>152</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>(Optional)operation contract
 
@@ -26,10 +33,17 @@ Employee e has been assosiated to Shift s
   <element>
     <id>UMLActor</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>612</x>
       <y>0</y>
       <w>54</w>
       <h>99</h>
+=======
+      <x>440</x>
+      <y>136</y>
+      <w>48</w>
+      <h>88</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>CEO</panel_attributes>
     <additional_attributes/>
@@ -37,10 +51,17 @@ Employee e has been assosiated to Shift s
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>900</x>
       <y>27</y>
       <w>90</w>
       <h>27</h>
+=======
+      <x>696</x>
+      <y>160</y>
+      <w>80</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>:System
 </panel_attributes>
@@ -49,10 +70,17 @@ Employee e has been assosiated to Shift s
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>936</x>
       <y>45</y>
       <w>27</w>
       <h>270</h>
+=======
+      <x>728</x>
+      <y>176</y>
+      <w>24</w>
+      <h>240</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;280.0</additional_attributes>
@@ -60,10 +88,17 @@ Employee e has been assosiated to Shift s
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>594</x>
       <y>72</y>
       <w>27</w>
       <h>234</h>
+=======
+      <x>424</x>
+      <y>200</y>
+      <w>24</w>
+      <h>208</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=.
 layer=0</panel_attributes>
@@ -72,10 +107,17 @@ layer=0</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>594</x>
       <y>135</y>
       <w>369</w>
       <h>36</h>
+=======
+      <x>424</x>
+      <y>256</y>
+      <w>328</w>
+      <h>32</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>addShift(startTime, expectedEndTime)
 lt=&lt;&lt;&lt;-</panel_attributes>
@@ -84,10 +126,17 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>594</x>
       <y>90</y>
       <w>369</w>
       <h>36</h>
+=======
+      <x>424</x>
+      <y>216</y>
+      <w>328</w>
+      <h>32</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>createTask(startDate, endDate, CustomerID, description)
 lt=&lt;&lt;&lt;-</panel_attributes>
@@ -96,10 +145,17 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>594</x>
       <y>243</y>
       <w>369</w>
       <h>36</h>
+=======
+      <x>424</x>
+      <y>352</y>
+      <w>328</w>
+      <h>32</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>saveTask()
 lt=&lt;&lt;&lt;-</panel_attributes>
@@ -108,10 +164,17 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>729</x>
       <y>27</y>
       <w>126</w>
       <h>27</h>
+=======
+      <x>544</x>
+      <y>160</y>
+      <w>112</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>Larman 173-184</panel_attributes>
     <additional_attributes/>
@@ -119,10 +182,17 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>117</x>
       <y>9</y>
       <w>414</w>
       <h>180</h>
+=======
+      <x>0</x>
+      <y>144</y>
+      <w>368</w>
+      <h>160</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>operation contract
 
@@ -142,10 +212,17 @@ Task t has been created
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>117</x>
       <y>225</y>
       <w>414</w>
       <h>189</h>
+=======
+      <x>0</x>
+      <y>336</y>
+      <w>368</w>
+      <h>168</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>operation contract
 
@@ -166,10 +243,17 @@ Shift s has been assosiated to Task t
   <element>
     <id>UMLFrame</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>567</x>
       <y>117</y>
       <w>423</w>
       <h>126</h>
+=======
+      <x>400</x>
+      <y>240</y>
+      <w>376</w>
+      <h>112</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>Loop (more shifts)
 layer=-1</panel_attributes>
@@ -178,10 +262,17 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>594</x>
       <y>189</y>
       <w>369</w>
       <h>36</h>
+=======
+      <x>424</x>
+      <y>304</y>
+      <w>328</w>
+      <h>32</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>addEmployeeToShift(shift, employeeID)
 lt=&lt;&lt;&lt;-
@@ -191,10 +282,17 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1215</x>
       <y>216</y>
       <w>621</w>
       <h>279</h>
+=======
+      <x>1016</x>
+      <y>328</y>
+      <w>552</w>
+      <h>240</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=-
 1. t = createTask(startDate:localDateTime, endDate:localDateTime,CustomerID:int,description:String);Task
@@ -203,26 +301,40 @@ layer=2</panel_attributes>
 4. SaveTask(); Boolean
 
 </panel_attributes>
-    <additional_attributes>10.0;290.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;280.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1224</x>
       <y>477</y>
       <w>90</w>
       <h>27</h>
+=======
+      <x>984</x>
+      <y>552</y>
+      <w>80</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
-    <panel_attributes>:TaskController</panel_attributes>
+    <panel_attributes>:TaskCtrl</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1269</x>
       <y>738</y>
       <w>90</w>
       <h>27</h>
+=======
+      <x>1056</x>
+      <y>792</y>
+      <w>80</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>:Task</panel_attributes>
     <additional_attributes/>
@@ -230,10 +342,17 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>2250</x>
       <y>657</y>
       <w>90</w>
       <h>27</h>
+=======
+      <x>1896</x>
+      <y>776</y>
+      <w>80</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>:Employee</panel_attributes>
     <additional_attributes/>
@@ -241,21 +360,35 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1791</x>
       <y>522</y>
       <w>90</w>
       <h>27</h>
+=======
+      <x>1488</x>
+      <y>552</y>
+      <w>80</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
-    <panel_attributes>:ShiftController</panel_attributes>
+    <panel_attributes>:ShiftCtrl</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>2250</x>
       <y>585</y>
       <w>90</w>
       <h>27</h>
+=======
+      <x>1896</x>
+      <y>656</y>
+      <w>80</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>:EmployeeDB</panel_attributes>
     <additional_attributes/>
@@ -263,10 +396,17 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>999</x>
       <y>603</y>
       <w>90</w>
       <h>27</h>
+=======
+      <x>896</x>
+      <y>792</y>
+      <w>80</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>:TaskDB</panel_attributes>
     <additional_attributes/>
@@ -274,10 +414,17 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1701</x>
       <y>657</y>
       <w>90</w>
       <h>27</h>
+=======
+      <x>1408</x>
+      <y>776</y>
+      <w>80</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>:ShiftDB</panel_attributes>
     <additional_attributes/>
@@ -285,22 +432,36 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1035</x>
       <y>486</y>
       <w>207</w>
       <h>135</h>
+=======
+      <x>928</x>
+      <y>568</y>
+      <w>96</w>
+      <h>240</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=-&gt;
 4.1 saveTask()</panel_attributes>
-    <additional_attributes>210.0;20.0;10.0;20.0;10.0;130.0</additional_attributes>
+    <additional_attributes>100.0;10.0;100.0;80.0;10.0;80.0;10.0;280.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1305</x>
       <y>495</y>
       <w>342</w>
       <h>261</h>
+=======
+      <x>1016</x>
+      <y>568</y>
+      <w>376</w>
+      <h>240</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=&lt;-
 
@@ -315,39 +476,60 @@ description:String); Task
 2.2 addShift(shift:Shift)
 
 3.2 addEmployeeToShift(shift:Shift, employee:Employee)</panel_attributes>
-    <additional_attributes>10.0;270.0;10.0;10.0</additional_attributes>
+    <additional_attributes>100.0;280.0;100.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1872</x>
       <y>513</y>
       <w>441</w>
       <h>90</h>
+=======
+      <x>1560</x>
+      <y>544</y>
+      <w>360</w>
+      <h>32</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=-&gt;
 3.1.1 e = findEmployeeByID(employeeID:String): Employee</panel_attributes>
-    <additional_attributes>10.0;20.0;470.0;20.0;470.0;80.0</additional_attributes>
+    <additional_attributes>10.0;20.0;430.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>2286</x>
       <y>603</y>
       <w>270</w>
       <h>72</h>
+=======
+      <x>1928</x>
+      <y>672</y>
+      <w>248</w>
+      <h>120</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=&lt;-
-3.1.1.1 e = *[i=1..N] getEmployeeID(): String</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+3.1.1.1.1 e = *[i=1..N] getEmployeeID(): String</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1845</x>
       <y>504</y>
       <w>369</w>
       <h>171</h>
+=======
+      <x>1536</x>
+      <y>568</y>
+      <w>328</w>
+      <h>224</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=&lt;-
 
@@ -358,29 +540,43 @@ description:String); Task
 2.1.1 s = &lt;&lt;create&gt;&gt; Shift(startTime:localDateTime, 
 expectedEndTime:localDateTime); Shift
 3.1.2 setEmployee(employee:Employee)</panel_attributes>
-    <additional_attributes>90.0;170.0;90.0;70.0;10.0;70.0;10.0;50.0</additional_attributes>
+    <additional_attributes>90.0;260.0;90.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1296</x>
       <y>468</y>
       <w>513</w>
       <h>99</h>
+=======
+      <x>1056</x>
+      <y>544</y>
+      <w>448</w>
+      <h>48</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=&lt;-
 2.1 s = addShift(startTime:localDateTime, expectedEndTime:localDateTime); Shift
 3.1 addEmployeeToShift(shift:Shift employeeID:String)
 4.2 saveShifts()</panel_attributes>
-    <additional_attributes>550.0;70.0;250.0;70.0;250.0;10.0;20.0;10.0</additional_attributes>
+    <additional_attributes>540.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1881</x>
       <y>657</y>
       <w>90</w>
       <h>27</h>
+=======
+      <x>1568</x>
+      <y>776</y>
+      <w>80</w>
+      <h>24</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>:Shift</panel_attributes>
     <additional_attributes/>
@@ -388,25 +584,39 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>Relation</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>1746</x>
       <y>540</y>
       <w>153</w>
       <h>135</h>
+=======
+      <x>1448</x>
+      <y>568</y>
+      <w>136</w>
+      <h>224</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>lt=&lt;-
 
 
 
 4.3 *[i=1..N] saveShift()</panel_attributes>
-    <additional_attributes>10.0;130.0;10.0;30.0;80.0;30.0;80.0;10.0</additional_attributes>
+    <additional_attributes>10.0;260.0;10.0;90.0;80.0;90.0;80.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLFrame</id>
     <coordinates>
+<<<<<<< Updated upstream
       <x>576</x>
       <y>171</y>
       <w>405</w>
       <h>72</h>
+=======
+      <x>408</x>
+      <y>288</y>
+      <w>360</w>
+      <h>64</h>
+>>>>>>> Stashed changes
     </coordinates>
     <panel_attributes>alt
 --
@@ -419,5 +629,28 @@ expectedEndTime:localDateTime); Shift
 
 </panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1904</x>
+      <y>552</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>:EmployeeCtrl</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1928</x>
+      <y>568</y>
+      <w>328</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+3.1.1.1 e = findEmployeeByID(employeeID:String): Employee</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
   </element>
 </diagram>
