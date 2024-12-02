@@ -31,7 +31,7 @@ public class DBConnection {
 		}
 	}
 	
-	public static DBConnection getInstance() {
+	public static synchronized DBConnection getInstance() {
 		if (dBConnection == null) {
 			dBConnection = new DBConnection();
 		}
@@ -42,6 +42,7 @@ public class DBConnection {
 		return connection;
 	}
 
+	//Deprecated, do not use
 	public int executeSqlInsertWithIdentity(String sql) throws SQLException {
 		int key = -1;
 		try (Statement s = connection.createStatement()) {
