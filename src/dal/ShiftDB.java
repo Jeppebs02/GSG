@@ -3,6 +3,7 @@ package dal;
 import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -48,6 +49,13 @@ public class ShiftDB implements ShiftDBIF {
 	    }
 
 	    return shift;
+	}
+
+	@Override
+	public Shift buildObjectShift(ResultSet rs) throws SQLException {
+		//Build Shift object from database
+		Shift s = new Shift(rs.getInt("ID"), rs.getTime("StartTime"), rs.getTime("EndTime"), buildObjectEmployee(rs.getInt("Employee_ID")));
+		return s;
 	}
 
 
