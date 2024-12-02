@@ -10,7 +10,7 @@ import model.Shift;
 public class ShiftCtrl {
 	private Shift currentShift;
 	
-	public ShiftCtrl() throws DataAccessException {
+	public ShiftCtrl()  {
 		this.currentShift = null;
 	}
 	
