@@ -3,16 +3,15 @@ package ctrl;
 import java.time.LocalDateTime;
 
 import dal.DataAccessException;
+import dal.ShiftDB;
 import model.Employee;
 import model.Shift;
 
 public class ShiftCtrl {
 	private Shift currentShift;
-	private EmployeeCtrl ec;
 	
 	public ShiftCtrl() throws DataAccessException {
 		this.currentShift = null;
-		ec = new EmployeeCtrl();
 	}
 	
 	public Shift createShift(LocalDateTime startTime, LocalDateTime endTime) {
@@ -22,22 +21,25 @@ public class ShiftCtrl {
 		return currentShift;
 	}
 	
-	public void addEmployeeToShift(Shift shift, int employeeID) {
+	public void addEmployeeToShift(Employee employee) throws Exception {
 		// Validate that the Shift object is not null
-        if (shift == null) {
+        if (currentShift == null) {
             throw new IllegalArgumentException("Shift cannot be null");
         }
 		
-        // Find the employee using the employeeID
-        Employee e = ec.findEmployeeByUserID(employeeID);
-        
-        // If the employee is not found, throw a NullPointerException
-        if (e == null) {
-            throw new NullPointerException("Employee with ID " + employeeID + " not found");
-        }
-
         // Assign the employee to the provided shift
-        shift.setEmployee(e);
+        currentShift.setEmployee(employee);
 	}
 	
+	public void saveShiftToDB() throws Exception {
+		//creates a ShiftDB within the method
+		ShiftDB shiftDB = new ShiftDB();
+		//uses the save 
+		shiftDB.saveShift(currentShift);
+		
+	}
+	
+	public Shift getCurrentShift() {
+		return this.currentShift;
+	}
 }
