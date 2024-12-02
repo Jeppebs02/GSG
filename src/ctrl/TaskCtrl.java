@@ -2,6 +2,8 @@ package ctrl;
 
 import java.time.LocalDateTime;
 
+import dal.TaskDB;
+import model.Employee;
 import model.Shift;
 import model.Task;
 import model.User;
@@ -9,7 +11,7 @@ import model.User;
 public class TaskCtrl {
 
 	private Task currentTask;
-	private Shift currentShift;
+	
 	
 	
 	public Task createTask(LocalDateTime date, String description, String location, int userID) {
@@ -22,7 +24,7 @@ public class TaskCtrl {
 		return currentTask;
 	}
 	
-	//TODO
+	
 	public Shift addShift(LocalDateTime startTime, LocalDateTime expectedEndTime) {
 		
 		ShiftCtrl sc = new ShiftCtrl();
@@ -31,11 +33,24 @@ public class TaskCtrl {
 		currentTask.addShift(s);
 		return s;
 	}
-	//TODO
-	public void addEmployeeToShift(Shift shift, String employeeID) {	
+	
+	
+	public void addEmployeeToShift(Shift shift, int userID) throws Exception {
+		
+		
+		UserCtrl uc = new UserCtrl();
+		Employee e = uc.findEmployeeByUserID(userID);
+		
+		ShiftCtrl sc = new ShiftCtrl();
+		sc.addEmployeeToShift(e);
+		
 	}
+	
 	//TODO
-	public boolean saveTask() {
-		return false;
+	public void saveTask() throws Exception {
+		
+		TaskDB tb = new TaskDB();
+		tb.saveTask(currentTask);
+		
 	}
 }

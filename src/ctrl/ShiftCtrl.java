@@ -31,7 +31,7 @@ public class ShiftCtrl {
         currentShift.setEmployee(employee);
 	}
 	
-	public void saveShiftToDB() throws Exception {
+	public void saveShift() throws Exception {
 		//creates a ShiftDB within the method
 		ShiftDB shiftDB = new ShiftDB();
 		//uses the save 
@@ -39,7 +39,5 @@ public class ShiftCtrl {
 		
 	}
 	
-	public Shift getCurrentShift() {
-		return this.currentShift;
-	}
+	
 }
