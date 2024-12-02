@@ -38,10 +38,10 @@ public class TaskDB implements TaskDBIF {
 	        
 
 	        // Execute insert and get generated key
-	        taskID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShift);
+	        taskID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertTask);
 
 	        // Set the generated ShiftID in the Shift object
-	        task.setShiftID(shiftID);
+	        //task.setTaskID(taskID);
 
 	        // Commit transaction
 	        DBConnection.getInstance().commitTransaction();
