@@ -6,6 +6,7 @@ public class Shift {
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 	private Employee employee;
+	private int shiftID;
 
 
 	public Shift(LocalDateTime startTime, LocalDateTime endTime) {
@@ -40,5 +41,13 @@ public class Shift {
 	
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	
+	public int getShiftID() {
+		return shiftID;
+	}
+	
+	public void setShiftID(int shiftID) {
+		this.shiftID = shiftID;
 	}
 }
