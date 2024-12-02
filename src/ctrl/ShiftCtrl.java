@@ -10,7 +10,7 @@ public class ShiftCtrl {
 	private Shift currentShift;
 	private EmployeeCtrl ec;
 	
-	public ShiftCtrl() throws DataAccessException {
+	public ShiftCtrl()  {
 		this.currentShift = null;
 		ec = new EmployeeCtrl();
 	}

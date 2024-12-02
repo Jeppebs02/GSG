@@ -4,17 +4,32 @@ import java.time.LocalDateTime;
 
 import model.Shift;
 import model.Task;
+import model.User;
 
 public class TaskCtrl {
 
+	private Task currentTask;
+	private Shift currentShift;
+	
+	
+	public Task createTask(LocalDateTime date, String description, String location, int userID) {
+		
+		UserCtrl uc = new UserCtrl();
+		User u = uc.findCustomerByUserID(userID);
+		
+		Task task = new Task(date, description, location, u);
+		currentTask = task;
+		return currentTask;
+	}
 	
 	//TODO
-	public Task createTask(LocalDateTime startDate, LocalDateTime endDate) {
-		return null;
-	}
-	//TODO
 	public Shift addShift(LocalDateTime startTime, LocalDateTime expectedEndTime) {
-		return null;
+		
+		ShiftCtrl sc = new ShiftCtrl();
+		Shift s = sc.createShift(startTime, expectedEndTime);
+		
+		currentTask.addShift(s);
+		return s;
 	}
 	//TODO
 	public void addEmployeeToShift(Shift shift, String employeeID) {	

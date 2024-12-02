@@ -19,7 +19,17 @@ public class Task {
     	this.date = date;
     	this.approval = true;
     	this.report = report;
-    	this.user = user;;
+    	this.user = user;
+    	shifts = new ArrayList<>();
+    }
+    
+    //Usecase 1
+    public Task(LocalDateTime date, String description, String location, User userID) {
+    	this.date = date;
+    	this.description = description;
+    	this.location = location;
+    	this.user = userID;
+    	this.approval = true;
     	shifts = new ArrayList<>();
     }
     
@@ -57,6 +67,12 @@ public class Task {
     }
 
 	
+    public void addShift(Shift shift) {
+    	if(shift != null) {
+    		shifts.add(shift);
+    	}
+    }
+    
 	public List<Shift> getShifts() {
 		return new ArrayList<>(shifts);
 	}
