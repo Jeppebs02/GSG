@@ -22,7 +22,7 @@ public class ShiftCtrl {
 	}
 	
 	public void addEmployeeToShift(Shift shift, int employeeID) {
-		Employee e = ec.findEmployeeByID(employeeID);
+		Employee e = ec.findEmployeeByUserID(employeeID);
 		if (e == null) {
 			throw new NullPointerException();
 		}
