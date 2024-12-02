@@ -25,12 +25,13 @@ public class TaskCtrl {
 	}
 	
 	
-	public Shift addShift(LocalDateTime startTime, LocalDateTime expectedEndTime) {
+	public Shift addShift(LocalDateTime startTime, LocalDateTime expectedEndTime) throws Exception {
 		
 		ShiftCtrl sc = new ShiftCtrl();
 		Shift s = sc.createShift(startTime, expectedEndTime);
 		
 		currentTask.addShift(s);
+		sc.saveShift();
 		return s;
 	}
 	
@@ -46,11 +47,13 @@ public class TaskCtrl {
 		
 	}
 	
-	//TODO
+	
 	public void saveTask() throws Exception {
 		
 		TaskDB tb = new TaskDB();
 		tb.saveTask(currentTask);
+		
+		
 		
 	}
 }
