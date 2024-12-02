@@ -103,20 +103,30 @@ public class DBConnection {
 		}
 	}
 	
-	public int executeSqlInsertWithIdentityPS(PreparedStatement ps) throws SQLException {
-		int res = -1;
-		try {
-			res = ps.executeUpdate();
-			if (res > 0) {
-				ResultSet rs = ps.getGeneratedKeys();
-				if (rs != null && rs.next()) {
-					res = rs.getInt(1);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		}
-		return res;
+	public int executeSqlInsertWithIdentityPS(PreparedStatement ps) throws SQLException, DataAccessException {
+	    int key = -1;
+	    try {
+	        // Start the transaction
+	        startTransaction();
+
+	        // Execute insert statement
+	        int res = ps.executeUpdate();
+	        if (res > 0) {
+	            // Get generated keys
+	            ResultSet rs = ps.getGeneratedKeys();
+	            if (rs != null && rs.next()) {
+	                key = rs.getInt(1);
+	            }
+	        }
+
+	        // commit if everything is good :)
+	        commitTransaction();
+	    } catch (SQLException e) {
+	        // If there's an exception, roll back the transaction
+	        rollbackTransaction();
+	        e.printStackTrace();
+	        throw e; 
+	    }
+	    return key;
 	}
 }
