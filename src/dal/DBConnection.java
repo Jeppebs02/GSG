@@ -14,10 +14,10 @@ public class DBConnection {
 	private Connection connection = null; 
 	private static DBConnection dBConnection = new DBConnection(); 
 
-	private static final String DBNAME = "DMA-CSD-V24_10519141";
+	private static final String DBNAME = "DMA-CSD-V24_10519150";
 	private static final String SERVERNAME = "hildur.ucn.dk";
 	private static final String PORTNUMBER = "1433";
-	private static final String USERNAME = "DMA-CSD-V24_10519141";
+	private static final String USERNAME = "DMA-CSD-V24_10519150";
 	private static final String PASSWORD = "Password1!";
 
 	private DBConnection() {
