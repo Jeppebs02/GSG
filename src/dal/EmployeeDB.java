@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import java.util.logging.*;
+
 import dal.DBConnection;
 
 public class EmployeeDB implements EmployeeDBIF {
@@ -27,20 +29,24 @@ public class EmployeeDB implements EmployeeDBIF {
 	@Override
 	public Employee findEmployeeByUserID(int userID) throws Exception {
 		Employee employee = null;
+		int employeeId = 0;
 		try {
-
 			
 			findEmployeeInfoFromUserIDAndEmployeeID = connection.prepareStatement(find_employee_info_from_user_id_and_employee_id);
 			
-			findEmployeeIDByUserID.setInt(1, findEmployeeIDFromUserID(userID));
-			findEmployeeIDByUserID.setInt(2, userID);
+			
+			employeeId = findEmployeeIDFromUserID(userID);
+			System.out.println("EmployeeID: " + employeeId);
+			System.out.println("UserID: " + userID);
+			
+			findEmployeeInfoFromUserIDAndEmployeeID.setInt(1, employeeId);
+			findEmployeeInfoFromUserIDAndEmployeeID.setInt(2, userID);
 			
 			ResultSet rs = dbConecction.getResultSetWithPS(findEmployeeInfoFromUserIDAndEmployeeID);
 			
+			rs.next();
+			
 			employee=createEmployeeFromResultSet(rs);
-			
-			
-			
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -90,10 +96,14 @@ public class EmployeeDB implements EmployeeDBIF {
 		int employeeID = 0;
 		try {
 			findEmployeeIDByUserID = connection.prepareStatement(find_employee_id_by_user_id);
+			findEmployeeIDByUserID.setInt(1, userID);
 			ResultSet rs = dbConecction.getResultSetWithPS(findEmployeeIDByUserID);
 			
 			if(rs.next()) {
+				System.out.println("Result set is not empty");
+				
 				employeeID = rs.getInt("Employee_ID");
+				System.out.println(employeeID);
 			}
 			
 		}catch(Exception e) {
