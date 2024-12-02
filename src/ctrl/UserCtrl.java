@@ -1,18 +1,24 @@
 package ctrl;
 
+import dal.EmployeeDB;
+import dal.UserDB;
 import model.Employee;
 import model.User;
 
 public class UserCtrl {
 
 	public User findCustomerByUserID(int userID) {
-		// TODO Auto-generated method stub
+		
+		UserDB udb = new UserDB();
+		User u = udb.findCustomerByUserID(userID);
 		return null;
 	}
 
-	public  Employee findEmployeeByUserID(int userID) {
-		// TODO Auto-generated method stub
-		return null;
+	public  Employee findEmployeeByUserID(int userID) throws Exception {
+		
+		EmployeeDB empDB = new EmployeeDB();
+		Employee e = empDB.findEmployeeByUserID(userID);
+		return e;
 	}
 
 }

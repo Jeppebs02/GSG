@@ -1,6 +1,8 @@
 package model;
 
 public class User {
+	
+	private int userID;
 	private String userName;
     private String passWord;
     private String firstName;
@@ -86,5 +88,13 @@ public class User {
     public void setAccountPrivileges(AccountPrivileges accountPrivileges) {
 	this.accountPrivileges = accountPrivileges;
     }
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 
 }
