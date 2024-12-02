@@ -31,11 +31,11 @@ public class ShiftCtrl {
         currentShift.setEmployee(employee);
 	}
 	
-	public void saveShift() throws Exception {
+	public void saveShift(int taskID) throws Exception {
 		//creates a ShiftDB within the method
 		ShiftDB shiftDB = new ShiftDB();
 		//uses the save 
-		shiftDB.saveShift(currentShift);
+		shiftDB.saveShift(currentShift, taskID);
 		
 	}
 	

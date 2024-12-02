@@ -7,7 +7,7 @@ import model.Shift;
 
 public interface ShiftDBIF {
 
-	Shift saveShift(Shift shift) throws Exception;
+	Shift saveShift(Shift shift, int taskID) throws Exception;
 	
-	Shift buildObjectShift(ResultSet rs) throws SQLException;
+	//Shift buildObjectShift(ResultSet rs) throws SQLException;
 }

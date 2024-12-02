@@ -12,7 +12,7 @@ import model.Shift;
 public class ShiftDB implements ShiftDBIF {
 	private Connection connection;
 	
-	private static final String insert_shift = "INSERT INTO Shift (StartTime, EndTime, Employee_ID) VALUES(?, ?, ?)";
+	private static final String insert_shift = "INSERT INTO Shift (StartTime, EndTime, Employee_ID, Task_ID) VALUES(?, ?, ?, ?)";
 	
 	private PreparedStatement insertShift;
 	
@@ -22,7 +22,7 @@ public class ShiftDB implements ShiftDBIF {
 	}
 
 	@Override
-	public Shift saveShift(Shift shift) throws Exception {
+	public Shift saveShift(Shift shift, int taskID) throws Exception {
 	    int shiftID = 0;
 	    
 	    try {
@@ -33,6 +33,7 @@ public class ShiftDB implements ShiftDBIF {
 	        insertShift.setTimestamp(1, Timestamp.valueOf(shift.getStartTime()));
 	        insertShift.setTimestamp(2, Timestamp.valueOf(shift.getEndTime()));
 	        insertShift.setInt(3, shift.getEmployee().getEmployeeID());
+	        insertShift.setInt(4,  taskID);
 
 	        // Execute insert and get generated key
 	        shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShift);
