@@ -54,7 +54,7 @@ public class ShiftDB implements ShiftDBIF {
 	@Override
 	public Shift buildObjectShift(ResultSet rs) throws SQLException {
 		//Build Shift object from database
-		Shift s = new Shift(rs.getInt("ID"), rs.getTime("StartTime"), rs.getTime("EndTime"), buildObjectEmployee(rs.getInt("Employee_ID")));
+		Shift s = new Shift(rs.getInt("ID"), rs.getTime("StartTime"), rs.getTime("EndTime"), findEmployeeByUserID(rs.getInt("Employee_ID")));
 		return s;
 	}
 

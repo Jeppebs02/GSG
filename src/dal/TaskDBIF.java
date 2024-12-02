@@ -4,5 +4,5 @@ import model.Task;
 
 public interface TaskDBIF {
 
-	Task saveTask() throws Exception; 
+	Task saveTask(Task task) throws Exception; 
 }
