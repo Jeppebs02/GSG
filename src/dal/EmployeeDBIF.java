@@ -1,5 +1,11 @@
 package dal;
 
-public interface EmployeeDBIF {
+import model.Employee;
 
+public interface EmployeeDBIF {
+	
+
+	
+	public Employee findEmployeeByID(int employeeID);	
+	
 }

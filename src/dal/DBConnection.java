@@ -33,7 +33,7 @@ public class DBConnection {
 	
 	
 	/**
-     * Gets the current database connection object.
+     * Gets the current DBConnection object (the singleton instance of the class).
      *
      * @return DBConnection
      */
@@ -136,4 +136,34 @@ public class DBConnection {
 	    }
 	    return key;
 	}
+	
+	
+	/**
+     * Gets a resultset with a preparedstatement.
+     * 
+     * Use this for any SELECT queries you have :)
+     *
+     * @return ResultSet
+     */
+	
+	public ResultSet getResultSetWithPS(PreparedStatement ps) throws Exception {
+		ResultSet rs = null;
+		
+		try {
+			startTransaction();
+			
+			rs = ps.executeQuery();
+			
+			commitTransaction();
+			
+		} catch (Exception e) {
+			rollbackTransaction();
+			e.printStackTrace();
+			throw e;
+			
+		}
+		return rs;
+	}
+	
+	
 }
