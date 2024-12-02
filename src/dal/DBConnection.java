@@ -31,6 +31,12 @@ public class DBConnection {
 		}
 	}
 	
+	
+	/**
+     * Gets the current database connection object.
+     *
+     * @return DBConnection
+     */
 	public static synchronized DBConnection getInstance() {
 		if (dBConnection == null) {
 			dBConnection = new DBConnection();
