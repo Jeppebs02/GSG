@@ -36,9 +36,6 @@ public class ShiftCtrl {
 		//creates a ShiftDB within the method
 		ShiftDB shiftDB = new ShiftDB();
 		//uses the save 
-		shiftDB.saveShift(currentShift, taskID);
-		
+		shiftDB.saveShift(currentShift, taskID);		
 	}
-	
-	
 }
