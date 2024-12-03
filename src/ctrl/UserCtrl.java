@@ -11,7 +11,7 @@ public class UserCtrl {
 		
 		UserDB udb = new UserDB();
 		User u = udb.findCustomerByUserID(userID);
-		return null;
+		return u;
 	}
 
 	public  Employee findEmployeeByUserID(int userID) throws Exception {
