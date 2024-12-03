@@ -1,35 +1,36 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Shift {
-	private LocalDateTime startTime;
-	private LocalDateTime endTime;
+	private LocalTime startTime;
+	private LocalTime endTime;
 	private Employee employee;
 	private int shiftID;
 
 
-	public Shift(LocalDateTime startTime, LocalDateTime endTime) {
+	public Shift(LocalTime startTime, LocalTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
 	
-	public LocalDateTime getStartTime() {
+	public LocalTime getStartTime() {
 		return startTime;
 	}
 
 
-	public void setStartTime(LocalDateTime startTime) {
+	public void setStartTime(LocalTime startTime) {
 		this.startTime = startTime;
 	}
 
 
-	public LocalDateTime getEndTime() {
+	public LocalTime getEndTime() {
 		return endTime;
 	}
 
 
-	public void setEndTime(LocalDateTime endTime) {
+	public void setEndTime(LocalTime endTime) {
 		this.endTime = endTime;
 	}
 

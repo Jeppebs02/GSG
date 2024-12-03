@@ -12,6 +12,7 @@ public class Task {
     private List<Shift> shifts;
     private Report report;
     private User user;
+    private int taskID;
 
     public Task(String description, String location, LocalDateTime date, Report report, User user) {
     	this.description = description;
@@ -75,6 +76,14 @@ public class Task {
     
 	public List<Shift> getShifts() {
 		return new ArrayList<>(shifts);
+	}
+	
+	public void setTaskID (int taskID) {
+		this.taskID = taskID;
+	}
+	
+	public int getTaskID () {
+		return taskID;
 	}
 
 	/**

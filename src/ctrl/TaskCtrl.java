@@ -1,6 +1,7 @@
 package ctrl;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import dal.TaskDB;
 import model.Employee;
@@ -25,13 +26,13 @@ public class TaskCtrl {
 	}
 	
 	
-	public Shift addShift(LocalDateTime startTime, LocalDateTime expectedEndTime) throws Exception {
+	public Shift addShift(LocalTime startTime, LocalTime expectedEndTime) throws Exception {
 		
 		ShiftCtrl sc = new ShiftCtrl();
 		Shift s = sc.createShift(startTime, expectedEndTime);
 		
 		currentTask.addShift(s);
-		sc.saveShift();
+		sc.saveShift(currentTask.getTaskID());
 		return s;
 	}
 	
