@@ -3,6 +3,7 @@ package dal;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -32,13 +33,13 @@ class TaskDBtestCase {
 	@Test
 	void testCreateTask() throws Exception {
 		TaskCtrl tc = new TaskCtrl();
-		LocalDateTime date = LocalDateTime.of(2024, 03, 3, 12, 12, 12);
-		LocalTime dateStart = LocalTime.of(18, 0);
-		LocalTime dateEnd = LocalTime.of(23, 0);
+		LocalDate date = LocalDate.of(2024, 03, 3);
+		LocalDateTime StartTime = LocalDateTime.of(2024, 03, 3, 18, 0, 0);
+		LocalDateTime EndTime = LocalDateTime.of(2024, 03, 3, 23, 0, 0);
 		
 		Task currentTask = tc.createTask(date, "ZWEI", "Aalborg", 2);
 		
-		Shift currentShift = tc.addShift(dateStart, dateEnd);
+		Shift currentShift = tc.addShift(StartTime, EndTime);
 		
 		tc.addEmployeeToShift(currentShift, 1);
 		

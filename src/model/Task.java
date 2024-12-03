@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +9,13 @@ public class Task {
     private String description;
     private String location;
     private boolean approval;
-    private LocalDateTime date;
+    private LocalDate date;
     private List<Shift> shifts;
     private Report report;
     private User user;
     private int taskID;
 
-    public Task(String description, String location, LocalDateTime date, Report report, User user) {
+    public Task(String description, String location, LocalDate date, Report report, User user) {
     	this.description = description;
     	this.location = location;
     	this.date = date;
@@ -25,7 +26,7 @@ public class Task {
     }
     
     //Usecase 1
-    public Task(LocalDateTime date, String description, String location, User userID) {
+    public Task(LocalDate date, String description, String location, User userID) {
     	this.date = date;
     	this.description = description;
     	this.location = location;
@@ -59,11 +60,11 @@ public class Task {
         this.approval = approval;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -15,7 +15,7 @@ public class ShiftCtrl {
 		this.currentShift = null;
 	}
 	
-	public Shift createShift(LocalTime startTime, LocalTime endTime) {
+	public Shift createShift(LocalDateTime startTime, LocalDateTime endTime) {
 		// Create a new Shift object and assign it to currentShift
 		currentShift = new Shift(startTime, endTime);
 		

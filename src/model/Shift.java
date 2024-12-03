@@ -4,33 +4,33 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Shift {
-	private LocalTime startTime;
-	private LocalTime endTime;
+	private LocalDateTime startTime;
+	private LocalDateTime endTime;
 	private Employee employee;
 	private int shiftID;
 
 
-	public Shift(LocalTime startTime, LocalTime endTime) {
+	public Shift(LocalDateTime startTime, LocalDateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
 	
-	public LocalTime getStartTime() {
+	public LocalDateTime getStartTime() {
 		return startTime;
 	}
 
 
-	public void setStartTime(LocalTime startTime) {
+	public void setStartTime(LocalDateTime startTime) {
 		this.startTime = startTime;
 	}
 
 
-	public LocalTime getEndTime() {
+	public LocalDateTime getEndTime() {
 		return endTime;
 	}
 
 
-	public void setEndTime(LocalTime endTime) {
+	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
 	}
 

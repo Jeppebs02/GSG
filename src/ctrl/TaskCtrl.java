@@ -1,5 +1,6 @@
 package ctrl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -15,7 +16,7 @@ public class TaskCtrl {
 	
 	
 	
-	public Task createTask(LocalDateTime date, String description, String location, int userID) {
+	public Task createTask(LocalDate date, String description, String location, int userID) {
 		
 		UserCtrl uc = new UserCtrl();
 		User u = uc.findCustomerByUserID(userID);
@@ -26,13 +27,13 @@ public class TaskCtrl {
 	}
 	
 	
-	public Shift addShift(LocalTime startTime, LocalTime expectedEndTime) throws Exception {
+	public Shift addShift(LocalDateTime startTime, LocalDateTime expectedEndTime) throws Exception {
 		
 		ShiftCtrl sc = new ShiftCtrl();
 		Shift s = sc.createShift(startTime, expectedEndTime);
 		
 		currentTask.addShift(s);
-		sc.saveShift(currentTask.getTaskID());
+		//sc.saveShift(currentTask.getTaskID());
 		return s;
 	}
 	
@@ -46,6 +47,7 @@ public class TaskCtrl {
 		ShiftCtrl sc = new ShiftCtrl();
 		sc.addEmployeeToShift(e);
 		
+		sc.saveShift(currentTask.getTaskID());
 	}
 	
 	

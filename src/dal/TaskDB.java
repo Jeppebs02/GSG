@@ -33,7 +33,7 @@ public class TaskDB implements TaskDBIF {
 	        insertTask.setString(1, task.getDescription());
 	        insertTask.setString(2, task.getLocation());
 	        insertTask.setBoolean(3, task.isApproval());
-	        insertTask.setTimestamp(4, Timestamp.valueOf(task.getDate()));
+	        insertTask.setDate(4, Date.valueOf(task.getDate()));
 	        insertTask.setInt(5, task.getUser().getUserID());
 	        
 
