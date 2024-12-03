@@ -14,7 +14,7 @@ import model.Task;
 public class TaskDB implements TaskDBIF {
 	
 	private Connection connection;
-	private static final String insert_task = "INSERT INTO";
+	private static final String insert_task = "INSERT INTO [Task] (Description, Location, Approval, Date, UserID) VALUES (?, ?, ?, ?, ?);";
 	private PreparedStatement insertTask;
 	
 	public TaskDB () throws SQLException {
@@ -22,6 +22,8 @@ public class TaskDB implements TaskDBIF {
 		
 		insertTask = connection.prepareStatement(insert_task, Statement.RETURN_GENERATED_KEYS);
 	}
+	
+	
 	@Override
 	public Task saveTask(Task task) throws Exception {
 	    int taskID = 0;
