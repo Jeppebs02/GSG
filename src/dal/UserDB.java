@@ -34,7 +34,7 @@ public class UserDB implements UserDBIF	{
 			ResultSet rs = dbConecction.getResultSetWithPS(findCustomerInfoByUserId);
 			
 			if(rs.next()) {
-				user=createUserFromResultSet(rs);
+				user = createUserFromResultSet(rs);
 			}
 			
 		}catch(Exception e) {
