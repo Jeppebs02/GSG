@@ -46,7 +46,7 @@ public class TaskCtrl {
 		
 		sc.addEmployeeToShift(e);
 		
-		sc.saveShift(currentTask.getTaskID());
+		sc.saveShift(shift, currentTask.getTaskID());
 	}
 	
 	

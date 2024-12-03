@@ -22,6 +22,8 @@ public class ShiftCtrl {
 		return currentShift;
 	}
 	
+	
+	
 	public void addEmployeeToShift(Employee employee) throws Exception {
 		// Validate that the Shift object is not null
         if (currentShift == null) {
@@ -32,7 +34,8 @@ public class ShiftCtrl {
         currentShift.setEmployee(employee);
 	}
 	
-	public void saveShift(int taskID) throws Exception {
+	public void saveShift(Shift shift, int taskID) throws Exception {
+		this.currentShift = shift;
 		//creates a ShiftDB within the method
 		ShiftDB shiftDB = new ShiftDB();
 		//uses the save 
