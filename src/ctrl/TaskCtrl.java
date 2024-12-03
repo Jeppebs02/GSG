@@ -31,7 +31,7 @@ public class TaskCtrl {
 		Shift s = sc.createShift(startTime, expectedEndTime);
 		
 		currentTask.addShift(s);
-		sc.saveShift();
+		sc.saveShift(currentTask.getTaskID());
 		return s;
 	}
 	
