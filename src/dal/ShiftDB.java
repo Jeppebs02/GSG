@@ -67,7 +67,7 @@ public class ShiftDB implements ShiftDBIF {
 	        // Convert LocalDateTime to Timestamp and set values
 	        insertShiftWithoutEmployee.setTimestamp(1, Timestamp.valueOf(shift.getStartTime()));
 	        insertShiftWithoutEmployee.setTimestamp(2, Timestamp.valueOf(shift.getEndTime())); 
-	        insertShiftWithoutEmployee.setInt(4,  taskID);
+	        insertShiftWithoutEmployee.setInt(3,  taskID);
 
 	        // Execute insert and get generated key
 	        shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShiftWithoutEmployee);
