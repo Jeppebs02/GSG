@@ -92,7 +92,7 @@ public class ShiftDB implements ShiftDBIF {
 	@Override
 	public Shift saveShift(Shift shift, int taskID) throws Exception {
 		if(shift.getEmployee() != null) {
-			saveShiftWithEmployee(shift, shift.getShiftID());
+			saveShiftWithEmployee(shift, taskID);
 		} else {
 			System.out.println("");
 			saveShiftWithoutEmployee(shift, taskID);
