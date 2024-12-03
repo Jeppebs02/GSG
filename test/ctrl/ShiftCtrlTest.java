@@ -19,7 +19,6 @@ import model.Shift;
 class ShiftCtrlTest {
 	private static final AccountPrivileges EMPLOYEE = null;
 	private ShiftCtrl sc;
-	private Shift currentShift;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Employee e;
@@ -54,8 +53,10 @@ class ShiftCtrlTest {
 	void test() throws Exception {
 		//Arrange
 		sc = new ShiftCtrl();
+		
 		sc.createShift(startTime, endTime);
-		currentShift.setEmployee(e);
+		
+		sc.addEmployeeToShift(e);
 		//Act
 		sc.saveShift(taskID);
 		//Assert
