@@ -12,7 +12,7 @@ import model.Shift;
 public class ShiftDB implements ShiftDBIF {
 	private Connection connection;
 	
-	private static final String insert_shift_with_employee = "INSERT INTO Shift (StartTime, EndTime, Employee_ID, Task_ID) VALUES(?, ?, ?, ?)";
+	private static final String insert_shift_with_employee = "INSERT INTO [Shift] (StartTime, EndTime, Employee_ID, Task_ID) VALUES (?, ?, ?, ?);";
 	private static final String insert_shift_without_employee = "INSERT INTO Shift (StartTime, EndTime, Task_ID) VALUES(?, ?, ?)";
 	
 	
