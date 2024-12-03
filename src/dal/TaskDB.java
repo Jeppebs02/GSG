@@ -14,7 +14,7 @@ import model.Task;
 public class TaskDB implements TaskDBIF {
 	
 	private Connection connection;
-	private static final String insert_task = "INSERT INTO [Task] (Description, Location, Approval, Date, UserID) VALUES (?, ?, ?, ?, ?);";
+	private static final String insert_task = "INSERT INTO [Task] (Description, Location, Approval, Date, User_ID) VALUES (?, ?, ?, ?, ?);";
 	private PreparedStatement insertTask;
 	
 	public TaskDB () throws SQLException {
