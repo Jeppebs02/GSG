@@ -70,7 +70,7 @@ public class ShiftDB implements ShiftDBIF {
 	        insertShiftWithoutEmployee.setInt(4,  taskID);
 
 	        // Execute insert and get generated key
-	        shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShiftWithEmployee);
+	        shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShiftWithoutEmployee);
 
 	        // Set the generated ShiftID in the Shift object
 	        shift.setShiftID(shiftID);
