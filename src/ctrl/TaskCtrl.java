@@ -13,7 +13,7 @@ import model.User;
 public class TaskCtrl {
 
 	private Task currentTask;
-	
+	private ShiftCtrl sc = new ShiftCtrl();;
 	
 	
 	public Task createTask(LocalDate date, String description, String location, int userID) {
@@ -29,7 +29,6 @@ public class TaskCtrl {
 	
 	public Shift addShift(LocalDateTime startTime, LocalDateTime expectedEndTime) throws Exception {
 		
-		ShiftCtrl sc = new ShiftCtrl();
 		Shift s = sc.createShift(startTime, expectedEndTime);
 		
 		currentTask.addShift(s);
@@ -44,7 +43,6 @@ public class TaskCtrl {
 		UserCtrl uc = new UserCtrl();
 		Employee e = uc.findEmployeeByUserID(userID);
 		
-		ShiftCtrl sc = new ShiftCtrl();
 		sc.addEmployeeToShift(e);
 		
 		sc.saveShift(currentTask.getTaskID());
