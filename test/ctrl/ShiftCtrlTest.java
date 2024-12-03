@@ -56,11 +56,9 @@ class ShiftCtrlTest {
 		//Arrange
 		sc = new ShiftCtrl();
 		
-		sc.createShift(startTime, endTime);
-		
-		sc.addEmployeeToShift(e);
 		//Act
-		sc.saveShift(taskID);
+		sc.saveShift(sc.createShift(startTime, endTime), taskID);
+		sc.addEmployeeToShift(e);
 		//Assert
 		
 	}
