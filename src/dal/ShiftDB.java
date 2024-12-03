@@ -12,17 +12,21 @@ import model.Shift;
 public class ShiftDB implements ShiftDBIF {
 	private Connection connection;
 	
-	private static final String insert_shift = "INSERT INTO Shift (StartTime, EndTime, Employee_ID, Task_ID) VALUES(?, ?, ?, ?)";
+	private static final String insert_shift_with_employee = "INSERT INTO Shift (StartTime, EndTime, Employee_ID, Task_ID) VALUES(?, ?, ?, ?)";
+	private static final String insert_shift_without_employee = "INSERT INTO Shift (StartTime, EndTime, Task_ID) VALUES(?, ?, ?)";
 	
-	private PreparedStatement insertShift;
+	
+	private PreparedStatement insertShiftWithEmployee;
+	private PreparedStatement insertShiftWithoutEmployee;
 	
 	public ShiftDB () throws SQLException {
 		connection = DBConnection.getInstance().getConnection();
-		insertShift = connection.prepareStatement(insert_shift, Statement.RETURN_GENERATED_KEYS);
+		insertShiftWithEmployee = connection.prepareStatement(insert_shift_with_employee, Statement.RETURN_GENERATED_KEYS);
+		insertShiftWithoutEmployee = connection.prepareStatement(insert_shift_without_employee, Statement.RETURN_GENERATED_KEYS);
 	}
 
 	@Override
-	public Shift saveShift(Shift shift, int taskID) throws Exception {
+	public Shift saveShiftWithEmployee (Shift shift, int taskID) throws Exception {
 	    int shiftID = 0;
 	    
 	    try {
@@ -30,15 +34,15 @@ public class ShiftDB implements ShiftDBIF {
 	        DBConnection.getInstance().startTransaction();
 
 	        // Convert LocalDateTime to Timestamp and set values
-	        insertShift.setTimestamp(1, Timestamp.valueOf(shift.getStartTime()));
-	        insertShift.setTimestamp(2, Timestamp.valueOf(shift.getEndTime()));
+	        insertShiftWithEmployee.setTimestamp(1, Timestamp.valueOf(shift.getStartTime()));
+	        insertShiftWithEmployee.setTimestamp(2, Timestamp.valueOf(shift.getEndTime()));
 	        
-	        insertShift.setInt(3, shift.getEmployee().getEmployeeID());
+	        insertShiftWithEmployee.setInt(3, shift.getEmployee().getEmployeeID());
 	        
-	        insertShift.setInt(4,  taskID);
+	        insertShiftWithEmployee.setInt(4,  taskID);
 
 	        // Execute insert and get generated key
-	        shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShift);
+	        shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShiftWithEmployee);
 
 	        // Set the generated ShiftID in the Shift object
 	        shift.setShiftID(shiftID);
@@ -52,6 +56,46 @@ public class ShiftDB implements ShiftDBIF {
 	    }
 
 	    return shift;
+	}
+
+	@Override
+	public Shift saveShiftWithoutEmployee(Shift shift, int taskID) throws Exception {
+	    int shiftID = 0;
+	    
+	    try {
+	        // Start transaction
+	        DBConnection.getInstance().startTransaction();
+
+	        // Convert LocalDateTime to Timestamp and set values
+	        insertShiftWithoutEmployee.setTimestamp(1, Timestamp.valueOf(shift.getStartTime()));
+	        insertShiftWithoutEmployee.setTimestamp(2, Timestamp.valueOf(shift.getEndTime())); 
+	        insertShiftWithoutEmployee.setInt(4,  taskID);
+
+	        // Execute insert and get generated key
+	        shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShiftWithEmployee);
+
+	        // Set the generated ShiftID in the Shift object
+	        shift.setShiftID(shiftID);
+
+	        // Commit transaction
+	        DBConnection.getInstance().commitTransaction();
+	    } catch (SQLException e) {
+	        // Rollback transaction in case of error
+	        DBConnection.getInstance().rollbackTransaction();
+	        throw new DataAccessException("Could not save Shift to DB", e);
+	    }
+
+	    return shift;
+	}
+
+	@Override
+	public Shift saveShift(Shift shift, int taskID) throws Exception {
+		if(shift.getEmployee() != null) {
+			saveShiftWithEmployee(shift, shift.getShiftID());
+		} else {
+			saveShiftWithoutEmployee(shift, shift.getShiftID());
+		}
+		return shift;
 	}
 
 	//@Override
