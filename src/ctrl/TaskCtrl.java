@@ -16,13 +16,14 @@ public class TaskCtrl {
 	private ShiftCtrl sc = new ShiftCtrl();;
 	
 	
-	public Task createTask(LocalDate date, String description, String location, int userID) {
+	public Task createTask(LocalDate date, String description, String location, int userID) throws Exception {
 		
 		UserCtrl uc = new UserCtrl();
 		User u = uc.findCustomerByUserID(userID);
 		
 		Task task = new Task(date, description, location, u);
 		currentTask = task;
+		saveTask();
 		return currentTask;
 	}
 	

@@ -25,7 +25,7 @@ public class ShiftDB implements ShiftDBIF {
 		insertShiftWithoutEmployee = connection.prepareStatement(insert_shift_without_employee, Statement.RETURN_GENERATED_KEYS);
 	}
 
-	@Override
+	
 	public Shift saveShiftWithEmployee (Shift shift, int taskID) throws Exception {
 	    int shiftID = 0;
 	    
@@ -36,9 +36,7 @@ public class ShiftDB implements ShiftDBIF {
 	        // Convert LocalDateTime to Timestamp and set values
 	        insertShiftWithEmployee.setTimestamp(1, Timestamp.valueOf(shift.getStartTime()));
 	        insertShiftWithEmployee.setTimestamp(2, Timestamp.valueOf(shift.getEndTime()));
-	        
 	        insertShiftWithEmployee.setInt(3, shift.getEmployee().getEmployeeID());
-	        
 	        insertShiftWithEmployee.setInt(4,  taskID);
 
 	        // Execute insert and get generated key
@@ -58,7 +56,7 @@ public class ShiftDB implements ShiftDBIF {
 	    return shift;
 	}
 
-	@Override
+	
 	public Shift saveShiftWithoutEmployee(Shift shift, int taskID) throws Exception {
 	    int shiftID = 0;
 	    
