@@ -32,22 +32,15 @@ public class ShiftDB implements ShiftDBIF {
 	    try {
 	        // Start transaction
 	        DBConnection.getInstance().startTransaction();
-	        System.out.println("123");
 	        // Convert LocalDateTime to Timestamp and set values
 	        insertShiftWithEmployee.setTimestamp(1, Timestamp.valueOf(shift.getStartTime()));
-	        System.out.println("123");
 	        insertShiftWithEmployee.setTimestamp(2, Timestamp.valueOf(shift.getEndTime()));
-	        System.out.println("123");
 	        insertShiftWithEmployee.setInt(3, shift.getEmployee().getEmployeeID());
-	        System.out.println("123");
 	        insertShiftWithEmployee.setInt(4,  taskID);
-	        System.out.println("123");
 	        // Execute insert and get generated key
 	        shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShiftWithEmployee);
-	        System.out.println("123");
 	        // Set the generated ShiftID in the Shift object
 	        shift.setShiftID(shiftID);
-	        System.out.println("123");
 	        // Commit transaction
 	        DBConnection.getInstance().commitTransaction();
 	    } catch (SQLException e) {
