@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dal.DBConnection;
+import dal.EmployeeDB;
 import model.AccountPrivileges;
 import model.Employee;
 import model.Shift;
@@ -40,9 +41,10 @@ class ShiftCtrlTest {
 		startTime = LocalDateTime.of(2024, 12, 3, 9, 0); // Example: Dec 3, 2024, 09:00
 		endTime = LocalDateTime.of(2024, 12, 3, 17, 0);  // Example: Dec 3, 2024, 17:00
 		// Create Test Employee with Stubs
-		e = new Employee("a1", "b1", "Jane", "Dough", "JD@hot.com", "22112233", "Parken", EMPLOYEE, 10, "111100-3434", "Nix", "nej", "123456789", "1111", "Aalborg");
+		EmployeeDB eDB = new EmployeeDB();
+		e = eDB.findEmployeeByUserID(1);
 		// Set test TastID
-		taskID = 21;
+		taskID = 1;
 	}
 
 	@AfterEach
