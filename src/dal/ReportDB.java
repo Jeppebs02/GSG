@@ -3,6 +3,7 @@ package dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import model.Report;
 
@@ -21,7 +22,7 @@ public class ReportDB implements ReportDBIF {
 		try {
 			
 			//Prepare statement and set parameters
-			saveReportToDB = connection.prepareStatement(save_report_to_db);
+			saveReportToDB = connection.prepareStatement(save_report_to_db, Statement.RETURN_GENERATED_KEYS);
 			saveReportToDB.setInt(1, report.getRejectionsAge());
 			saveReportToDB.setInt(2, report.getRejectionsAttitude());
 			saveReportToDB.setInt(3, report.getRejectionsAlternative());
@@ -31,7 +32,8 @@ public class ReportDB implements ReportDBIF {
 			saveReportToDB.setInt(7, report.getTaskID());
 			
 			//commit transaction
-			dbConnection.executeSqlInsertWithIdentityPS(saveReportToDB);
+			int generatedKey = dbConnection.executeSqlInsertWithIdentityPS(saveReportToDB);
+			System.out.println("Generated Key: " + generatedKey);
 		} catch (Exception e) {
 			//Print stacktrace if error
 			e.printStackTrace();

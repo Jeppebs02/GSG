@@ -120,19 +120,20 @@ public class DBConnection {
 	        int res = ps.executeUpdate();
 	        if (res > 0) {
 	            // Get generated keys
-	            ResultSet rs = ps.getGeneratedKeys();
-	            if (rs != null && rs.next()) {
-	                key = rs.getInt(1);
+	            try (ResultSet rs = ps.getGeneratedKeys()) {
+	                if (rs != null && rs.next()) {
+	                    key = rs.getInt(1);
+	                }
 	            }
 	        }
 
-	        // commit if everything is good :)
+	        // Commit transaction
 	        commitTransaction();
 	    } catch (SQLException e) {
-	        // If there's an exception, roll back the transaction
+	        // Rollback transaction if there is an exception
 	        rollbackTransaction();
 	        e.printStackTrace();
-	        throw e; 
+	        throw e;
 	    }
 	    return key;
 	}
