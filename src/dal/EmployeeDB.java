@@ -15,7 +15,7 @@ import dal.DBConnection;
 
 public class EmployeeDB implements EmployeeDBIF {
 
-	private DBConnection dbConecction = DBConnection.getInstance();
+	private DBConnection dbConnection = DBConnection.getInstance();
 	private Connection connection = DBConnection.getInstance().getConnection();
 	private static final String find_employee_id_by_user_id =
 			"SELECT User_ID,Employee_ID from EmployeeUser  WHERE User_ID = ?;";
@@ -42,7 +42,7 @@ public class EmployeeDB implements EmployeeDBIF {
 			findEmployeeInfoFromUserIDAndEmployeeID.setInt(1, employeeId);
 			findEmployeeInfoFromUserIDAndEmployeeID.setInt(2, userID);
 			
-			ResultSet rs = dbConecction.getResultSetWithPS(findEmployeeInfoFromUserIDAndEmployeeID);
+			ResultSet rs = dbConnection.getResultSetWithPS(findEmployeeInfoFromUserIDAndEmployeeID);
 			
 			rs.next();
 			
@@ -97,7 +97,7 @@ public class EmployeeDB implements EmployeeDBIF {
 		try {
 			findEmployeeIDByUserID = connection.prepareStatement(find_employee_id_by_user_id);
 			findEmployeeIDByUserID.setInt(1, userID);
-			ResultSet rs = dbConecction.getResultSetWithPS(findEmployeeIDByUserID);
+			ResultSet rs = dbConnection.getResultSetWithPS(findEmployeeIDByUserID);
 			
 			if(rs.next()) {
 				System.out.println("Result set is not empty");

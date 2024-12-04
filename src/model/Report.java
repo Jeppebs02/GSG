@@ -6,8 +6,8 @@ import java.util.List;
 public class Report {
     private int rapportNr;
     private int rejectionsAge;
-    private String rejectionsAttitude;
-    private String rejectionsAlternative;
+    private int rejectionsAttitude;
+    private int rejectionsAlternative;
     private String alternativeRemarks;
     private String employeeSignature;
     private String customerSignature;
@@ -37,19 +37,19 @@ public class Report {
         this.rejectionsAge = rejectionsAge;
     }
 
-    public String getRejectionsAttitude() {
+    public int getRejectionsAttitude() {
         return rejectionsAttitude;
     }
 
-    public void setRejectionsAttitude(String rejectionsAttitude) {
+    public void setRejectionsAttitude(int rejectionsAttitude) {
         this.rejectionsAttitude = rejectionsAttitude;
     }
 
-    public String getRejectionsAlternative() {
+    public int getRejectionsAlternative() {
         return rejectionsAlternative;
     }
 
-    public void setRejectionsAlternative(String rejectionsAlternative) {
+    public void setRejectionsAlternative(int rejectionsAlternative) {
         this.rejectionsAlternative = rejectionsAlternative;
     }
 
