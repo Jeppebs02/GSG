@@ -26,15 +26,19 @@ public class EmployeeDB implements EmployeeDBIF {
 	private PreparedStatement findEmployeeIDByUserID;
 	private PreparedStatement findEmployeeInfoFromUserIDAndEmployeeID;
 	
+	public EmployeeDB() throws SQLException {
+		connection = DBConnection.getInstance().getConnection();
+		
+		findEmployeeIDByUserID = connection.prepareStatement(find_employee_id_by_user_id);
+		findEmployeeInfoFromUserIDAndEmployeeID = connection.prepareStatement(find_employee_info_from_user_id_and_employee_id);
+	}
+	
 	@Override
 	public Employee findEmployeeByUserID(int userID) throws Exception {
 		Employee employee = null;
 		int employeeId = 0;
+		
 		try {
-			
-			findEmployeeInfoFromUserIDAndEmployeeID = connection.prepareStatement(find_employee_info_from_user_id_and_employee_id);
-			
-			
 			employeeId = findEmployeeIDFromUserID(userID);
 			System.out.println("EmployeeID: " + employeeId);
 			System.out.println("UserID: " + userID);
@@ -95,7 +99,6 @@ public class EmployeeDB implements EmployeeDBIF {
 	public int findEmployeeIDFromUserID(int userID) {
 		int employeeID = 0;
 		try {
-			findEmployeeIDByUserID = connection.prepareStatement(find_employee_id_by_user_id);
 			findEmployeeIDByUserID.setInt(1, userID);
 			ResultSet rs = dbConnection.getResultSetWithPS(findEmployeeIDByUserID);
 			
