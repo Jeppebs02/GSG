@@ -130,6 +130,7 @@ public class SchedulingApp {
         LocalDate startOfMonth = date.withDayOfMonth(1);
         LocalDate firstDayToDisplay = startOfMonth.minusDays((startOfMonth.getDayOfWeek().getValue() + 6) % 7);
 
+      
         int row = 0, col = 0;
         for (int i = 0; i < 42; i++) { // 6 rows x 7 columns
             LocalDate currentDay = firstDayToDisplay.plusDays(i);

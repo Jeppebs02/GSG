@@ -11,7 +11,7 @@ import model.User;
 
 public class UserDB implements UserDBIF	{
 	
-	private DBConnection dbConecction = DBConnection.getInstance();
+	private DBConnection dbConnection = DBConnection.getInstance();
 	private Connection connection = DBConnection.getInstance().getConnection();
 	
 	private static final String find_customer_info_by_user_id =
@@ -31,13 +31,13 @@ public class UserDB implements UserDBIF	{
 		try {
 			findCustomerInfoByUserId = connection.prepareStatement(find_customer_info_by_user_id);
 			findCustomerInfoByUserId.setInt(1, userID);
-			ResultSet rs = dbConecction.getResultSetWithPS(findCustomerInfoByUserId);
+			ResultSet rs = dbConnection.getResultSetWithPS(findCustomerInfoByUserId);
 			
 			if(rs.next()) {
 				user = createUserFromResultSet(rs);
 			}
 			
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return user;

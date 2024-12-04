@@ -1,8 +1,10 @@
 package ctrl;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import dal.TaskDB;
 import model.Report;
@@ -15,8 +17,12 @@ import model.User;
 public class TaskCtrl {
 
 	private Task currentTask;
-	private ShiftCtrl sc = new ShiftCtrl();;
+	private ShiftCtrl sc = new ShiftCtrl();
+	private TaskDB tb;
 	
+	public TaskCtrl() throws SQLException {
+		this.tb = new TaskDB();
+	}
 	
 	public Task createTask(LocalDate date, String description, String location, int userID) throws Exception {
 		
@@ -59,7 +65,7 @@ public class TaskCtrl {
 		Task createdTask;
 		Report report = createReport(0, 0, 0, "", "", "");
 		
-		TaskDB tb = new TaskDB();
+		
 		createdTask = tb.saveTask(currentTask);
 		
 		report.setTaskID(createdTask.getTaskID());
@@ -78,5 +84,10 @@ public class TaskCtrl {
 			throw new NullPointerException("Task is null");
 		}
 		return this.currentTask;
+	}
+	
+	public List<Task> findAllTasks(int year, String month) throws Exception{
+		return tb.findAllTasksFromDB(year, month);
+		
 	}
 }
