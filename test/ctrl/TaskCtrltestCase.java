@@ -1,4 +1,4 @@
-package dal;
+package ctrl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +16,7 @@ import ctrl.TaskCtrl;
 import model.Shift;
 import model.Task;
 
-class TaskDBtestCase {
+class TaskCtrltestCase {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -48,14 +48,5 @@ class TaskDBtestCase {
 		
 	}
 	
-	@Test
-	public void testConnection() {
-		try {
-			Connection c = DBConnection.getInstance().getConnection();
-			assertNotNull(c);
-		} catch (Exception e) {
-			fail("Issues with connection");
-		}
-	}
 
 }
