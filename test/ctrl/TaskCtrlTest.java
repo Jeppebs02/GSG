@@ -16,7 +16,7 @@ import ctrl.TaskCtrl;
 import model.Shift;
 import model.Task;
 
-class TaskCtrltestCase {
+class TaskCtrlTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,21 +32,26 @@ class TaskCtrltestCase {
 
 	@Test
 	void testCreateTask() throws Exception {
+		//Arrange
 		TaskCtrl tc = new TaskCtrl();
 		LocalDate date = LocalDate.of(2024, 03, 3);
 		LocalDateTime StartTime = LocalDateTime.of(2024, 03, 3, 18, 0, 0);
 		LocalDateTime EndTime = LocalDateTime.of(2024, 03, 3, 23, 0, 0);
 		
-		Task currentTask = tc.createTask(date, "ZWEI", "Aalborg", 2);
+		//Act
+		tc.createTask(date, "ZWEI", "Aalborg", 2);
 		
 		Shift currentShift = tc.addShift(StartTime, EndTime);
 		
-		tc.addEmployeeToShift(currentShift, 1);
+		tc.addEmployeeToShift(1);
 		
+		//Assert
+		assertNotNull(tc.getCurrentTask());
 	}
 	
 	@Test 
 	void testCreateTaskMultibleShifts() throws Exception {
+		//Arrange
 		TaskCtrl tc = new TaskCtrl();
 		LocalDate date = LocalDate.of(2024, 03, 3);
 		LocalDateTime StartTimeOne = LocalDateTime.of(2024, 03, 3, 18, 0, 0);
@@ -54,18 +59,19 @@ class TaskCtrltestCase {
 		LocalDateTime StartTimeTwo = LocalDateTime.of(2024, 03, 3, 14, 0, 0);
 		LocalDateTime EndTimeTwo = LocalDateTime.of(2024, 03, 3, 20, 0, 0);
 		
-		Task currentTask = tc.createTask(date, "Heidis", "Aarhus", 2);
+		//Act
+		tc.createTask(date, "Heidis", "Aarhus", 2);
 		
-		Shift currentShiftOne = tc.addShift(StartTimeOne, EndTimeOne);
+		tc.addShift(StartTimeOne, EndTimeOne);
 		
-		tc.addEmployeeToShift(currentShiftOne, 1);
+		tc.addEmployeeToShift(1);
 		
-		Shift currentShiftTwo = tc.addShift(StartTimeTwo, EndTimeTwo);
+		tc.addShift(StartTimeTwo, EndTimeTwo);
 		
-		tc.addEmployeeToShift(currentShiftTwo, 3);
+		tc.addEmployeeToShift(3);
 		
-		
-		
+		//Assert
+		assertNotNull(tc.getCurrentTask());
 	}
 
 }

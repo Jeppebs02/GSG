@@ -34,11 +34,18 @@ public class ShiftCtrl {
         currentShift.setEmployee(employee);
 	}
 	
-	public void saveShift(Shift shift, int taskID) throws Exception {
-		this.currentShift = shift;
+	public void saveShift(int taskID) throws Exception {
+//		this.currentShift = shift;
 		//creates a ShiftDB within the method
 		ShiftDB shiftDB = new ShiftDB();
 		//uses the save 
 		shiftDB.saveShift(currentShift, taskID);		
+	}
+	
+	public Shift getCurrentShift() throws NullPointerException {
+		if(currentShift == null) {
+			throw new NullPointerException("Current Shift is null");
+		}
+		return this.currentShift;
 	}
 }
