@@ -4,6 +4,6 @@ import model.Report;
 
 public interface ReportDBIF {
 	
-	public boolean saveReportToDb(Report report, int taskID) throws Exception;
+	public boolean saveReportToDb(Report report) throws Exception;
 
 }

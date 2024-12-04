@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import dal.TaskDB;
+import model.Report;
+import dal.ReportDB;
 import model.Employee;
 import model.Shift;
 import model.Task;
@@ -50,9 +52,25 @@ public class TaskCtrl {
 	
 	
 	public void saveTask() throws Exception {
+		//ReportDB to save the report
+		ReportDB repDB = new ReportDB();
+		
+		//This is the current task but with an ID
+		Task createdTask;
+		Report report = createReport(0, 0, 0, "", "", "");
 		
 		TaskDB tb = new TaskDB();
-		tb.saveTask(currentTask);	
+		createdTask = tb.saveTask(currentTask);
+		
+		report.setTaskID(createdTask.getTaskID());
+		repDB.saveReportToDb(report);
+		
+	}
+	
+	//create a new report object
+	public Report createReport(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks, String employeeSignature, String customerSignature) {
+		Report rep = new Report(rejectionsAge,rejectionsAttitude,rejectionsAlternative,alternativeRemarks,employeeSignature,customerSignature);
+		return rep;
 	}
 	
 	public Task getCurrentTask() throws NullPointerException {

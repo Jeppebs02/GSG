@@ -16,7 +16,7 @@ public class ReportDB implements ReportDBIF {
 	private PreparedStatement saveReportToDB;
 	
 	@Override
-	public boolean saveReportToDb(Report report, int taskID) throws Exception {
+	public boolean saveReportToDb(Report report) throws Exception {
 		
 		try {
 			
@@ -28,7 +28,7 @@ public class ReportDB implements ReportDBIF {
 			saveReportToDB.setString(4, report.getAlternativeRemarks());
 			saveReportToDB.setString(5, report.getEmployeeSignature());
 			saveReportToDB.setString(6, report.getCustomerSignature());
-			saveReportToDB.setInt(7, taskID);
+			saveReportToDB.setInt(7, report.getTaskID());
 			
 			//commit transaction
 			dbConnection.executeSqlInsertWithIdentityPS(saveReportToDB);

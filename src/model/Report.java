@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Report {
+	private int taskID;
     private int rapportNr;
     private int rejectionsAge;
     private int rejectionsAttitude;
@@ -20,7 +21,31 @@ public class Report {
     	
     }
     
-    // Getters and Setters
+    public Report(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks,
+			String employeeSignature, String customerSignature) {
+		super();
+		this.rejectionsAge = rejectionsAge;
+		this.rejectionsAttitude = rejectionsAttitude;
+		this.rejectionsAlternative = rejectionsAlternative;
+		this.alternativeRemarks = alternativeRemarks;
+		this.employeeSignature = employeeSignature;
+		this.customerSignature = customerSignature;
+		this.alarms = new ArrayList<>();
+    	this.ratings = new ArrayList<>();
+	}
+
+
+
+
+	public int getTaskID() {
+		return taskID;
+	}
+
+	public void setTaskID(int taskID) {
+		this.taskID = taskID;
+	}
+
+	// Getters and Setters
     public int getRapportNr() {
         return rapportNr;
     }
