@@ -43,10 +43,29 @@ class TaskCtrltestCase {
 		
 		tc.addEmployeeToShift(currentShift, 1);
 		
-		tc.saveTask();
+	}
+	
+	@Test 
+	void testCreateTaskMultibleShifts() throws Exception {
+		TaskCtrl tc = new TaskCtrl();
+		LocalDate date = LocalDate.of(2024, 03, 3);
+		LocalDateTime StartTimeOne = LocalDateTime.of(2024, 03, 3, 18, 0, 0);
+		LocalDateTime EndTimeOne = LocalDateTime.of(2024, 03, 3, 23, 0, 0);
+		LocalDateTime StartTimeTwo = LocalDateTime.of(2024, 03, 3, 14, 0, 0);
+		LocalDateTime EndTimeTwo = LocalDateTime.of(2024, 03, 3, 20, 0, 0);
+		
+		Task currentTask = tc.createTask(date, "Heidis", "Aarhus", 2);
+		
+		Shift currentShiftOne = tc.addShift(StartTimeOne, EndTimeOne);
+		
+		tc.addEmployeeToShift(currentShiftOne, 1);
+		
+		Shift currentShiftTwo = tc.addShift(StartTimeTwo, EndTimeTwo);
+		
+		tc.addEmployeeToShift(currentShiftTwo, 3);
+		
 		
 		
 	}
-	
 
 }
