@@ -1,4 +1,4 @@
-package dal;
+package ctrl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +16,7 @@ import ctrl.TaskCtrl;
 import model.Shift;
 import model.Task;
 
-class TaskDBtestCase {
+class TaskCtrlTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,30 +32,46 @@ class TaskDBtestCase {
 
 	@Test
 	void testCreateTask() throws Exception {
+		//Arrange
 		TaskCtrl tc = new TaskCtrl();
 		LocalDate date = LocalDate.of(2024, 03, 3);
 		LocalDateTime StartTime = LocalDateTime.of(2024, 03, 3, 18, 0, 0);
 		LocalDateTime EndTime = LocalDateTime.of(2024, 03, 3, 23, 0, 0);
 		
-		Task currentTask = tc.createTask(date, "ZWEI", "Aalborg", 2);
+		//Act
+		tc.createTask(date, "ZWEI", "Aalborg", 2);
 		
 		Shift currentShift = tc.addShift(StartTime, EndTime);
 		
-		tc.addEmployeeToShift(currentShift, 1);
+		tc.addEmployeeToShift(1);
 		
-		tc.saveTask();
-		
-		
+		//Assert
+		assertNotNull(tc.getCurrentTask());
 	}
 	
-	@Test
-	public void testConnection() {
-		try {
-			Connection c = DBConnection.getInstance().getConnection();
-			assertNotNull(c);
-		} catch (Exception e) {
-			fail("Issues with connection");
-		}
+	@Test 
+	void testCreateTaskMultibleShifts() throws Exception {
+		//Arrange
+		TaskCtrl tc = new TaskCtrl();
+		LocalDate date = LocalDate.of(2024, 03, 3);
+		LocalDateTime StartTimeOne = LocalDateTime.of(2024, 03, 3, 18, 0, 0);
+		LocalDateTime EndTimeOne = LocalDateTime.of(2024, 03, 3, 23, 0, 0);
+		LocalDateTime StartTimeTwo = LocalDateTime.of(2024, 03, 3, 14, 0, 0);
+		LocalDateTime EndTimeTwo = LocalDateTime.of(2024, 03, 3, 20, 0, 0);
+		
+		//Act
+		tc.createTask(date, "Heidis", "Aarhus", 2);
+		
+		tc.addShift(StartTimeOne, EndTimeOne);
+		
+		tc.addEmployeeToShift(1);
+		
+		tc.addShift(StartTimeTwo, EndTimeTwo);
+		
+		tc.addEmployeeToShift(3);
+		
+		//Assert
+		assertNotNull(tc.getCurrentTask());
 	}
 
 }

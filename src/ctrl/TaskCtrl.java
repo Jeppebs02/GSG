@@ -21,8 +21,8 @@ public class TaskCtrl {
 		UserCtrl uc = new UserCtrl();
 		User u = uc.findCustomerByUserID(userID);
 		
-		Task task = new Task(date, description, location, u);
-		currentTask = task;
+		currentTask = new Task(date, description, location, u);
+		
 		saveTask();
 		return currentTask;
 	}
@@ -38,24 +38,27 @@ public class TaskCtrl {
 	}
 	
 	
-	public void addEmployeeToShift(Shift shift, int userID) throws Exception {
-		
+	public void addEmployeeToShift(int userID) throws Exception {
 		
 		UserCtrl uc = new UserCtrl();
 		Employee e = uc.findEmployeeByUserID(userID);
 		
 		sc.addEmployeeToShift(e);
 		
-		sc.saveShift(shift, currentTask.getTaskID());
+		sc.saveShift(currentTask.getTaskID());
 	}
 	
 	
 	public void saveTask() throws Exception {
 		
 		TaskDB tb = new TaskDB();
-		tb.saveTask(currentTask);
-		
-		
-		
+		tb.saveTask(currentTask);	
+	}
+	
+	public Task getCurrentTask() throws NullPointerException {
+		if (this.currentTask == null) {
+			throw new NullPointerException("Task is null");
+		}
+		return this.currentTask;
 	}
 }
