@@ -49,13 +49,13 @@ public class AddTaskDialog extends JDialog {
         txtUser.setBounds(130, 100, 400, 25);
         getContentPane().add(txtUser);
 
-        JLabel lblReport = new JLabel("Rapport:");
-        lblReport.setBounds(20, 140, 100, 25);
-        getContentPane().add(lblReport);
-
-        txtReport = new JTextField();
-        txtReport.setBounds(130, 140, 400, 25);
-        getContentPane().add(txtReport);
+//        JLabel lblReport = new JLabel("Rapport:");
+//        lblReport.setBounds(20, 140, 100, 25);
+//        getContentPane().add(lblReport);
+//
+//        txtReport = new JTextField();
+//        txtReport.setBounds(130, 140, 400, 25);
+//        getContentPane().add(txtReport);
 
         JLabel lblDate = new JLabel("Dato:");
         lblDate.setBounds(20, 180, 100, 25);
@@ -134,14 +134,14 @@ public class AddTaskDialog extends JDialog {
         String description = txtDescription.getText();
         String location = txtLocation.getText();
         String user = txtUser.getText();
-        String report = txtReport.getText();
+        //String report = txtReport.getText();
 
         DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
         List<String> taskDetails = new ArrayList<>();
         taskDetails.add("Beskrivelse: " + description);
         taskDetails.add("Lokation: " + location);
         taskDetails.add("Bruger: " + user);
-        taskDetails.add("Rapport: " + report);
+        //taskDetails.add("Rapport: " + report);
 
         for (int i = 0; i < model.getRowCount(); i++) {
             String shift = "Vagt: Starttid " + model.getValueAt(i, 0) + ", Sluttid " + model.getValueAt(i, 1)
