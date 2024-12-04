@@ -109,12 +109,12 @@ public class AddShiftDialog extends JDialog {
             }
             
             // Creating the shift
-            Shift s = tc.addShift(localTimeDate, localTimeDateEnd);
+            tc.addShift(localTimeDate, localTimeDateEnd);
 
             // Parsing employee ID
             String employee = txtEmployee.getText();
             int employeeId = Integer.parseInt(employee);
-            tc.addEmployeeToShift(s, employeeId);
+            tc.addEmployeeToShift(employeeId);
             
             DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
             model.addRow(new Object[]{startTime, endTime, employee});
