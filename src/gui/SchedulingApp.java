@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.DayOfWeek;
 import java.util.HashMap;
@@ -95,7 +96,12 @@ public class SchedulingApp {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int row = calendarTable.rowAtPoint(evt.getPoint());
                 int col = calendarTable.columnAtPoint(evt.getPoint());
-                handleCalendarClick(row, col);
+                try {
+					handleCalendarClick(row, col);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -170,8 +176,9 @@ public class SchedulingApp {
      * Opens a dialog to add a task for the selected date.
      * @param row The row index of the clicked cell.
      * @param col The column index of the clicked cell.
+     * @throws SQLException 
      */
-    private void handleCalendarClick(int row, int col) {
+    private void handleCalendarClick(int row, int col) throws SQLException {
         if (calendarDates != null && calendarDates[row][col] != null) {
             LocalDate selectedDate = calendarDates[row][col];
             if (selectedDate.getMonth() == currentDate.getMonth()) {
@@ -183,8 +190,9 @@ public class SchedulingApp {
     /**
      * Opens a dialog to add a task for the specified date.
      * @param date The date for which the task should be added.
+     * @throws SQLException 
      */
-    private void openAddTaskDialog(LocalDate date) {
+    private void openAddTaskDialog(LocalDate date) throws SQLException {
         AddTaskDialog dialog = new AddTaskDialog(date, taskMap);
         dialog.setVisible(true);
     }

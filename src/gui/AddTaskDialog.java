@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class AddTaskDialog extends JDialog {
     private JTextField txtDescription;
@@ -24,7 +25,7 @@ public class AddTaskDialog extends JDialog {
     private List<String> shifts;
     private TaskCtrl tc;
 
-    public AddTaskDialog(LocalDate date, HashMap<LocalDate, List<String>> taskMap) {
+    public AddTaskDialog(LocalDate date, HashMap<LocalDate, List<String>> taskMap) throws SQLException {
         tc = new TaskCtrl();
     	setTitle("Tilføj Opgave");
         setBounds(100, 100, 600, 600);
