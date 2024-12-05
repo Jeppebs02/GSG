@@ -15,6 +15,7 @@ import dal.DBConnection;
  */
 public class EmployeeDB implements EmployeeDBIF {
 
+<<<<<<< Updated upstream
     private DBConnection dbConnection = DBConnection.getInstance();
     private Connection connection = DBConnection.getInstance().getConnection();
 
@@ -92,6 +93,58 @@ public class EmployeeDB implements EmployeeDBIF {
     @Override
     public Employee createEmployeeFromResultSet(ResultSet rs) throws SQLException {
         // Employee-specific fields
+=======
+	private DBConnection dbConnection = DBConnection.getInstance();
+	private Connection connection = DBConnection.getInstance().getConnection();
+	private static final String find_employee_id_by_user_id =
+			"SELECT User_ID,Employee_ID from EmployeeUser  WHERE User_ID = ?;";
+	private static final String find_employee_info_from_user_id_and_employee_id =
+			"SELECT Employee.ID AS EmployeeID, Employee.CPR, Employee.SecurityClearance, Employee.AccountNr, Employee.Certification, Employee.RegistrationNr, Employee.Department, [User].ID AS UserID, [User].UserName, [User].Password, [User].FirstName, [User].LastName, [User].Email, [User].PhoneNr, [User].Type, [User].Address_ID, [User].AccountPrivileges FROM Employee CROSS JOIN [User] WHERE Employee.ID = ? AND [User].ID = ?;";
+	
+	
+	private PreparedStatement findEmployeeIDByUserID;
+	private PreparedStatement findEmployeeInfoFromUserIDAndEmployeeID;
+	
+	public EmployeeDB() throws SQLException {
+		connection = DBConnection.getInstance().getConnection();
+		
+		findEmployeeIDByUserID = connection.prepareStatement(find_employee_id_by_user_id);
+		findEmployeeInfoFromUserIDAndEmployeeID = connection.prepareStatement(find_employee_info_from_user_id_and_employee_id);
+	}
+	
+	@Override
+	public Employee findEmployeeByUserID(int userID) throws Exception {
+		Employee employee = null;
+		int employeeId = -1;
+		
+		try {
+			employeeId = findEmployeeIDFromUserID(userID);
+			System.out.println("EmployeeID: " + employeeId);
+			System.out.println("UserID: " + userID);
+			
+			findEmployeeInfoFromUserIDAndEmployeeID.setInt(1, employeeId);
+			findEmployeeInfoFromUserIDAndEmployeeID.setInt(2, userID);
+			
+			ResultSet rs = dbConnection.getResultSetWithPS(findEmployeeInfoFromUserIDAndEmployeeID);
+			
+			rs.next();
+			
+			employee=createEmployeeFromResultSet(rs);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		}
+		
+		return employee;
+	}
+	
+	
+	
+	
+	public Employee createEmployeeFromResultSet(ResultSet rs) throws SQLException {
+		// Employee-specific fields
+>>>>>>> Stashed changes
         int employeeID = rs.getInt("EmployeeID");
         String cpr = rs.getString("CPR");
         String securityClearance = rs.getString("SecurityClearance");

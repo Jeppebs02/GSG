@@ -42,7 +42,7 @@ class ShiftCtrlTest {
 		// Create Test Employee with Stubs
 		EmployeeDB eDB = new EmployeeDB();
 		e = eDB.findEmployeeByUserID(1);
-		// Set test TastID
+		// Set test TastID - stub
 		taskID = 1;
 	}
 
@@ -51,7 +51,7 @@ class ShiftCtrlTest {
 	}
 
 	@Test
-	void test() throws Exception {
+	void createShiftAndSaveToDB() throws Exception {
 		//Arrange
 		sc = new ShiftCtrl();
 		
@@ -61,6 +61,20 @@ class ShiftCtrlTest {
 		sc.addEmployeeToShift(e);
 		//Assert
 		assertNotNull(sc.getCurrentShift());
+	}
+	
+	@Test
+	void createShiftAndSaveToDBSpecific() throws Exception {
+		//Arrange
+		sc = new ShiftCtrl();
+		
+		//Act
+		sc.createShift(startTime, endTime);
+		sc.saveShift(taskID);
+		sc.addEmployeeToShift(e);
+		
+		//Assert
+		assertEquals();
 	}
 
 }

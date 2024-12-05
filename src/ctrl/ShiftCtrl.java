@@ -46,6 +46,7 @@ public class ShiftCtrl {
             throw new IllegalArgumentException("Shift cannot be null");
         }
         currentShift.setEmployee(employee);
+<<<<<<< Updated upstream
     }
 
     /**
@@ -75,4 +76,26 @@ public class ShiftCtrl {
         }
         return this.currentShift;
     }
+=======
+	}
+	
+	public void saveShift(int taskID) throws Exception {
+//		this.currentShift = shift;
+		//creates a ShiftDB within the method
+		ShiftDB shiftDB = new ShiftDB();
+		//uses the save 
+		shiftDB.saveShift(currentShift, taskID);		
+	}
+	
+	public Shift getCurrentShift() throws NullPointerException {
+		if(currentShift == null) {
+			throw new NullPointerException("Current Shift is null");
+		}
+		return this.currentShift;
+	}
+	
+	public Shift findShiftByShiftID(int shiftID) throws Exception {
+		return null;
+	}
+>>>>>>> Stashed changes
 }
