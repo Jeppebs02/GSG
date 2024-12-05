@@ -1,4 +1,3 @@
-
 package gui;
 
 import javax.swing.*;
@@ -9,19 +8,13 @@ import ctrl.TaskCtrl;
 import model.Task;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.DayOfWeek;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 
-/**
- * SchedulingApp is a Java Swing application for managing shift schedules.
- * It allows users to view a calendar, select dates, and add tasks for specific dates.
- * The calendar is displayed in a tabular format with each month visible in a 6x7 grid,
- * and users can select the year and month to view different schedules.
- */
 public class SchedulingApp {
     private JFrame frame;
     private JTable calendarTable;
@@ -32,11 +25,31 @@ public class SchedulingApp {
     private LocalDate[][] calendarDates;
     private List<Task> tasks;
 
-    /**
-     * Main method to launch the SchedulingApp.
-     * @param args Command line arguments.
-     */
+    // Fields to track hovered cell
+    private int hoveredRow = -1;
+    private int hoveredCol = -1;
+
+    // Popup menu for right-click
+    private JPopupMenu cellPopup;
+    private JMenuItem createTaskItem;
+    private JMenuItem showTasksItem;
+
     public static void main(String[] args) {
+        // Use Nimbus Look and Feel
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // Fallback to system look and feel if Nimbus not available
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception ignored) {}
+        }
+
         SwingUtilities.invokeLater(() -> {
             try {
                 SchedulingApp window = new SchedulingApp();
@@ -47,63 +60,52 @@ public class SchedulingApp {
         });
     }
 
-    /**
-     * Constructor for SchedulingApp.
-     * Initializes the current date and task map, then calls initialize() to set up the GUI.
-     * @throws Exception 
-     */
     public SchedulingApp() throws Exception {
         currentDate = LocalDate.now();
         taskMap = new HashMap<>();
         initialize();
     }
 
-    /**
-     * Initializes the GUI components of the application.
-     * Sets up the main frame, top panel with year and month selectors, and the calendar table.
-     * @throws Exception 
-     */
     private void initialize() throws Exception {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 1000, 700);
+        frame = new JFrame("Skemalægningsprogram");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new BorderLayout());
+        frame.setSize(1000, 700);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new BorderLayout(10, 10));
 
-        JPanel topPanel = new JPanel(new BorderLayout());
-
+        JPanel topPanel = new JPanel(new BorderLayout(5, 5));
         JLabel lblTitle = new JLabel("Skemalægningsprogram", JLabel.CENTER);
-        lblTitle.setFont(new Font("Arial", Font.BOLD, 24));
+        lblTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         topPanel.add(lblTitle, BorderLayout.NORTH);
 
-        JPanel controls = new JPanel();
-        controls.setLayout(new FlowLayout());
-
+        JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
         yearSelector = new JComboBox<>(getYearRange());
         yearSelector.setSelectedItem(currentDate.getYear());
         yearSelector.addActionListener(e -> {
-			try {
-				updateCalendarView();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-        controls.add(yearSelector);
+            try {
+                updateCalendarView();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
         monthSelector = new JComboBox<>(getMonths());
         monthSelector.setSelectedItem(currentDate.getMonth().toString());
         monthSelector.addActionListener(e -> {
-			try {
-				updateCalendarView();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-        controls.add(monthSelector);
+            try {
+                updateCalendarView();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
 
-        topPanel.add(controls, BorderLayout.SOUTH);
-        frame.getContentPane().add(topPanel, BorderLayout.NORTH);
+        controlsPanel.add(new JLabel("År:"));
+        controlsPanel.add(yearSelector);
+        controlsPanel.add(new JLabel("Måned:"));
+        controlsPanel.add(monthSelector);
+
+        topPanel.add(controlsPanel, BorderLayout.CENTER);
+        frame.add(topPanel, BorderLayout.NORTH);
 
         calendarTable = new JTable() {
             @Override
@@ -111,69 +113,143 @@ public class SchedulingApp {
                 return false;
             }
         };
+        calendarTable.setRowHeight(90);
         calendarTable.setCellSelectionEnabled(true);
-        calendarTable.setRowHeight(100);
-        calendarTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+        // Mouse listener for clicks
+        calendarTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
                 int row = calendarTable.rowAtPoint(evt.getPoint());
                 int col = calendarTable.columnAtPoint(evt.getPoint());
-                try {
-					handleCalendarClick(row, col);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+                // Left-click on a valid date cell opens the Add Task dialog directly
+                if (SwingUtilities.isLeftMouseButton(evt)) {
+                    try {
+                        handleCalendarClick(row, col);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+                // Show popup on right-click if on a valid date cell
+                if (evt.isPopupTrigger() || SwingUtilities.isRightMouseButton(evt)) {
+                    if (isValidDateCell(row, col)) {
+                        showCellPopup(evt, row, col);
+                    }
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent evt) {
+                // On some platforms, popup trigger is on mouse press
+                if (evt.isPopupTrigger()) {
+                    int row = calendarTable.rowAtPoint(evt.getPoint());
+                    int col = calendarTable.columnAtPoint(evt.getPoint());
+                    if (isValidDateCell(row, col)) {
+                        showCellPopup(evt, row, col);
+                    }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent evt) {
+                // On some platforms, popup trigger is on mouse release
+                if (evt.isPopupTrigger()) {
+                    int row = calendarTable.rowAtPoint(evt.getPoint());
+                    int col = calendarTable.columnAtPoint(evt.getPoint());
+                    if (isValidDateCell(row, col)) {
+                        showCellPopup(evt, row, col);
+                    }
+                }
+            }
+        });
+
+        // Mouse motion listener to track hover
+        calendarTable.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                int row = calendarTable.rowAtPoint(e.getPoint());
+                int col = calendarTable.columnAtPoint(e.getPoint());
+
+                if (row != hoveredRow || col != hoveredCol) {
+                    hoveredRow = row;
+                    hoveredCol = col;
+                    calendarTable.repaint(); // Re-render to show hover effect
+                }
             }
         });
 
         JScrollPane scrollPane = new JScrollPane(calendarTable);
-        frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+        setupCellPopup();
 
         updateCalendarView();
     }
 
-    /**
-     * Updates the calendar view based on the selected year and month.
-     * Sets the calendar dates for the specified month and year.
-     * @throws Exception 
-     */
+    private boolean isValidDateCell(int row, int col) {
+        return row >= 0 && col >= 0 && calendarDates != null
+               && row < calendarDates.length && col < calendarDates[0].length
+               && calendarDates[row][col] != null;
+    }
+
+    private void setupCellPopup() {
+        cellPopup = new JPopupMenu();
+        createTaskItem = new JMenuItem("Create Task");
+        showTasksItem = new JMenuItem("Show All Tasks");
+
+        createTaskItem.addActionListener(e -> {
+            if (isValidDateCell(hoveredRow, hoveredCol)) {
+                LocalDate date = calendarDates[hoveredRow][hoveredCol];
+                try {
+                    openAddTaskDialog(date);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        showTasksItem.addActionListener(e -> {
+            if (isValidDateCell(hoveredRow, hoveredCol)) {
+                LocalDate date = calendarDates[hoveredRow][hoveredCol];
+                showAllTasksForDate(date);
+            }
+        });
+
+        cellPopup.add(createTaskItem);
+        cellPopup.add(showTasksItem);
+    }
+
+    private void showCellPopup(MouseEvent evt, int row, int col) {
+        hoveredRow = row;
+        hoveredCol = col;
+        cellPopup.show(calendarTable, evt.getX(), evt.getY());
+    }
+
     private void updateCalendarView() throws Exception {
         int year = (int) yearSelector.getSelectedItem();
         String month = (String) monthSelector.getSelectedItem();
         LocalDate selectedDate = LocalDate.of(year, getMonthIndex(month), 1);
-
         renderMonthView(selectedDate);
     }
 
-    /**
-     * Renders the calendar view for the given month and year.
-     * Populates the JTable with dates for the specified month.
-     * @param date The LocalDate representing the year and month to display.
-     * @throws Exception 
-     */
     private void renderMonthView(LocalDate date) throws Exception {
         String[] columnNames = {"Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"};
         calendarDates = new LocalDate[6][7];
-
         DefaultTableModel model = new DefaultTableModel(6, 7);
         LocalDate startOfMonth = date.withDayOfMonth(1);
         LocalDate firstDayToDisplay = startOfMonth.minusDays((startOfMonth.getDayOfWeek().getValue() + 6) % 7);
 
-        // Hent tasks
         TaskCtrl tc = new TaskCtrl();
-        tasks = tc.findAllTasks(date.getYear(), date.getMonth().toString()); // Brug korrekt år og måned
-        System.out.println("Tasks found: " + tasks.size());
+        tasks = tc.findAllTasks(date.getYear(), date.getMonth().toString());
 
-        int row = 0, col = 0;
-        for (int i = 0; i < 42; i++) { // 6 rows x 7 columns
-            LocalDate currentDay = firstDayToDisplay.plusDays(i);
-            calendarDates[row][col] = currentDay;
-            model.setValueAt(currentDay.getDayOfMonth(), row, col);
-
-            col++;
-            if (col == 7) {
-                col = 0;
-                row++;
+        int dayCounter = 0;
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 7; c++) {
+                LocalDate currentDay = firstDayToDisplay.plusDays(dayCounter++);
+                calendarDates[r][c] = currentDay;
+                model.setValueAt(currentDay.getDayOfMonth(), r, c);
             }
         }
 
@@ -182,58 +258,82 @@ public class SchedulingApp {
             calendarTable.getColumnModel().getColumn(i).setHeaderValue(columnNames[i]);
         }
 
+        // Center the column headers (days of week)
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) calendarTable.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        calendarTable.getTableHeader().setDefaultRenderer(headerRenderer);
+
+        // Default renderer for cells, align center and highlight conditions
         calendarTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                           boolean hasFocus, int row, int column) {
+            public Component getTableCellRendererComponent(
+                    JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+
                 Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                setHorizontalAlignment(CENTER);
+
                 LocalDate cellDate = calendarDates[row][column];
+
+                // Reset to default colors
+                if (isSelected) {
+                    cell.setBackground(new Color(173, 216, 230));
+                } else {
+                    cell.setBackground(Color.WHITE);
+                }
 
                 if (cellDate != null) {
                     if (tasks.stream().anyMatch(task -> task.getDate().isEqual(cellDate))) {
-                        cell.setBackground(Color.GREEN); // Highlight cells with tasks
+                        // Days with tasks highlighted
+                        cell.setBackground(new Color(200, 230, 201));
                     } else if (!cellDate.getMonth().equals(date.getMonth())) {
-                        cell.setBackground(Color.LIGHT_GRAY); // Other months
-                    } else {
-                        cell.setBackground(Color.WHITE); // Default
+                        // Gray out days not in the current month
+                        cell.setBackground(new Color(240, 240, 240));
                     }
+
+                    // Highlight hovered cell if not selected
+                    if (row == hoveredRow && column == hoveredCol && !isSelected) {
+                        cell.setBackground(new Color(220, 220, 250));
+                    }
+                } else {
+                    setText("");
                 }
+
                 return cell;
             }
         });
     }
 
-
-    /**
-     * Handles click events on the calendar cells.
-     * Opens a dialog to add a task for the selected date.
-     * @param row The row index of the clicked cell.
-     * @param col The column index of the clicked cell.
-     * @throws SQLException 
-     */
     private void handleCalendarClick(int row, int col) throws SQLException {
-        if (calendarDates != null && calendarDates[row][col] != null) {
+        if (isValidDateCell(row, col)) {
             LocalDate selectedDate = calendarDates[row][col];
-            if (selectedDate.getMonth() == currentDate.getMonth()) {
-                openAddTaskDialog(selectedDate);
-            }
+            // Remove the month-check condition:
+            openAddTaskDialog(selectedDate);
         }
     }
 
-    /**
-     * Opens a dialog to add a task for the specified date.
-     * @param date The date for which the task should be added.
-     * @throws SQLException 
-     */
     private void openAddTaskDialog(LocalDate date) throws SQLException {
         AddTaskDialog dialog = new AddTaskDialog(date, taskMap);
         dialog.setVisible(true);
     }
 
-    /**
-     * Returns an array of years to populate the year selector dropdown.
-     * @return An array of Integer values representing a range of years.
-     */
+    private void showAllTasksForDate(LocalDate date) {
+        // Show all tasks for this date
+        List<Task> tasksForDate = tasks.stream()
+            .filter(task -> task.getDate().isEqual(date))
+            .toList();
+
+        if (tasksForDate.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No tasks on this date.");
+        } else {
+            StringBuilder sb = new StringBuilder("Tasks on " + date + ":\n");
+            for (Task t : tasksForDate) {
+                sb.append("- ").append(t.getDescription() + "\n");
+            }
+            JOptionPane.showMessageDialog(frame, sb.toString(), "All Tasks", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
     private Integer[] getYearRange() {
         int currentYear = LocalDate.now().getYear();
         Integer[] years = new Integer[20];
@@ -243,19 +343,13 @@ public class SchedulingApp {
         return years;
     }
 
-    /**
-     * Returns an array of month names to populate the month selector dropdown.
-     * @return An array of Strings representing the months of the year.
-     */
     private String[] getMonths() {
-        return new String[]{"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+        return new String[]{
+            "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+            "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+        };
     }
 
-    /**
-     * Converts the name of a month to its corresponding index.
-     * @param monthName The name of the month.
-     * @return The integer value of the month (1 for January, 12 for December).
-     */
     private int getMonthIndex(String monthName) {
         return java.time.Month.valueOf(monthName).getValue();
     }
