@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>3</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1897</x>
+      <x>813</x>
       <y>0</y>
-      <w>252</w>
-      <h>364</h>
+      <w>108</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>gui::SchedulingApp
 --
@@ -46,10 +46,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1288</x>
-      <y>1491</y>
-      <w>273</w>
-      <h>252</h>
+      <x>552</x>
+      <y>639</y>
+      <w>117</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>dal::DBConnection
 --
@@ -79,10 +79,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1407</x>
-      <y>595</y>
-      <w>742</w>
-      <h>168</h>
+      <x>603</x>
+      <y>255</y>
+      <w>318</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>ctrl::TaskCtrl
 --
@@ -105,10 +105,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1008</x>
-      <y>833</y>
-      <w>770</w>
-      <h>168</h>
+      <x>432</x>
+      <y>357</y>
+      <w>330</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>dal::TaskDB
 --
@@ -131,10 +131,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1358</x>
-      <y>126</y>
-      <w>378</w>
-      <h>168</h>
+      <x>582</x>
+      <y>54</y>
+      <w>162</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>gui::AddTaskDialog
 --
@@ -157,10 +157,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3990</x>
-      <y>847</y>
-      <w>637</w>
-      <h>203</h>
+      <x>1710</x>
+      <y>363</y>
+      <w>273</w>
+      <h>87</h>
     </coordinates>
     <panel_attributes>dal::EmployeeDB
 --
@@ -185,10 +185,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>910</x>
-      <y>147</y>
-      <w>315</w>
-      <h>126</h>
+      <x>390</x>
+      <y>63</y>
+      <w>135</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>gui::AddShiftDialog
 --
@@ -207,10 +207,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>203</x>
-      <y>595</y>
-      <w>322</w>
-      <h>112</h>
+      <x>87</x>
+      <y>255</y>
+      <w>138</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>ctrl::ShiftCtrl
 --
@@ -228,10 +228,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2303</x>
-      <y>833</y>
-      <w>553</w>
-      <h>112</h>
+      <x>987</x>
+      <y>357</y>
+      <w>237</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>dal::UserDB
 --
@@ -248,10 +248,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3038</x>
-      <y>630</y>
-      <w>217</w>
-      <h>63</h>
+      <x>1302</x>
+      <y>270</y>
+      <w>93</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>ctrl::UserCtrl
 --
@@ -265,10 +265,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1827</x>
-      <y>833</y>
-      <w>413</w>
-      <h>343</h>
+      <x>783</x>
+      <y>357</y>
+      <w>177</w>
+      <h>147</h>
     </coordinates>
     <panel_attributes>model::Task
 --
@@ -306,10 +306,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3437</x>
-      <y>840</y>
-      <w>357</w>
-      <h>406</h>
+      <x>1473</x>
+      <y>360</y>
+      <w>153</w>
+      <h>174</h>
     </coordinates>
     <panel_attributes>model::Employee
 --
@@ -355,9 +355,9 @@
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>833</y>
-      <w>301</w>
-      <h>189</h>
+      <y>357</y>
+      <w>129</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>model::Shift
 --
@@ -382,10 +382,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1729</x>
-      <y>189</y>
-      <w>182</w>
-      <h>28</h>
+      <x>741</x>
+      <y>81</y>
+      <w>78</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -394,10 +394,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1218</x>
-      <y>182</y>
-      <w>154</w>
-      <h>28</h>
+      <x>522</x>
+      <y>78</y>
+      <w>66</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -406,10 +406,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1050</x>
-      <y>266</y>
-      <w>448</w>
-      <h>343</h>
+      <x>450</x>
+      <y>114</y>
+      <w>192</w>
+      <h>147</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -418,10 +418,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1554</x>
-      <y>287</y>
-      <w>168</w>
-      <h>322</h>
+      <x>666</x>
+      <y>123</y>
+      <w>72</w>
+      <h>138</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -430,10 +430,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1813</x>
-      <y>357</y>
-      <w>154</w>
-      <h>252</h>
+      <x>777</x>
+      <y>153</y>
+      <w>66</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -442,10 +442,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>518</x>
-      <y>637</y>
-      <w>903</w>
-      <h>28</h>
+      <x>222</x>
+      <y>273</y>
+      <w>387</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -454,10 +454,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2142</x>
-      <y>651</y>
-      <w>910</w>
-      <h>28</h>
+      <x>918</x>
+      <y>279</y>
+      <w>390</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -466,10 +466,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>574</x>
-      <y>1036</y>
-      <w>21</w>
-      <h>119</h>
+      <x>246</x>
+      <y>444</y>
+      <w>9</w>
+      <h>51</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
@@ -477,10 +477,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>434</x>
-      <y>700</y>
-      <w>182</w>
-      <h>147</h>
+      <x>186</x>
+      <y>300</y>
+      <w>78</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -489,10 +489,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>189</x>
-      <y>700</y>
-      <w>133</w>
-      <h>147</h>
+      <x>81</x>
+      <y>300</y>
+      <w>57</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -501,10 +501,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2898</x>
-      <y>840</y>
-      <w>469</w>
-      <h>364</h>
+      <x>1242</x>
+      <y>360</y>
+      <w>201</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>model::User
 --
@@ -545,10 +545,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1554</x>
-      <y>938</y>
-      <w>833</w>
-      <h>658</h>
+      <x>666</x>
+      <y>402</y>
+      <w>357</w>
+      <h>282</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -557,10 +557,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1428</x>
-      <y>994</y>
-      <w>21</w>
-      <h>511</h>
+      <x>612</x>
+      <y>426</y>
+      <w>9</w>
+      <h>219</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -569,10 +569,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>777</x>
-      <y>1043</y>
-      <w>525</w>
-      <h>553</h>
+      <x>333</x>
+      <y>447</y>
+      <w>225</w>
+      <h>237</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -581,10 +581,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1554</x>
-      <y>1043</y>
-      <w>2534</w>
-      <h>630</h>
+      <x>666</x>
+      <y>447</y>
+      <w>1086</w>
+      <h>270</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -593,10 +593,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3157</x>
-      <y>686</y>
-      <w>490</w>
-      <h>168</h>
+      <x>1353</x>
+      <y>294</y>
+      <w>210</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -605,10 +605,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3108</x>
-      <y>686</y>
-      <w>21</w>
-      <h>168</h>
+      <x>1332</x>
+      <y>294</y>
+      <w>9</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -617,10 +617,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3220</x>
-      <y>686</y>
-      <w>924</w>
-      <h>175</h>
+      <x>1380</x>
+      <y>294</y>
+      <w>396</w>
+      <h>75</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -629,10 +629,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2632</x>
-      <y>686</y>
-      <w>448</w>
-      <h>161</h>
+      <x>1128</x>
+      <y>294</y>
+      <w>192</w>
+      <h>69</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -641,10 +641,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2009</x>
-      <y>756</y>
-      <w>21</w>
-      <h>91</h>
+      <x>861</x>
+      <y>324</y>
+      <w>9</w>
+      <h>39</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -653,10 +653,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1505</x>
-      <y>756</y>
-      <w>21</w>
-      <h>91</h>
+      <x>645</x>
+      <y>324</y>
+      <w>9</w>
+      <h>39</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -665,10 +665,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1190</x>
-      <y>994</y>
-      <w>21</w>
-      <h>126</h>
+      <x>510</x>
+      <y>426</y>
+      <w>9</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
@@ -676,10 +676,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2555</x>
-      <y>938</y>
-      <w>21</w>
-      <h>105</h>
+      <x>1095</x>
+      <y>402</y>
+      <w>9</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
@@ -687,10 +687,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4270</x>
-      <y>1043</y>
-      <w>21</w>
-      <h>98</h>
+      <x>1830</x>
+      <y>447</y>
+      <w>9</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
@@ -698,10 +698,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4123</x>
-      <y>1127</y>
-      <w>294</w>
-      <h>77</h>
+      <x>1767</x>
+      <y>483</y>
+      <w>126</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::EmployeeDBIF
@@ -717,10 +717,10 @@ dal::EmployeeDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1064</x>
-      <y>1106</y>
-      <w>287</w>
-      <h>77</h>
+      <x>456</x>
+      <y>474</y>
+      <w>123</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::TaskDBIF
@@ -736,10 +736,10 @@ dal::TaskDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2457</x>
-      <y>1029</y>
-      <w>224</w>
-      <h>70</h>
+      <x>1053</x>
+      <y>441</y>
+      <w>96</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::UserDBIF
@@ -753,10 +753,10 @@ dal::UserDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>329</x>
-      <y>833</y>
-      <w>595</w>
-      <h>217</h>
+      <x>141</x>
+      <y>357</y>
+      <w>255</w>
+      <h>93</h>
     </coordinates>
     <panel_attributes>dal::ShiftDB
 --
@@ -785,10 +785,10 @@ dal::UserDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>448</x>
-      <y>1141</y>
-      <w>266</w>
-      <h>112</h>
+      <x>192</x>
+      <y>489</y>
+      <w>114</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::ShiftDBIF
