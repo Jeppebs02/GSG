@@ -19,5 +19,5 @@ public interface ShiftDBIF {
 	
 	Shift createShiftFromResultSet(ResultSet rs) throws Exception;
 	
-	Shift getShiftByID(int id) throws Exception;
+	Shift getShiftByID(int shiftID) throws Exception;
 }

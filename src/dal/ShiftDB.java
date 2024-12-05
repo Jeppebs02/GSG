@@ -39,11 +39,13 @@ public class ShiftDB implements ShiftDBIF {
      * @throws SQLException if there is an error preparing the statements.
      */
     public ShiftDB() throws SQLException {
-        connection = DBConnection.getInstance().getConnection();
         dbConnection = DBConnection.getInstance();
+        connection = DBConnection.getInstance().getConnection();
+        
         insertShiftWithEmployee = connection.prepareStatement(insert_shift_with_employee, Statement.RETURN_GENERATED_KEYS);
         insertShiftWithoutEmployee = connection.prepareStatement(insert_shift_without_employee, Statement.RETURN_GENERATED_KEYS);
         findShiftsFromTaskID = connection.prepareStatement(find_shifts_from_task_id);
+        getShiftFromShiftID = connection.prepareStatement(get_shift_from_id);
     }
 
     /**
@@ -220,12 +222,12 @@ public class ShiftDB implements ShiftDBIF {
      * @throws Exception if a database access error occurs or if unable to retrieve Shift information.
      */
 	@Override
-	public Shift getShiftByID(int id) throws Exception {
-		getShiftFromShiftID.setInt(1, id);
+	public Shift getShiftByID(int shiftID) throws Exception {
+		getShiftFromShiftID.setInt(1, shiftID);
 		Shift shift = null;
 		
-		try(ResultSet rs = dbConnection.getResultSetWithPS(findShiftsFromTaskID)){
-			shift= createShiftFromResultSet(rs);
+		try(ResultSet rs = dbConnection.getResultSetWithPS(getShiftFromShiftID)){
+			shift = createShiftFromResultSet(rs);
 			
 		}catch(Exception e){
 			e.printStackTrace();

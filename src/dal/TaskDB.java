@@ -20,20 +20,20 @@ import model.User;
  * including inserting tasks into the database and retrieving them by month and year.
  */
 public class TaskDB implements TaskDBIF {
-
     private Connection connection;
-
+    private DBConnection dbConnection;
+    
     // SQL queries
     private static final String insert_task = 
         "INSERT INTO [Task] (Description, Location, Approval, Date, User_ID) VALUES (?, ?, ?, ?, ?);";
     private static final String find_all_tasks_per_month = 
         "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE YEAR(Date) = ? AND MONTH(Date) = ?;";
-
+    private static final String get_task_from_id ="SELECT * FROM [Task] WHERE ID=?;";
+    
     private PreparedStatement insertTask;
     private PreparedStatement findAllTasks;
-
-    private DBConnection dbConnection;
-
+    private PreparedStatement getTaskFromTaskID;
+    
     /**
      * Constructs a TaskDB object, initializes the database connection, and prepares 
      * the SQL statements for inserting tasks and finding tasks by year and month.
@@ -46,6 +46,7 @@ public class TaskDB implements TaskDBIF {
 
         insertTask = connection.prepareStatement(insert_task, Statement.RETURN_GENERATED_KEYS);
         findAllTasks = connection.prepareStatement(find_all_tasks_per_month);
+        getTaskFromTaskID = connection.prepareStatement(get_task_from_id);
     }
 
     /**
@@ -151,5 +152,19 @@ public class TaskDB implements TaskDBIF {
 
         return task;
     }
+
+	@Override
+	public Task getTaskByID(int taskID) throws Exception {
+		getTaskFromTaskID.setInt(1, taskID);
+		Task task = null;
+		
+		try(ResultSet rs = dbConnection.getResultSetWithPS(getTaskFromTaskID)){
+			task = createTaskFromResultSet(rs);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return task;
+	}
 
 }
