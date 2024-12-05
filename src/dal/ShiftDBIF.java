@@ -18,4 +18,6 @@ public interface ShiftDBIF {
 	List<Shift> findAllShiftsByTaskIDFromDB(int taskID) throws SQLException;
 	
 	Shift createShiftFromResultSet(ResultSet rs) throws Exception;
+	
+	Shift getShiftByID(int id) throws Exception;
 }

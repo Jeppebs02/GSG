@@ -17,6 +17,7 @@ import model.Shift;
  */
 public class ShiftDB implements ShiftDBIF {
     private Connection connection;
+    private DBConnection dbConnection;
 
     // SQL queries for inserting and selecting shifts
     private static final String insert_shift_with_employee = 
@@ -25,10 +26,12 @@ public class ShiftDB implements ShiftDBIF {
         "INSERT INTO [Shift] (StartTime, EndTime, Task_ID) VALUES(?, ?, ?)";
     private static final String find_shifts_from_task_id = 
         "SELECT StartTime, EndTime, Employee_ID, Task_ID FROM [Shift] WHERE Task_ID =?;";
+    private static final String get_shift_from_id ="SELECT * FROM [Shift] WHERE ID=?;";
 
     private PreparedStatement insertShiftWithEmployee;
     private PreparedStatement insertShiftWithoutEmployee;
     private PreparedStatement findShiftsFromTaskID;
+    private PreparedStatement getShiftFromShiftID;
 
     /**
      * Constructs a ShiftDB object and prepares the necessary SQL statements.
@@ -37,6 +40,7 @@ public class ShiftDB implements ShiftDBIF {
      */
     public ShiftDB() throws SQLException {
         connection = DBConnection.getInstance().getConnection();
+        dbConnection = DBConnection.getInstance();
         insertShiftWithEmployee = connection.prepareStatement(insert_shift_with_employee, Statement.RETURN_GENERATED_KEYS);
         insertShiftWithoutEmployee = connection.prepareStatement(insert_shift_without_employee, Statement.RETURN_GENERATED_KEYS);
         findShiftsFromTaskID = connection.prepareStatement(find_shifts_from_task_id);
@@ -165,7 +169,7 @@ public class ShiftDB implements ShiftDBIF {
         // Set parameter
         findShiftsFromTaskID.setInt(1, taskID);
 
-        try (ResultSet rs = findShiftsFromTaskID.executeQuery()) {
+        try (ResultSet rs = dbConnection.getResultSetWithPS(findShiftsFromTaskID)) {
             while (rs.next()) {
                 // Create Shift from ResultSet
                 Shift shift = createShiftFromResultSet(rs);
@@ -207,5 +211,27 @@ public class ShiftDB implements ShiftDBIF {
 
         return shift;
     }
+
+    
+    
+    /**
+     * Creates a {@link Shift} object from a shift ID.
+     * @return a {@link Shift}
+     * @throws Exception if a database access error occurs or if unable to retrieve Shift information.
+     */
+	@Override
+	public Shift getShiftByID(int id) throws Exception {
+		getShiftFromShiftID.setInt(1, id);
+		Shift shift = null;
+		
+		try(ResultSet rs = dbConnection.getResultSetWithPS(findShiftsFromTaskID)){
+			shift= createShiftFromResultSet(rs);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return shift;
+	}
 
 }
