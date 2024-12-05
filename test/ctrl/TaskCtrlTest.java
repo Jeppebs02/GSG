@@ -17,6 +17,9 @@ import model.Shift;
 import model.Task;
 
 class TaskCtrlTest {
+	private LocalDate date;
+	private LocalDateTime startTime;
+	private LocalDateTime endTime;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -28,15 +31,16 @@ class TaskCtrlTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		LocalDate date = LocalDate.of(2024, 03, 3);
+		LocalDateTime startTime = LocalDateTime.of(2024, 03, 3, 18, 0, 0);
+		LocalDateTime endTime = LocalDateTime.of(2024, 03, 3, 23, 0, 0);
 	}
 
 	@Test
 	void testCreateTask() throws Exception {
 		//Arrange
 		TaskCtrl tc = new TaskCtrl();
-		LocalDate date = LocalDate.of(2024, 03, 3);
-		LocalDateTime StartTime = LocalDateTime.of(2024, 03, 3, 18, 0, 0);
-		LocalDateTime EndTime = LocalDateTime.of(2024, 03, 3, 23, 0, 0);
+
 		
 		//Act
 		tc.createTask(date, "ZWEI", "Aalborg", 2);

@@ -43,7 +43,7 @@ class ShiftCtrlTest {
 		EmployeeDB eDB = new EmployeeDB();
 		e = eDB.findEmployeeByUserID(1);
 		// Set test TastID
-		taskID = 1;
+		taskID = 20;
 	}
 
 	@AfterEach
@@ -53,7 +53,45 @@ class ShiftCtrlTest {
 	}
 
 	@Test
-	void test() throws Exception {
+	void testCreateShift() throws Exception {
+		//Arrange
+		sc = new ShiftCtrl();
+		
+		//Act
+		sc.createShift(startTime, endTime);
+		
+		//Assert
+		assertEquals(20, sc.getCurrentShift().getShiftID());
+	}
+	
+	@Test
+	void testAddEmployeeToShift() throws Exception {
+		//Arrange
+		sc = new ShiftCtrl();
+		
+		//Act
+		sc.createShift(startTime, endTime);
+		sc.addEmployeeToShift(e);
+		
+		//Assert
+		assertEquals("FirstName", sc.getCurrentShift().getEmployee().getFirstName());
+	}
+	
+	@Test
+	void testFindShiftByShiftID() throws Exception{
+		//Arrange
+		sc = new ShiftCtrl();
+		Shift testShift = new Shift(null, null);
+	
+		//Act
+		testShift = sc.findShiftByShiftID(20);
+		
+		//Assert
+		assertEquals(20, testShift.getShiftID());
+	}
+
+	@Test
+	void testSaveShift() throws Exception {
 		//Arrange
 		sc = new ShiftCtrl();
 		
@@ -61,8 +99,8 @@ class ShiftCtrlTest {
 		sc.createShift(startTime, endTime);
 		sc.saveShift(taskID);
 		sc.addEmployeeToShift(e);
+		
 		//Assert
-		assertNotNull(sc.getCurrentShift());
+		assertEquals(20, sc.findShiftByShiftID(taskID).getShiftID());
 	}
-
 }
