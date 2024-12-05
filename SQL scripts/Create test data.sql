@@ -81,6 +81,66 @@ VALUES
 (19, 9), -- Alexander Turner is linked to Esbjerg Shipping Co.
 (20, 10); -- Charlotte Phillips is linked to Fredericia Foods
 
+go
+
+INSERT INTO dbo.Employee (CPR, SecurityClearance, AccountNr, Certification, RegistrationNr, Department)
+VALUES
+('010101-1234', 'Confidential', 'ACC001', 'First Aid', 'REG001', 'Human Resources'),
+('020202-2345', 'Secret', 'ACC002', 'CPR Certification', 'REG002', 'IT Support'),
+('030303-3456', 'Top Secret', 'ACC003', 'Project Management', 'REG003', 'Operations'),
+('040404-4567', 'Confidential', 'ACC004', 'Safety Training', 'REG004', 'Logistics'),
+('050505-5678', 'Secret', 'ACC005', 'Data Security', 'REG005', 'Cybersecurity'),
+('060606-6789', 'Confidential', 'ACC006', 'Customer Relations', 'REG006', 'Customer Service'),
+('070707-7890', 'Secret', 'ACC007', 'Leadership Development', 'REG007', 'Management'),
+('080808-8901', 'Top Secret', 'ACC008', 'Software Development', 'REG008', 'Engineering'),
+('090909-9012', 'Confidential', 'ACC009', 'Legal Compliance', 'REG009', 'Legal'),
+('101010-0123', 'Secret', 'ACC010', 'Accounting Practices', 'REG010', 'Finance');
+
 
 go
 
+
+INSERT INTO dbo.EmployeeUser (User_ID, Employee_ID)
+VALUES
+(1, 1), -- User 1 linked to Employee 1
+(2, 2), -- User 2 linked to Employee 2
+(3, 3), -- User 3 linked to Employee 3
+(4, 4), -- User 4 linked to Employee 4
+(5, 5), -- User 5 linked to Employee 5
+(6, 6), -- User 6 linked to Employee 6
+(7, 7), -- User 7 linked to Employee 7
+(8, 8), -- User 8 linked to Employee 8
+(9, 9), -- User 9 linked to Employee 9
+(10, 10); -- User 10 linked to Employee 10
+
+go
+
+INSERT INTO dbo.Task (Description, Location, Approval, Date, User_ID)
+VALUES
+('Supervise event security at concert', 'Copenhagen', 1, '2024-12-06', 11), -- Assigned to User_ID 11
+('Escort VIP client to meeting', 'Aarhus', 0, '2024-12-07', 12),             -- Assigned to User_ID 12
+('Monitor CCTV and secure premises', 'Odense', 1, '2024-12-08', 13),        -- Assigned to User_ID 13
+('Conduct security risk assessment', 'Roskilde', 0, '2024-12-09', 14),      -- Assigned to User_ID 14
+('Coordinate bouncer schedules for nightclub', 'Vejle', 1, '2024-12-10', 15); -- Assigned to User_ID 15
+
+go
+
+INSERT INTO dbo.Report (RejectionAge, RejectionAttitude, RejectionAlternative, AlternativeRemarks, EmployeeSignature, CustomerSignature, Task_ID)
+VALUES
+(5, 2, 1, 'Additional guards were arranged for underage attendees.', 'Signed', 'Signed', 1), -- Based on Task_ID 1
+(0, 1, 3, 'VIP client delayed due to unforeseen traffic. Protocol adjusted.', 'Signed', 'Not Signed', 2), -- Based on Task_ID 2
+(0, 0, 4, 'Camera blind spots resolved. Enhanced monitoring coverage.', 'Signed', 'Signed', 3), -- Based on Task_ID 3
+(1, 0, 0, 'Risk assessment completed successfully. No issues identified.', 'Signed', 'Signed', 4), -- Based on Task_ID 4
+(2, 3, 0, 'Unruly attendees managed. Additional bouncers deployed at entry.', 'Signed', 'Signed', 5); -- Based on Task_ID 5
+
+go
+
+INSERT INTO dbo.Shift (StartTime, EndTime, Employee_ID, Task_ID)
+VALUES
+('2024-12-06 08:00:00', '2024-12-06 16:00:00', 1, 1), -- Employee 1 for Task 1
+('2024-12-07 10:00:00', '2024-12-07 18:00:00', 2, 2), -- Employee 2 for Task 2
+('2024-12-08 09:00:00', '2024-12-08 17:00:00', 3, 3), -- Employee 3 for Task 3
+('2024-12-09 12:00:00', '2024-12-09 20:00:00', 4, 4), -- Employee 4 for Task 4
+('2024-12-10 15:00:00', '2024-12-10 23:00:00', 5, 5); -- Employee 5 for Task 5
+
+go
