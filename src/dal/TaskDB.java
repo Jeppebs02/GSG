@@ -164,6 +164,7 @@ public class TaskDB implements TaskDBIF {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		return task;
 	}
 
