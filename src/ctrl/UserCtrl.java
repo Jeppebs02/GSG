@@ -41,5 +41,4 @@ public class UserCtrl {
         Employee e = empDB.findEmployeeByUserID(userID);
         return e;
     }
-
 }

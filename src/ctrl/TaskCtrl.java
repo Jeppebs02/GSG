@@ -146,4 +146,10 @@ public class TaskCtrl {
     public List<Task> findAllTasks(int year, String month) throws Exception {
         return tb.findAllTasksFromDB(year, month);
     }
+    
+    public Task findTaskByID(int taskID) throws Exception {
+    	TaskDB taskDB = new TaskDB();
+    	Task t = taskDB.getTaskByID(taskID);
+    	return t;
+    }
 }

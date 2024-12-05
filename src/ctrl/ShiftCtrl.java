@@ -75,4 +75,10 @@ public class ShiftCtrl {
         }
         return this.currentShift;
     }
+    
+    public Shift findShiftByShiftID(int shiftID) throws Exception {
+    	ShiftDB shiftDB = new ShiftDB();
+    	Shift s = shiftDB.getShiftByID(shiftID);
+    	return s;
+    }
 }
