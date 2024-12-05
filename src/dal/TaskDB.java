@@ -74,25 +74,23 @@ public class TaskDB implements TaskDBIF {
 	@Override
 	public List<Task> findAllTasksFromDB(int year, String month) throws Exception {
 		ArrayList<Task> tasks = new ArrayList<>();
-		
+
 		try {
 			findAllTasks = connection.prepareStatement(find_all_tasks_per_month);
 			findAllTasks.setInt(1, year);
-			findAllTasks.setInt(2, getMonthInt(month));
-			
-			
+			findAllTasks.setInt(2, java.time.Month.valueOf(month).getValue());
+
 			ResultSet rs = dbConnection.getResultSetWithPS(findAllTasks);
-			
-				while(rs.next()) {
-					tasks.add(createTaskFromResultSet(rs));
-				} 
-			} catch (Exception e) {
-				e.printStackTrace();
+
+			while (rs.next()) {
+				tasks.add(createTaskFromResultSet(rs));
 			}
-			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return tasks;
-		
-		
+
 	}
 
 	public Task createTaskFromResultSet(ResultSet rs) throws SQLException {
@@ -108,34 +106,5 @@ public class TaskDB implements TaskDBIF {
 		Task task = new Task(date, description, location, u);
 		return task;
 	}
-	
-	public int getMonthInt(String month) {
-		int i = 0;
-		if (month.equalsIgnoreCase("JANUARY")){
-			i = 1;
-		} if (month.equalsIgnoreCase("FEBRUARY")){
-			i = 2;
-		} if (month.equalsIgnoreCase("MARCH")){
-			i = 3; 
-		} if (month.equalsIgnoreCase("APRIL")){
-			i = 4; 
-		} if (month.equalsIgnoreCase("MAY")){
-			i = 5; 
-		} if (month.equalsIgnoreCase("JUNE")){
-			i = 6; 
-		} if (month.equalsIgnoreCase("JULY")){
-			i = 7; 
-		} if (month.equalsIgnoreCase("AUGUST")){
-			i = 8; 
-		} if (month.equalsIgnoreCase("SEPTEMBER")){
-			i = 9; 
-		} if (month.equalsIgnoreCase("OCTOBER")){
-			i = 10; 
-		} if (month.equalsIgnoreCase("NOVEMBER")){
-			i = 11; 
-		} if (month.equalsIgnoreCase("DECEMBER")){
-			i = 12; 
-		}
-		return i;
-	}
+
 }
