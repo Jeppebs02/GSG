@@ -65,28 +65,20 @@ public class TaskDB implements TaskDBIF {
         int taskID = 0;
         LocalDate date = task.getDate();
         LocalDateTime localDateTime = date.atStartOfDay();
+        
+        // Set parameters for the insert statement
+        insertTask.setString(1, task.getDescription());
+        insertTask.setString(2, task.getLocation());
+        insertTask.setBoolean(3, task.isApproval());
+        insertTask.setTimestamp(4, Timestamp.valueOf(localDateTime));
+        insertTask.setInt(5, task.getUser().getUserID());
 
         try {
-            // Start transaction
-            DBConnection.getInstance().startTransaction();
-
-            // Set parameters for the insert statement
-            insertTask.setString(1, task.getDescription());
-            insertTask.setString(2, task.getLocation());
-            insertTask.setBoolean(3, task.isApproval());
-            insertTask.setTimestamp(4, Timestamp.valueOf(localDateTime));
-            insertTask.setInt(5, task.getUser().getUserID());
-
             // Execute and retrieve generated key
-            taskID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertTask);
+            taskID = dbConnection.getInstance().executeSqlInsertWithIdentityPS(insertTask);
             task.setTaskID(taskID);
-
-            // Commit transaction
-            DBConnection.getInstance().commitTransaction();
         } catch (SQLException e) {
-            // Rollback on error
-            DBConnection.getInstance().rollbackTransaction();
-            throw new DataAccessException("Could not save Task to DB", e);
+            e.printStackTrace();
         }
 
         return task;
