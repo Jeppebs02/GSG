@@ -7,6 +7,7 @@ import java.util.List;
 import model.Shift;
 
 public interface ShiftDBIF {
+	
 
 	Shift saveShiftWithEmployee(Shift shift, int taskID) throws Exception;
 	
@@ -15,4 +16,6 @@ public interface ShiftDBIF {
 	Shift saveShift(Shift shift, int taskID) throws Exception;
 	
 	List<Shift> findAllShiftsByTaskIDFromDB(int taskID) throws SQLException;
+	
+	Shift createShiftFromResultSet(ResultSet rs) throws Exception;
 }

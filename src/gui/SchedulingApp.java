@@ -16,6 +16,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * The SchedulingApp class provides a graphical user interface for managing and scheduling tasks.
+ * 
+ * <p>This application displays a calendar, allowing the user to:
+ * <ul>
+ *   <li>View tasks scheduled on each day of a selected month and year.</li>
+ *   <li>Create new tasks for specific dates using an AddTaskDialog.</li>
+ *   <li>View all tasks for a particular date using a popup menu.</li>
+ * </ul>
+ * 
+ * <p>Cells in the calendar are color-coded to indicate whether there are tasks on a given day. 
+ * Hovering over a cell highlights it, and right-clicking shows a context menu for quick actions.</p>
+ */
 public class SchedulingApp {
     private JFrame frame;
     private JTable calendarTable;
@@ -37,7 +50,9 @@ public class SchedulingApp {
 
     /**
      * Main entry point of the application.
-     * Sets the Look & Feel and opens the main window.
+     * Sets the Look & Feel and opens the main window on the Event Dispatch Thread.
+     *
+     * @param args command-line arguments (not used).
      */
     public static void main(String[] args) {
         // Use Nimbus Look and Feel if available
@@ -55,7 +70,6 @@ public class SchedulingApp {
             } catch (Exception ignored) {}
         }
 
-        // Launch the application on the Swing Event Dispatch Thread (EDT)
         SwingUtilities.invokeLater(() -> {
             try {
                 SchedulingApp window = new SchedulingApp();
@@ -67,8 +81,10 @@ public class SchedulingApp {
     }
 
     /**
-     * Constructor for SchedulingApp.
-     * Initializes current date and task map, then calls initialize() to set up the UI.
+     * Constructs a SchedulingApp instance.
+     * Initializes the current date and a map for tasks, then calls {@link #initialize()} to set up the UI.
+     * 
+     * @throws Exception if an error occurs during initialization.
      */
     public SchedulingApp() throws Exception {
         currentDate = LocalDate.now();
@@ -79,6 +95,8 @@ public class SchedulingApp {
     /**
      * Initializes the GUI components and sets up the main frame, panels, controls, and table.
      * Also sets a timer to refresh the view every 5 seconds.
+     * 
+     * @throws Exception if an error occurs during the calendar view initialization.
      */
     private void initialize() throws Exception {
         frame = new JFrame("Skemalægningsprogram");
@@ -94,7 +112,8 @@ public class SchedulingApp {
         topPanel.add(lblTitle, BorderLayout.NORTH);
 
         JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
-        // Year and month selectors
+
+        // Year selector
         yearSelector = new JComboBox<>(getYearRange());
         yearSelector.setSelectedItem(currentDate.getYear());
         yearSelector.addActionListener(e -> {
@@ -105,6 +124,7 @@ public class SchedulingApp {
             }
         });
 
+        // Month selector
         monthSelector = new JComboBox<>(getMonths());
         monthSelector.setSelectedItem(currentDate.getMonth().toString());
         monthSelector.addActionListener(e -> {
@@ -133,8 +153,7 @@ public class SchedulingApp {
         calendarTable.setRowHeight(90);
         calendarTable.setCellSelectionEnabled(true);
 
-        // Mouse listeners for the calendar table
-        // Allows interaction with calendar cells via clicks
+        // Set up mouse listeners for interaction with calendar cells
         calendarTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -160,7 +179,6 @@ public class SchedulingApp {
 
             @Override
             public void mousePressed(MouseEvent evt) {
-                // On some platforms, popup trigger might be on press
                 if (evt.isPopupTrigger()) {
                     int row = calendarTable.rowAtPoint(evt.getPoint());
                     int col = calendarTable.columnAtPoint(evt.getPoint());
@@ -172,7 +190,6 @@ public class SchedulingApp {
 
             @Override
             public void mouseReleased(MouseEvent evt) {
-                // On other platforms, popup trigger might be on release
                 if (evt.isPopupTrigger()) {
                     int row = calendarTable.rowAtPoint(evt.getPoint());
                     int col = calendarTable.columnAtPoint(evt.getPoint());
@@ -183,8 +200,7 @@ public class SchedulingApp {
             }
         });
 
-        // Mouse motion listener to track which cell is hovered
-        // Used for hover highlighting
+        // Mouse motion listener for hover effect
         calendarTable.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
@@ -203,8 +219,6 @@ public class SchedulingApp {
         frame.add(scrollPane, BorderLayout.CENTER);
 
         setupCellPopup();
-
-        // Initial load of the calendar view
         updateCalendarView();
 
         // Automatically refresh the calendar view every 5 seconds
@@ -218,7 +232,11 @@ public class SchedulingApp {
     }
 
     /**
-     * Checks if a given row/column refers to a valid calendar cell (with a date).
+     * Checks if a given row/column refers to a valid calendar cell (one that contains a LocalDate).
+     * 
+     * @param row the table row index.
+     * @param col the table column index.
+     * @return true if the cell is valid and contains a date, false otherwise.
      */
     private boolean isValidDateCell(int row, int col) {
         return row >= 0 && col >= 0 && calendarDates != null
@@ -227,7 +245,8 @@ public class SchedulingApp {
     }
 
     /**
-     * Sets up the right-click popup menu for calendar cells (Create Task, Show All Tasks).
+     * Sets up the right-click popup menu for calendar cells, providing options to create a task 
+     * or show all tasks for the selected date.
      */
     private void setupCellPopup() {
         cellPopup = new JPopupMenu();
@@ -257,7 +276,11 @@ public class SchedulingApp {
     }
 
     /**
-     * Shows the popup menu at the given event location, for the given cell coordinates.
+     * Shows the popup menu at the given event location for the specified cell coordinates.
+     *
+     * @param evt the MouseEvent that triggered the popup.
+     * @param row the row index of the cell.
+     * @param col the column index of the cell.
      */
     private void showCellPopup(MouseEvent evt, int row, int col) {
         hoveredRow = row;
@@ -266,7 +289,9 @@ public class SchedulingApp {
     }
 
     /**
-     * Updates the entire calendar view (recalculates dates, fetches tasks) based on selected year/month.
+     * Updates the entire calendar view based on the selected year and month in the combo boxes.
+     * 
+     * @throws Exception if an error occurs during the update.
      */
     private void updateCalendarView() throws Exception {
         int year = (int) yearSelector.getSelectedItem();
@@ -276,21 +301,21 @@ public class SchedulingApp {
     }
 
     /**
-     * Renders the month view in the table:
-     * - Calculates which LocalDate should appear in each cell
-     * - Updates the table model to show day numbers
-     * - Initiates background fetching of tasks for the displayed month
+     * Renders the month view in the table for a given date. It calculates the LocalDate 
+     * for each cell and displays the day of the month. Non-month days are grayed out.
+     * 
+     * @param date the LocalDate representing the first of the month to display.
+     * @throws Exception if an error occurs while rendering or fetching tasks.
      */
     private void renderMonthView(LocalDate date) throws Exception {
         String[] columnNames = {"Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"};
         calendarDates = new LocalDate[6][7];
         DefaultTableModel model = new DefaultTableModel(6, 7);
 
-        // Find the first day to display: Monday of the first week containing the 1st of the month
+        // Calculate the first Monday to display
         LocalDate startOfMonth = date.withDayOfMonth(1);
         LocalDate firstDayToDisplay = startOfMonth.minusDays((startOfMonth.getDayOfWeek().getValue() + 6) % 7);
 
-        // Fill the table model with the day numbers and store the LocalDate in calendarDates
         int dayCounter = 0;
         for (int r = 0; r < 6; r++) {
             for (int c = 0; c < 7; c++) {
@@ -315,11 +340,13 @@ public class SchedulingApp {
     }
 
     /**
-     * Initiates a background thread (SwingWorker) to fetch tasks for the given month.
-     * Once done, it calls updateCellRendering() to apply task highlights.
+     * Fetches tasks for the given month in a background thread.
+     * When done, updates cell rendering to highlight days with tasks.
+     * 
+     * @param date the LocalDate representing the month to fetch tasks for.
      */
     private void fetchTasksInBackground(LocalDate date) {
-        SwingWorker<List<Task>, Void> worker = new SwingWorker<List<Task>, Void>() {
+        SwingWorker<List<Task>, Void> worker = new SwingWorker<>() {
             @Override
             protected List<Task> doInBackground() throws Exception {
                 TaskCtrl tc = new TaskCtrl();
@@ -340,10 +367,11 @@ public class SchedulingApp {
     }
 
     /**
-     * Updates the cell rendering after tasks are loaded:
-     * - Highlights cells that have tasks
-     * - Grays out cells not in the selected month
-     * - Applies hover and selection colors
+     * Updates the cell rendering after tasks are loaded.
+     * Highlights cells that have tasks, grays out days not in the current month, 
+     * and applies hover and selection colors.
+     * 
+     * @param date the LocalDate representing the currently displayed month.
      */
     private void updateCellRendering(LocalDate date) {
         calendarTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -357,9 +385,9 @@ public class SchedulingApp {
 
                 LocalDate cellDate = calendarDates[row][column];
 
-                // Default background color depends on selection
+                // Default background color
                 if (isSelected) {
-                    cell.setBackground(new Color(173, 216, 230));
+                    cell.setBackground(new Color(173, 216, 230)); // Selected color
                 } else {
                     cell.setBackground(Color.WHITE);
                 }
@@ -389,8 +417,12 @@ public class SchedulingApp {
     }
 
     /**
-     * Called when a valid calendar cell is clicked.
-     * Opens the Add Task dialog for the selected date.
+     * Called when a valid calendar cell is clicked with the left mouse button.
+     * Opens the AddTaskDialog for the selected date.
+     * 
+     * @param row the row index of the clicked cell.
+     * @param col the column index of the clicked cell.
+     * @throws SQLException if a database error occurs while opening the dialog.
      */
     private void handleCalendarClick(int row, int col) throws SQLException {
         if (isValidDateCell(row, col)) {
@@ -400,7 +432,11 @@ public class SchedulingApp {
     }
 
     /**
-     * Opens the Add Task dialog for a specific date, allowing the user to add new tasks.
+     * Opens the AddTaskDialog for a specific date.
+     * The dialog allows the user to create a new task on the selected date.
+     * 
+     * @param date the LocalDate on which to create a new task.
+     * @throws SQLException if a database access error occurs.
      */
     private void openAddTaskDialog(LocalDate date) throws SQLException {
         AddTaskDialog dialog = new AddTaskDialog(date, taskMap);
@@ -409,6 +445,8 @@ public class SchedulingApp {
 
     /**
      * Shows all tasks for a specific date in a message dialog.
+     * 
+     * @param date the LocalDate for which to display all tasks.
      */
     private void showAllTasksForDate(LocalDate date) {
         List<Task> tasksForDate = tasks.stream()
@@ -428,7 +466,9 @@ public class SchedulingApp {
 
     /**
      * Returns an array of Integers representing the year range for selection.
-     * In this case, 10 years before current year and 9 years after.
+     * The range is 10 years before the current year to 9 years after.
+     *
+     * @return an Integer array of years.
      */
     private Integer[] getYearRange() {
         int currentYear = LocalDate.now().getYear();
@@ -441,6 +481,8 @@ public class SchedulingApp {
 
     /**
      * Returns an array of month names (in uppercase English) for selection.
+     *
+     * @return a String array of month names.
      */
     private String[] getMonths() {
         return new String[]{
@@ -451,6 +493,9 @@ public class SchedulingApp {
 
     /**
      * Converts a month name (like "JANUARY") to its integer value (1-12).
+     *
+     * @param monthName the name of the month in uppercase English.
+     * @return the integer month value (1-12).
      */
     private int getMonthIndex(String monthName) {
         return java.time.Month.valueOf(monthName).getValue();

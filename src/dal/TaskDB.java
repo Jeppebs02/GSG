@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.Statement; 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,96 +15,141 @@ import java.util.List;
 import model.Task;
 import model.User;
 
+/**
+ * The TaskDB class manages database operations related to {@link Task} entities,
+ * including inserting tasks into the database and retrieving them by month and year.
+ */
 public class TaskDB implements TaskDBIF {
 
-	private Connection connection;
+    private Connection connection;
 
-	private static final String insert_task = "INSERT INTO [Task] (Description, Location, Approval, Date, User_ID) VALUES (?, ?, ?, ?, ?);";
-	private static final String find_all_tasks_per_month = "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE YEAR(Date) = ? AND MONTH(Date) = ?;";
+    // SQL queries
+    private static final String insert_task = 
+        "INSERT INTO [Task] (Description, Location, Approval, Date, User_ID) VALUES (?, ?, ?, ?, ?);";
+    private static final String find_all_tasks_per_month = 
+        "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE YEAR(Date) = ? AND MONTH(Date) = ?;";
 
-	private PreparedStatement insertTask;
-	private PreparedStatement findAllTasks;
+    private PreparedStatement insertTask;
+    private PreparedStatement findAllTasks;
 
-	private DBConnection dbConnection;
+    private DBConnection dbConnection;
 
-	public TaskDB() throws SQLException {
-		dbConnection = DBConnection.getInstance();
-		connection = DBConnection.getInstance().getConnection();
+    /**
+     * Constructs a TaskDB object, initializes the database connection, and prepares 
+     * the SQL statements for inserting tasks and finding tasks by year and month.
+     * 
+     * @throws SQLException if a database access error occurs or if the prepared statements cannot be created.
+     */
+    public TaskDB() throws SQLException {
+        dbConnection = DBConnection.getInstance();
+        connection = DBConnection.getInstance().getConnection();
 
-		insertTask = connection.prepareStatement(insert_task, Statement.RETURN_GENERATED_KEYS);
+        insertTask = connection.prepareStatement(insert_task, Statement.RETURN_GENERATED_KEYS);
+        findAllTasks = connection.prepareStatement(find_all_tasks_per_month);
+    }
 
-		findAllTasks = connection.prepareStatement(find_all_tasks_per_month);
-	}
+    /**
+     * Saves the given {@link Task} to the database.
+     * 
+     * <p>This method starts a transaction, inserts a new Task record into the database, 
+     * retrieves the generated task ID, sets it on the {@link Task} object, and commits the transaction. 
+     * If an error occurs, it rolls back the transaction and throws a {@link DataAccessException}.</p>
+     * 
+     * @param task the Task object to be saved.
+     * @return the saved Task with its generated task ID set.
+     * @throws Exception if an error occurs during the insert operation.
+     */
+    @Override
+    public Task saveTask(Task task) throws Exception {
+        int taskID = 0;
+        LocalDate date = task.getDate();
+        LocalDateTime localDateTime = date.atStartOfDay();
 
-	@Override
-	public Task saveTask(Task task) throws Exception {
-		int taskID = 0;
+        try {
+            // Start transaction
+            DBConnection.getInstance().startTransaction();
 
-		LocalDate date = task.getDate();
-		LocalDateTime localDateTime = date.atStartOfDay();
+            // Set parameters for the insert statement
+            insertTask.setString(1, task.getDescription());
+            insertTask.setString(2, task.getLocation());
+            insertTask.setBoolean(3, task.isApproval());
+            insertTask.setTimestamp(4, Timestamp.valueOf(localDateTime));
+            insertTask.setInt(5, task.getUser().getUserID());
 
-		try {
-			// Start transaction
-			DBConnection.getInstance().startTransaction();
+            // Execute and retrieve generated key
+            taskID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertTask);
+            task.setTaskID(taskID);
 
-			// Set values
-			insertTask.setString(1, task.getDescription());
-			insertTask.setString(2, task.getLocation());
-			insertTask.setBoolean(3, task.isApproval());
-			insertTask.setTimestamp(4, Timestamp.valueOf(localDateTime));
-			insertTask.setInt(5, task.getUser().getUserID());
+            // Commit transaction
+            DBConnection.getInstance().commitTransaction();
+        } catch (SQLException e) {
+            // Rollback on error
+            DBConnection.getInstance().rollbackTransaction();
+            throw new DataAccessException("Could not save Task to DB", e);
+        }
 
-			// Execute insert and get generated key
-			taskID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertTask);
+        return task;
+    }
 
-			// Set the generated ShiftID in the Shift object
-			task.setTaskID(taskID);
+    /**
+     * Retrieves all tasks from the database that fall within a specified month and year.
+     * 
+     * <p>This method prepares a SELECT query using the given year and month, executes it, 
+     * and constructs a list of {@link Task} objects from the result set.</p>
+     * 
+     * @param year  the year to filter tasks by.
+     * @param month the month name (e.g. "JANUARY", "FEBRUARY") to filter tasks by.
+     * @return a list of Task objects matching the specified year and month.
+     * @throws Exception if a database access error occurs or if processing the result set fails.
+     */
+    @Override
+    public List<Task> findAllTasksFromDB(int year, String month) throws Exception {
+        ArrayList<Task> tasks = new ArrayList<>();
 
-			// Commit transaction
-			DBConnection.getInstance().commitTransaction();
-		} catch (SQLException e) {
-			// Rollback transaction in case of error
-			DBConnection.getInstance().rollbackTransaction();
-			throw new DataAccessException("Could not save Task to DB", e);
-		}
+        try {
+            findAllTasks = connection.prepareStatement(find_all_tasks_per_month);
+            findAllTasks.setInt(1, year);
+            findAllTasks.setInt(2, java.time.Month.valueOf(month).getValue());
 
-		return task;
-	}
+            ResultSet rs = dbConnection.getResultSetWithPS(findAllTasks);
 
-	@Override
-	public List<Task> findAllTasksFromDB(int year, String month) throws Exception {
-		ArrayList<Task> tasks = new ArrayList<>();
+            while (rs.next()) {
+                tasks.add(createTaskFromResultSet(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		try {
-			findAllTasks = connection.prepareStatement(find_all_tasks_per_month);
-			findAllTasks.setInt(1, year);
-			findAllTasks.setInt(2, java.time.Month.valueOf(month).getValue());
+        return tasks;
+    }
 
-			ResultSet rs = dbConnection.getResultSetWithPS(findAllTasks);
+    /**
+     * Creates a Task object from the current row of the given {@link ResultSet}.
+     * 
+     * <p>This method extracts Task data from the result set, 
+     * creates a new Task object, and retrieves the associated {@link User} object 
+     * using the {@link UserDB} class.</p>
+     * 
+     * @param rs the ResultSet from which to create the Task.
+     * @return a newly created Task populated with data from the result set.
+     * @throws SQLException if there is an error accessing the result set data.
+     */
+    @Override
+    public Task createTaskFromResultSet(ResultSet rs) throws SQLException {
+        int taskID = rs.getInt("Task_ID");
+        String description = rs.getString("Description");
+        String location = rs.getString("Location");
+        String approval = rs.getString("Approval");
+        LocalDate date = rs.getDate("Date").toLocalDate();
+        int userID = rs.getInt("User_ID");
 
-			while (rs.next()) {
-				tasks.add(createTaskFromResultSet(rs));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        UserDB udb = new UserDB();
+        User u = udb.findCustomerByUserID(userID);
 
-		return tasks;
+        Task task = new Task(date, description, location, u);
+        task.setTaskID(taskID);
 
-	}
-
-	public Task createTaskFromResultSet(ResultSet rs) throws SQLException {
-		int taskID = rs.getInt("Task_ID");
-		String description = rs.getString("Description");
-		String location = rs.getString("Location");
-		String approval = rs.getString("Approval");
-		LocalDate date = rs.getDate("Date").toLocalDate();
-		int userID = rs.getInt("User_ID");
-
-		UserDB udb = new UserDB();
-		User u = udb.findCustomerByUserID(userID);
-		Task task = new Task(date, description, location, u);
-		return task;
-	}
+        return task;
+    }
 
 }

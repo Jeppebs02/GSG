@@ -14,124 +14,144 @@ import javax.swing.table.DefaultTableModel;
 import ctrl.TaskCtrl;
 import model.Shift;
 
+/**
+ * The AddShiftDialog class provides a GUI dialog for adding a new shift to a task.
+ * 
+ * <p>This dialog allows the user to input a start time, end time, and employee ID, and then
+ * saves the shift to the database through the {@link TaskCtrl} class.</p>
+ */
 public class AddShiftDialog extends JDialog {
-	private JTextField txtStartTime;
-	private JTextField txtEndTime;
-	private JTextField txtEmployee;
-	private JTable shiftsTable;
-	private TaskCtrl tc;
+    private JTextField txtStartTime;
+    private JTextField txtEndTime;
+    private JTextField txtEmployee;
+    private JTable shiftsTable;
+    private TaskCtrl tc;
 
-	public AddShiftDialog(JTable shiftsTable, LocalDate date, TaskCtrl tc) {
-		this.tc = tc;
-		this.shiftsTable = shiftsTable;
-		setTitle("Tilføj Vagt");
-		setBounds(100, 100, 400, 300);
-		setLayout(null);
-		setModal(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    /**
+     * Constructs an AddShiftDialog with references to a JTable for displaying shifts, 
+     * a specified date for the shift, and a {@link TaskCtrl} instance for managing tasks.
+     * 
+     * @param shiftsTable the JTable where the shift information will be displayed
+     * @param date the LocalDate representing the date of the shift
+     * @param tc the TaskCtrl instance used to manage and persist the shift data
+     */
+    public AddShiftDialog(JTable shiftsTable, LocalDate date, TaskCtrl tc) {
+        this.tc = tc;
+        this.shiftsTable = shiftsTable;
+        setTitle("Tilføj Vagt");
+        setBounds(100, 100, 400, 300);
+        setLayout(null);
+        setModal(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-		JLabel lblStartTime = new JLabel("Starttid:");
-		lblStartTime.setBounds(20, 20, 100, 25);
-		add(lblStartTime);
+        JLabel lblStartTime = new JLabel("Starttid:");
+        lblStartTime.setBounds(20, 20, 100, 25);
+        add(lblStartTime);
 
-		txtStartTime = new JTextField();
-		txtStartTime.setBounds(130, 20, 200, 25);
-		add(txtStartTime);
+        txtStartTime = new JTextField();
+        txtStartTime.setBounds(130, 20, 200, 25);
+        add(txtStartTime);
 
-		JLabel lblEndTime = new JLabel("Sluttid:");
-		lblEndTime.setBounds(20, 60, 100, 25);
-		add(lblEndTime);
+        JLabel lblEndTime = new JLabel("Sluttid:");
+        lblEndTime.setBounds(20, 60, 100, 25);
+        add(lblEndTime);
 
-		txtEndTime = new JTextField();
-		txtEndTime.setBounds(130, 60, 200, 25);
-		add(txtEndTime);
+        txtEndTime = new JTextField();
+        txtEndTime.setBounds(130, 60, 200, 25);
+        add(txtEndTime);
 
-		JLabel lblEmployee = new JLabel("Medarbejder:");
-		lblEmployee.setBounds(20, 100, 100, 25);
-		add(lblEmployee);
+        JLabel lblEmployee = new JLabel("Medarbejder:");
+        lblEmployee.setBounds(20, 100, 100, 25);
+        add(lblEmployee);
 
-		txtEmployee = new JTextField();
-		txtEmployee.setBounds(130, 100, 200, 25);
-		add(txtEmployee);
+        txtEmployee = new JTextField();
+        txtEmployee.setBounds(130, 100, 200, 25);
+        add(txtEmployee);
 
-		JButton btnAdd = new JButton("Tilføj");
-		btnAdd.setBounds(130, 150, 100, 30);
-		btnAdd.addActionListener(e -> {
+        JButton btnAdd = new JButton("Tilføj");
+        btnAdd.setBounds(130, 150, 100, 30);
+        btnAdd.addActionListener(e -> {
+            try {
+                saveShift(date);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+        add(btnAdd);
+    }
 
-			try {
-				saveShift(date);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+    /**
+     * Validates user input, parses the start and end times, parses the employee ID, 
+     * and then uses the {@link TaskCtrl} to add and save the shift to the database.
+     * 
+     * <p>If validation or saving fails, appropriate error messages are shown to the user. 
+     * If successful, the new shift is added to the JTable's model and the dialog is closed.</p>
+     * 
+     * @param date the LocalDate representing the date for the shift
+     */
+    private void saveShift(LocalDate date) {
+        try {
+            // Prepare the time format and regex for validation
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+            String regex = "^([01]\\d|2[0-3]):[0-5]\\d$";
+            Pattern pattern = Pattern.compile(regex);
 
-		});
-		add(btnAdd);
+            // Validate and parse start time
+            String startTime = txtStartTime.getText();
+            Matcher startMatcher = pattern.matcher(startTime);
+            if (!startMatcher.matches()) {
+                throw new IllegalArgumentException("Ugyldigt starttidsformat. Brug formatet HH:mm");
+            }
+            LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
+            LocalDateTime localTimeDate = LocalDateTime.of(date, localTime);
 
-	}
+            // Validate and parse end time
+            String endTime = txtEndTime.getText();
+            Matcher endMatcher = pattern.matcher(endTime);
+            if (!endMatcher.matches()) {
+                throw new IllegalArgumentException("Ugyldigt sluttidsformat. Brug formatet HH:mm");
+            }
+            LocalTime localTimeEnd = LocalTime.parse(endTime, timeFormatter);
+            LocalDateTime localTimeDateEnd = LocalDateTime.of(date, localTimeEnd);
 
-	private void saveShift(LocalDate date) {
-		try {
+            // Check that end time is not before start time
+            if (localTimeDateEnd.isBefore(localTimeDate)) {
+                throw new IllegalArgumentException("Sluttidspunktet er før starttidspunkt. Prøv igen");
+            }
 
-			// Parsing start time
-			String startTime = txtStartTime.getText();
-			DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+            // Create and add the shift to the current task
+            tc.addShift(localTimeDate, localTimeDateEnd);
 
-			// Regular expression to validate time format (HH:mm)
-			String regex = "^([01]\\d|2[0-3]):[0-5]\\d$";
-			Pattern pattern = Pattern.compile(regex);
-			Matcher matcher = pattern.matcher(startTime);
+            // Parse the employee ID
+            String employee = txtEmployee.getText();
+            int employeeId = Integer.parseInt(employee);
 
-			if (!matcher.matches()) {
-				throw new IllegalArgumentException("Ugyldigt starttidsformat. Brug formatet HH:mm");
-			}
+            // Add employee to the shift and save
+            tc.addEmployeeToShift(employeeId);
 
-			LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
-			LocalDateTime localTimeDate = LocalDateTime.of(date, localTime);
+            // If all is successful, update the table and close the dialog
+            DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
+            model.addRow(new Object[] { startTime, endTime, employee });
+            dispose();
+            JOptionPane.showMessageDialog(this, "Vagt gemt: " + startTime + " - " + endTime);
 
-			// Parsing end time
-			String endTime = txtEndTime.getText();
-			Matcher endMatcher = pattern.matcher(endTime);
-
-			if (!endMatcher.matches()) {
-				throw new IllegalArgumentException("Ugyldigt sluttidsformat. Brug formatet HH:mm");
-
-			}
-
-			LocalTime localTimeEnd = LocalTime.parse(endTime, timeFormatter);
-			LocalDateTime localTimeDateEnd = LocalDateTime.of(date, localTimeEnd);
-
-			if (localTimeDateEnd.isBefore(localTimeDate)) {
-				throw new IllegalArgumentException("Sluttidspunktet er før starttidspunkt. Prøv igen");
-
-			}
-
-			// Creating the shift
-			tc.addShift(localTimeDate, localTimeDateEnd);
-
-			// Parsing employee ID
-			String employee = txtEmployee.getText();
-			int employeeId = Integer.parseInt(employee);
-			tc.addEmployeeToShift(employeeId);
-
-			DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
-			model.addRow(new Object[] { startTime, endTime, employee });
-			dispose();
-			JOptionPane.showMessageDialog(this, "Vagt gemt: " + startTime + " - " + endTime);
-		} catch (DateTimeParseException e) {
-			JOptionPane.showMessageDialog(this, "Ugyldigt tidsformat. Brug venligst formatet HH:mm", "Fejl",
-					JOptionPane.ERROR_MESSAGE);
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this, "Medarbejder-ID skal være et gyldigt tal", "Fejl",
-					JOptionPane.ERROR_MESSAGE);
-		} catch (IllegalArgumentException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Fejl", JOptionPane.ERROR_MESSAGE);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Der opstod en fejl ved gemning af vagten", "Fejl",
-					JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-
-		}
-
-	}
+        } catch (DateTimeParseException e) {
+            // Handle invalid time format parsing
+            JOptionPane.showMessageDialog(this, "Ugyldigt tidsformat. Brug venligst formatet HH:mm", "Fejl",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            // Handle invalid employee ID format
+            JOptionPane.showMessageDialog(this, "Medarbejder-ID skal være et gyldigt tal", "Fejl",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            // Handle validation errors
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Fejl", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Handle any other errors, including database issues
+            JOptionPane.showMessageDialog(this, "Der opstod en fejl ved gemning af vagten", "Fejl",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
 
 }
