@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1">
-  <zoom_level>6</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6</x>
-      <y>438</y>
-      <w>270</w>
-      <h>114</h>
+      <x>7</x>
+      <y>434</y>
+      <w>315</w>
+      <h>133</h>
     </coordinates>
-    <panel_attributes>(Optional)operation contract
+    <panel_attributes>Operation contract
 
-Operation: addEmployee(shift:Shift, userID:int)
+Operation: addEmployee(userID:int)
 
 Use case: Create Task
 Precondition: Task t has been created
@@ -26,10 +26,10 @@ Employee e has been assosiated to Shift s
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>330</x>
-      <y>138</y>
-      <w>36</w>
-      <h>66</h>
+      <x>357</x>
+      <y>77</y>
+      <w>42</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>CEO</panel_attributes>
     <additional_attributes/>
@@ -37,10 +37,10 @@ Employee e has been assosiated to Shift s
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>522</x>
-      <y>156</y>
-      <w>60</w>
-      <h>18</h>
+      <x>609</x>
+      <y>105</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:System
 </panel_attributes>
@@ -49,33 +49,33 @@ Employee e has been assosiated to Shift s
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>546</x>
-      <y>168</y>
-      <w>18</w>
-      <h>180</h>
+      <x>637</x>
+      <y>119</y>
+      <w>21</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;280.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;340.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>186</y>
-      <w>18</w>
-      <h>156</h>
+      <x>371</x>
+      <y>119</y>
+      <w>21</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>lt=.
 layer=0</panel_attributes>
-    <additional_attributes>10.0;240.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;340.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>228</y>
-      <w>246</w>
-      <h>24</h>
+      <x>371</x>
+      <y>231</y>
+      <w>287</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>addShift(startTime, expectedEndTime)
 lt=&lt;&lt;&lt;-</panel_attributes>
@@ -84,34 +84,22 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>198</y>
-      <w>246</w>
-      <h>24</h>
+      <x>371</x>
+      <y>154</y>
+      <w>287</w>
+      <h>28</h>
     </coordinates>
-    <panel_attributes>createTask(date, desciption,location, approval, userID)
-lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>318</x>
-      <y>300</y>
-      <w>246</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>saveTask()
+    <panel_attributes>createTask(date, desciption,location, userID)
 lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>408</x>
-      <y>156</y>
-      <w>84</w>
-      <h>18</h>
+      <x>476</x>
+      <y>105</y>
+      <w>98</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>Larman 173-184</panel_attributes>
     <additional_attributes/>
@@ -120,14 +108,14 @@ lt=&lt;&lt;&lt;-</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>144</y>
-      <w>276</w>
-      <h>120</h>
+      <y>91</y>
+      <w>322</w>
+      <h>140</h>
     </coordinates>
-    <panel_attributes>operation contract
+    <panel_attributes>Operation contract
 
-Operation: createTask(date:LocalDateTime, desciption:String,
-location:String, approval:boolean, userID:User)
+Operation: createTask(date:LocalDate, desciption:String,
+location:String, userID:User)
 Use case: Create Task
 Precondition: An instance of Employee e 
 and User u exist in the system. 
@@ -143,11 +131,11 @@ Task t has been created
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>288</y>
-      <w>276</w>
-      <h>126</h>
+      <y>259</y>
+      <w>322</w>
+      <h>147</h>
     </coordinates>
-    <panel_attributes>operation contract
+    <panel_attributes>Operation contract
 
 Operation: addShift(startTime:localDateTime,
 expectedEndTime:localDateTime)
@@ -166,10 +154,10 @@ Shift s has been assosiated to Task t
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>300</x>
-      <y>216</y>
-      <w>282</w>
-      <h>84</h>
+      <x>350</x>
+      <y>210</y>
+      <w>329</w>
+      <h>119</h>
     </coordinates>
     <panel_attributes>Loop (more shifts)
 layer=-1</panel_attributes>
@@ -178,12 +166,12 @@ layer=-1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>318</x>
-      <y>264</y>
-      <w>246</w>
-      <h>24</h>
+      <x>371</x>
+      <y>266</y>
+      <w>287</w>
+      <h>28</h>
     </coordinates>
-    <panel_attributes>addEmployeeToShift(shift, userID)
+    <panel_attributes>addEmployeeToShift(userID)
 lt=&lt;&lt;&lt;-
 layer=2</panel_attributes>
     <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
@@ -191,17 +179,17 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>762</x>
-      <y>282</y>
-      <w>318</w>
-      <h>180</h>
+      <x>889</x>
+      <y>252</y>
+      <w>371</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=-
-1. t = createTask(date:LocalDateTime, desciption:String,
-location:String, approval:boolean, userID:User);Task
+1. t = createTask(date:LocalDate, desciption:String,
+location:String, userID:int);Task
 2. s = addShift(startTime:localDateTime, expectedEndTime:localDateTime); Shift
-3.(alt) addEmployeeToShift(shift:Shift UserID:int)
-4. SaveTask();
+3. addEmployeeToShift(userID:int)
+
 
 </panel_attributes>
     <additional_attributes>10.0;280.0;10.0;10.0</additional_attributes>
@@ -209,10 +197,10 @@ location:String, approval:boolean, userID:User);Task
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>738</x>
-      <y>450</y>
-      <w>60</w>
-      <h>18</h>
+      <x>861</x>
+      <y>448</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:TaskCtrl</panel_attributes>
     <additional_attributes/>
@@ -220,10 +208,10 @@ location:String, approval:boolean, userID:User);Task
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>792</x>
-      <y>630</y>
-      <w>60</w>
-      <h>18</h>
+      <x>924</x>
+      <y>658</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:Task</panel_attributes>
     <additional_attributes/>
@@ -231,10 +219,10 @@ location:String, approval:boolean, userID:User);Task
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>348</x>
-      <y>450</y>
-      <w>60</w>
-      <h>18</h>
+      <x>406</x>
+      <y>448</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:ShiftCtrl</panel_attributes>
     <additional_attributes/>
@@ -242,10 +230,10 @@ location:String, approval:boolean, userID:User);Task
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>672</x>
-      <y>630</y>
-      <w>60</w>
-      <h>18</h>
+      <x>784</x>
+      <y>658</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:TaskDB</panel_attributes>
     <additional_attributes/>
@@ -253,10 +241,10 @@ location:String, approval:boolean, userID:User);Task
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>324</x>
-      <y>630</y>
-      <w>60</w>
-      <h>18</h>
+      <x>378</x>
+      <y>658</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:ShiftDB</panel_attributes>
     <additional_attributes/>
@@ -264,22 +252,22 @@ location:String, approval:boolean, userID:User);Task
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>696</x>
+      <x>812</x>
       <y>462</y>
-      <w>108</w>
-      <h>180</h>
+      <w>168</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-4.1 saveTask(task:Task)</panel_attributes>
+1.3 t = saveTask(task:Task); Task</panel_attributes>
     <additional_attributes>100.0;10.0;100.0;80.0;10.0;80.0;10.0;280.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>762</x>
-      <y>456</y>
-      <w>300</w>
-      <h>186</h>
+      <x>889</x>
+      <y>455</y>
+      <w>308</w>
+      <h>217</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 
@@ -287,8 +275,8 @@ location:String, approval:boolean, userID:User);Task
 
 
 
-1.2 t = &lt;&lt;create&gt;&gt; Task(date:LocalDateTime, desciption:String,
-location:String, approval:boolean, userID:User); Task
+1.2 &lt;&lt;create&gt;&gt; Task(date:LocalDate, desciption:String,
+location:String, userID:User)
 
 
 
@@ -300,24 +288,24 @@ location:String, approval:boolean, userID:User); Task
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>402</x>
-      <y>444</y>
-      <w>348</w>
-      <h>36</h>
+      <x>469</x>
+      <y>441</y>
+      <w>406</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 2.1 s = createShift(startTime:localDateTime, expectedEndTime:localDateTime); Shift
 3.2 addEmployeeToShift(employee:Employee)
-4.2 saveShifts(shift:Shift)</panel_attributes>
+3.3 saveShift(taskID:int)</panel_attributes>
     <additional_attributes>10.0;20.0;560.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>390</x>
+      <x>455</x>
       <y>462</y>
-      <w>192</w>
-      <h>204</h>
+      <w>217</w>
+      <h>238</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 
@@ -325,32 +313,32 @@ location:String, approval:boolean, userID:User); Task
 
 
 
-2.1.1 s = &lt;&lt;create&gt;&gt; Shift(startTime:localDateTime, 
-expectedEndTime:localDateTime); Shift
+2.1.1 &lt;&lt;create&gt;&gt; Shift(startTime:localDateTime, 
+expectedEndTime:localDateTime)
 3.2.1 setEmployee(employee:Employee)</panel_attributes>
     <additional_attributes>210.0;320.0;210.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>792</x>
-      <y>444</y>
-      <w>426</w>
-      <h>36</h>
+      <x>924</x>
+      <y>441</y>
+      <w>497</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-1.1 u = findCustomerByUserID(UserID:int); User
-3.1 e = findEmployeeByUserID( userID:int); Employee
+1.1 u = findCustomerByUserID(userID:int); User
+3.1 e = findEmployeeByUserID(userID:int); Employee
 </panel_attributes>
     <additional_attributes>690.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>480</x>
-      <y>654</y>
-      <w>60</w>
-      <h>18</h>
+      <x>560</x>
+      <y>686</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:Shift</panel_attributes>
     <additional_attributes/>
@@ -358,45 +346,25 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>354</x>
+      <x>413</x>
       <y>462</y>
-      <w>138</w>
-      <h>180</h>
+      <w>217</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 
 
 
-4.3 *[i=1..N] saveShift(shift:Shift)</panel_attributes>
+3.3.1 s = saveShift(shift:Shift, taskID:int); Shift</panel_attributes>
     <additional_attributes>10.0;280.0;10.0;110.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLFrame</id>
-    <coordinates>
-      <x>306</x>
-      <y>252</y>
-      <w>270</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>alt
---
-
--.
-
-
-
-
-
-</panel_attributes>
-    <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1206</x>
-      <y>450</y>
-      <w>60</w>
-      <h>18</h>
+      <x>1407</x>
+      <y>448</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:UserCtrl</panel_attributes>
     <additional_attributes/>
@@ -404,10 +372,10 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1098</x>
-      <y>570</y>
-      <w>60</w>
-      <h>18</h>
+      <x>1281</x>
+      <y>588</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:UserDB</panel_attributes>
     <additional_attributes/>
@@ -415,10 +383,10 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1098</x>
-      <y>768</y>
-      <w>60</w>
-      <h>18</h>
+      <x>1281</x>
+      <y>672</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>User</panel_attributes>
     <additional_attributes/>
@@ -426,36 +394,36 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1074</x>
+      <x>1253</x>
       <y>462</y>
-      <w>198</w>
-      <h>120</h>
+      <w>231</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-1.1.1 u = findCustomerByUserID(UserID:int); User
+1.1.1 u = findCustomerByUserID(userID:int); User
 </panel_attributes>
     <additional_attributes>90.0;180.0;90.0;80.0;260.0;80.0;260.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1122</x>
-      <y>720</y>
-      <w>150</w>
-      <h>60</h>
+      <x>1309</x>
+      <y>602</y>
+      <w>21</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-1.1.1.1 u = *[i=1..N] getUserID(): int
+
 </panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1356</x>
-      <y>768</y>
-      <w>60</w>
-      <h>18</h>
+      <x>1582</x>
+      <y>672</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:Employee</panel_attributes>
     <additional_attributes/>
@@ -463,10 +431,10 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1356</x>
-      <y>588</y>
-      <w>60</w>
-      <h>18</h>
+      <x>1582</x>
+      <y>609</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:EmployeeDB</panel_attributes>
     <additional_attributes/>
@@ -474,22 +442,22 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1380</x>
-      <y>726</y>
-      <w>174</w>
-      <h>54</h>
+      <x>1610</x>
+      <y>623</y>
+      <w>21</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-3.1.1.1.1 e = *[i=1..N] getEmployeeID(): int</panel_attributes>
+</panel_attributes>
     <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1236</x>
+      <x>1442</x>
       <y>462</y>
-      <w>222</w>
-      <h>138</h>
+      <w>259</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 
@@ -502,14 +470,38 @@ expectedEndTime:localDateTime); Shift
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1212</x>
-      <y>630</y>
-      <w>84</w>
-      <h>42</h>
+      <x>1414</x>
+      <y>658</y>
+      <w>98</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>Spørg mogens
 
 bg=blue</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>371</x>
+      <y>182</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+System saves task in database</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>371</x>
+      <y>294</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+System saves shift in database with employee</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
   </element>
 </diagram>
