@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="15.1">
-  <zoom_level>2</zoom_level>
+<diagram program="umlet" version="15.1.0">
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>726</x>
-      <y>102</y>
-      <w>72</w>
-      <h>104</h>
+      <x>1897</x>
+      <y>0</y>
+      <w>252</w>
+      <h>364</h>
     </coordinates>
     <panel_attributes>gui::SchedulingApp
 --
@@ -46,10 +46,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>552</x>
-      <y>528</y>
-      <w>78</w>
-      <h>72</h>
+      <x>1288</x>
+      <y>1491</y>
+      <w>273</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>dal::DBConnection
 --
@@ -79,38 +79,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>340</y>
-      <w>162</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>dal::ShiftDB
---
--connection: Connection
--insert_shift_with_employee = "INSERT INTO [Shift] (StartTime, EndTime, Employee_ID, Task_ID) VALUES (?, ?, ?, ?);": String
--insert_shift_without_employee = "INSERT INTO [Shift] (StartTime, EndTime, Task_ID) VALUES(?, ?, ?)": String
--find_shifts_from_task_id = "SELECT StartTime, EndTime, Employee_ID, Task_ID FROM [Shift] WHERE Task_ID =?;": String
--insertShiftWithEmployee: PreparedStatement
--insertShiftWithoutEmployee: PreparedStatement
--findShiftsFromTaskID: PreparedStatement
---
-+ &lt;&lt;create&gt;&gt; ShiftDB()
-+saveShiftWithEmployee(Shift shift, int taskID): Shift
-+saveShiftWithoutEmployee(Shift shift, int taskID): Shift
-+saveShift(Shift shift, int taskID): Shift
-+findAllShiftsByTaskIDFromDB(int taskID): List&lt;Shift&gt;
-+createShiftFromResultSet(ResultSet rs): Shift
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>586</x>
-      <y>272</y>
-      <w>212</w>
-      <h>48</h>
+      <x>1407</x>
+      <y>595</y>
+      <w>742</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>ctrl::TaskCtrl
 --
@@ -133,10 +105,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>472</x>
-      <y>340</y>
-      <w>220</w>
-      <h>48</h>
+      <x>1008</x>
+      <y>833</y>
+      <w>770</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>dal::TaskDB
 --
@@ -159,10 +131,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>572</x>
-      <y>138</y>
-      <w>108</w>
-      <h>48</h>
+      <x>1358</x>
+      <y>126</y>
+      <w>378</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>gui::AddTaskDialog
 --
@@ -185,10 +157,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1324</x>
-      <y>344</y>
-      <w>182</w>
-      <h>58</h>
+      <x>3990</x>
+      <y>847</y>
+      <w>637</w>
+      <h>203</h>
     </coordinates>
     <panel_attributes>dal::EmployeeDB
 --
@@ -213,10 +185,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>444</x>
-      <y>144</y>
-      <w>90</w>
-      <h>36</h>
+      <x>910</x>
+      <y>147</y>
+      <w>315</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>gui::AddShiftDialog
 --
@@ -235,10 +207,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>242</x>
-      <y>272</y>
-      <w>92</w>
-      <h>32</h>
+      <x>203</x>
+      <y>595</y>
+      <w>322</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>ctrl::ShiftCtrl
 --
@@ -256,10 +228,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>842</x>
-      <y>340</y>
-      <w>158</w>
-      <h>32</h>
+      <x>2303</x>
+      <y>833</y>
+      <w>553</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>dal::UserDB
 --
@@ -276,10 +248,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1052</x>
-      <y>282</y>
-      <w>62</w>
-      <h>18</h>
+      <x>3038</x>
+      <y>630</y>
+      <w>217</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>ctrl::UserCtrl
 --
@@ -293,10 +265,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>706</x>
-      <y>340</y>
-      <w>118</w>
-      <h>98</h>
+      <x>1827</x>
+      <y>833</y>
+      <w>413</w>
+      <h>343</h>
     </coordinates>
     <panel_attributes>model::Task
 --
@@ -334,10 +306,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1166</x>
-      <y>342</y>
-      <w>102</w>
-      <h>116</h>
+      <x>3437</x>
+      <y>840</y>
+      <w>357</w>
+      <h>406</h>
     </coordinates>
     <panel_attributes>model::Employee
 --
@@ -382,10 +354,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>184</x>
-      <y>340</y>
-      <w>86</w>
-      <h>54</h>
+      <x>0</x>
+      <y>833</y>
+      <w>301</w>
+      <h>189</h>
     </coordinates>
     <panel_attributes>model::Shift
 --
@@ -410,10 +382,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>678</x>
-      <y>156</y>
-      <w>52</w>
-      <h>8</h>
+      <x>1729</x>
+      <y>189</y>
+      <w>182</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -422,10 +394,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>532</x>
-      <y>154</y>
-      <w>44</w>
-      <h>8</h>
+      <x>1218</x>
+      <y>182</y>
+      <w>154</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -434,10 +406,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>484</x>
-      <y>178</y>
-      <w>128</w>
-      <h>98</h>
+      <x>1050</x>
+      <y>266</y>
+      <w>448</w>
+      <h>343</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -446,10 +418,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>628</x>
-      <y>184</y>
-      <w>48</w>
-      <h>92</h>
+      <x>1554</x>
+      <y>287</y>
+      <w>168</w>
+      <h>322</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -458,10 +430,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>702</x>
-      <y>204</y>
-      <w>44</w>
-      <h>72</h>
+      <x>1813</x>
+      <y>357</y>
+      <w>154</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -470,10 +442,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>332</x>
-      <y>284</y>
-      <w>258</w>
-      <h>8</h>
+      <x>518</x>
+      <y>637</y>
+      <w>903</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -482,10 +454,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>796</x>
-      <y>288</y>
-      <w>260</w>
-      <h>8</h>
+      <x>2142</x>
+      <y>651</y>
+      <w>910</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -494,21 +466,21 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>348</x>
-      <y>394</y>
-      <w>6</w>
-      <h>38</h>
+      <x>574</x>
+      <y>1036</y>
+      <w>21</w>
+      <h>119</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>308</x>
-      <y>302</y>
-      <w>52</w>
-      <h>42</h>
+      <x>434</x>
+      <y>700</y>
+      <w>182</w>
+      <h>147</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -517,10 +489,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>238</x>
-      <y>302</y>
-      <w>38</w>
-      <h>42</h>
+      <x>189</x>
+      <y>700</y>
+      <w>133</w>
+      <h>147</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -529,10 +501,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1012</x>
-      <y>342</y>
-      <w>134</w>
-      <h>104</h>
+      <x>2898</x>
+      <y>840</y>
+      <w>469</w>
+      <h>364</h>
     </coordinates>
     <panel_attributes>model::User
 --
@@ -573,10 +545,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>628</x>
-      <y>370</y>
-      <w>238</w>
-      <h>188</h>
+      <x>1554</x>
+      <y>938</y>
+      <w>833</w>
+      <h>658</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -585,10 +557,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>592</x>
-      <y>386</y>
-      <w>6</w>
-      <h>146</h>
+      <x>1428</x>
+      <y>994</y>
+      <w>21</w>
+      <h>511</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -597,22 +569,22 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>406</x>
-      <y>394</y>
-      <w>150</w>
-      <h>164</h>
+      <x>777</x>
+      <y>1043</y>
+      <w>525</w>
+      <h>553</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>730.0;800.0;10.0;800.0;10.0;10.0</additional_attributes>
+    <additional_attributes>730.0;770.0;10.0;770.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>628</x>
-      <y>400</y>
-      <w>724</w>
-      <h>180</h>
+      <x>1554</x>
+      <y>1043</y>
+      <w>2534</w>
+      <h>630</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -621,10 +593,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1086</x>
-      <y>298</y>
-      <w>140</w>
-      <h>48</h>
+      <x>3157</x>
+      <y>686</y>
+      <w>490</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -633,10 +605,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1072</x>
-      <y>298</y>
-      <w>6</w>
-      <h>48</h>
+      <x>3108</x>
+      <y>686</y>
+      <w>21</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -645,10 +617,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1104</x>
-      <y>298</y>
-      <w>264</w>
-      <h>50</h>
+      <x>3220</x>
+      <y>686</y>
+      <w>924</w>
+      <h>175</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -657,10 +629,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>936</x>
-      <y>298</y>
-      <w>128</w>
-      <h>46</h>
+      <x>2632</x>
+      <y>686</y>
+      <w>448</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -669,10 +641,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>758</x>
-      <y>318</y>
-      <w>6</w>
-      <h>26</h>
+      <x>2009</x>
+      <y>756</y>
+      <w>21</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -681,10 +653,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>614</x>
-      <y>318</y>
-      <w>6</w>
-      <h>26</h>
+      <x>1505</x>
+      <y>756</y>
+      <w>21</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -693,10 +665,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>524</x>
-      <y>386</y>
-      <w>6</w>
-      <h>36</h>
+      <x>1190</x>
+      <y>994</y>
+      <w>21</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
@@ -704,10 +676,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>914</x>
-      <y>370</y>
-      <w>6</w>
-      <h>30</h>
+      <x>2555</x>
+      <y>938</y>
+      <w>21</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
@@ -715,10 +687,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1404</x>
-      <y>400</y>
-      <w>6</w>
-      <h>28</h>
+      <x>4270</x>
+      <y>1043</y>
+      <w>21</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
@@ -726,31 +698,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>314</x>
-      <y>428</y>
-      <w>76</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dal::ShiftDBIF
---
---
-~saveShiftWithEmployee(Shift shift, int taskID): Shift
-~saveShiftWithoutEmployee(Shift shift, int taskID): Shift
-~saveShift(Shift shift, int taskID): Shift
-~findAllShiftsByTaskIDFromDB(int taskID): List&lt;Shift&gt;
-~createShiftFromResultSet(ResultSet rs): Shift
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1362</x>
-      <y>424</y>
-      <w>84</w>
-      <h>22</h>
+      <x>4123</x>
+      <y>1127</y>
+      <w>294</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::EmployeeDBIF
@@ -766,10 +717,10 @@ dal::EmployeeDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>488</x>
-      <y>418</y>
-      <w>82</w>
-      <h>22</h>
+      <x>1064</x>
+      <y>1106</y>
+      <w>287</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::TaskDBIF
@@ -785,10 +736,10 @@ dal::TaskDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>886</x>
-      <y>396</y>
-      <w>64</w>
-      <h>20</h>
+      <x>2457</x>
+      <y>1029</y>
+      <w>224</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::UserDBIF
@@ -796,6 +747,60 @@ dal::UserDBIF
 --
 +findCustomerByUserID(int userID): User
 ~createUserFromResultSet(ResultSet rs): User
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>329</x>
+      <y>833</y>
+      <w>595</w>
+      <h>217</h>
+    </coordinates>
+    <panel_attributes>dal::ShiftDB
+--
+-connection: Connection
+-dbConnection: DBConnection
+-insert_shift_with_employee = "INSERT INTO [Shift] (StartTime, EndTime, Employee_ID, Task_ID) VALUES (?, ?, ?, ?);": String
+-insert_shift_without_employee = "INSERT INTO [Shift] (StartTime, EndTime, Task_ID) VALUES(?, ?, ?)": String
+-find_shifts_from_task_id = "SELECT StartTime, EndTime, Employee_ID, Task_ID FROM [Shift] WHERE Task_ID =?;": String
+-get_shift_from_id = "SELECT * FROM [Shift] WHERE ID=?;": String
+-insertShiftWithEmployee: PreparedStatement
+-insertShiftWithoutEmployee: PreparedStatement
+-findShiftsFromTaskID: PreparedStatement
+-getShiftFromShiftID: PreparedStatement
+--
++ShiftDB(): ctor
++saveShiftWithEmployee(Shift shift, int taskID): Shift
++saveShiftWithoutEmployee(Shift shift, int taskID): Shift
++saveShift(Shift shift, int taskID): Shift
++findAllShiftsByTaskIDFromDB(int taskID): List&lt;Shift&gt;
++createShiftFromResultSet(ResultSet rs): Shift
++getShiftByID(int id): Shift
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>448</x>
+      <y>1141</y>
+      <w>266</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::ShiftDBIF
+--
+--
+~saveShiftWithEmployee(Shift shift, int taskID): Shift
+~saveShiftWithoutEmployee(Shift shift, int taskID): Shift
+~saveShift(Shift shift, int taskID): Shift
+~findAllShiftsByTaskIDFromDB(int taskID): List&lt;Shift&gt;
+~createShiftFromResultSet(ResultSet rs): Shift
+~getShiftByID(int id): Shift
+--
 </panel_attributes>
     <additional_attributes/>
   </element>
