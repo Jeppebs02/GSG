@@ -18,7 +18,6 @@ import model.Shift;
 public class ShiftDB implements ShiftDBIF {
     private Connection connection;
 
-<<<<<<< Updated upstream
     // SQL queries for inserting and selecting shifts
     private static final String insert_shift_with_employee = 
         "INSERT INTO [Shift] (StartTime, EndTime, Employee_ID, Task_ID) VALUES (?, ?, ?, ?);";
@@ -59,30 +58,6 @@ public class ShiftDB implements ShiftDBIF {
     @Override
     public Shift saveShiftWithEmployee(Shift shift, int taskID) throws Exception {
         int shiftID = 0;
-=======
-	private static final String insert_shift_with_employee = "INSERT INTO [Shift] (StartTime, EndTime, Employee_ID, Task_ID) VALUES (?, ?, ?, ?);";
-	private static final String insert_shift_without_employee = "INSERT INTO [Shift] (StartTime, EndTime, Task_ID) VALUES(?, ?, ?)";
-	private static final String find_shifts_from_task_id = "SELECT StartTime, EndTime, Employee_ID, Task_ID FROM [Shift] WHERE Task_ID =?;";
-	private static final String find_shift_from_shift_id = "SELECT StartTime, EndTime, Employee_ID, Task_ID FROM [Shift] WHERE Shift_ID =?;";
-	
-	private PreparedStatement insertShiftWithEmployee;
-	private PreparedStatement insertShiftWithoutEmployee;
-	private PreparedStatement findShiftsFromTaskID;
-	private PreparedStatement findShiftFromShiftID;
-
-	public ShiftDB() throws SQLException {
-		connection = DBConnection.getInstance().getConnection();
-		insertShiftWithEmployee = connection.prepareStatement(insert_shift_with_employee,
-				Statement.RETURN_GENERATED_KEYS);
-		insertShiftWithoutEmployee = connection.prepareStatement(insert_shift_without_employee,
-				Statement.RETURN_GENERATED_KEYS);
-		findShiftsFromTaskID = connection.prepareStatement(find_shifts_from_task_id);
-		findShiftFromShiftID = connection.prepareStatement(find_shift_from_shift_id);
-	}
-
-	public Shift saveShiftWithEmployee(Shift shift, int taskID) throws Exception {
-		int shiftID = -1;
->>>>>>> Stashed changes
 
         try {
             // Start transaction
@@ -94,13 +69,8 @@ public class ShiftDB implements ShiftDBIF {
             insertShiftWithEmployee.setInt(3, shift.getEmployee().getEmployeeID());
             insertShiftWithEmployee.setInt(4, taskID);
 
-<<<<<<< Updated upstream
             // Execute and get generated key
             shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShiftWithEmployee);
-=======
-	public Shift saveShiftWithoutEmployee(Shift shift, int taskID) throws Exception {
-		int shiftID = -1;
->>>>>>> Stashed changes
 
             // Set shift ID on the object
             shift.setShiftID(shiftID);
@@ -240,12 +210,7 @@ public class ShiftDB implements ShiftDBIF {
 
 	@Override
 	public Shift findShiftByShiftID(int shiftID) throws Exception {
-		Shift shift = null;
-		
-		try {
-			
-		}
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
