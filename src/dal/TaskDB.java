@@ -151,7 +151,13 @@ public class TaskDB implements TaskDBIF {
 		Task task = null;
 		
 		try(ResultSet rs = dbConnection.getResultSetWithPS(getTaskFromTaskID)){
-			task = createTaskFromResultSet(rs);
+			if(rs.next()) {
+				System.out.println("Data found in ResultSet");
+				task = createTaskFromResultSet(rs);
+			} else {
+				System.out.println("No data in ResultSet");
+			}
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();

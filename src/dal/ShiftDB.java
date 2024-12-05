@@ -209,8 +209,12 @@ public class ShiftDB implements ShiftDBIF {
 		Shift shift = null;
 		
 		try(ResultSet rs = dbConnection.getResultSetWithPS(getShiftFromShiftID)){
-			shift = createShiftFromResultSet(rs);
-			
+			if(rs.next()) {
+				System.out.println("Data found in ResultSet");
+				shift = createShiftFromResultSet(rs);
+			} else {
+				System.out.println("No data in ResultSet");
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
