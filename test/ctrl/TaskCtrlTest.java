@@ -46,12 +46,12 @@ class TaskCtrlTest {
 		TaskCtrl tc = new TaskCtrl();
 	
 		//Act
-		tc.createTask(date, "ZWEI", "Aalborg", 2);	
+		tc.createTask(date, "ZWEI", "Aalborg", 18);	
 		Shift currentShift = tc.addShift(startTimeOne, endTimeOne);	
 		tc.addEmployeeToShift(1);
 		
 		//Assert
-		assertEquals(2, tc.getCurrentTask().getTaskID());
+		assertEquals(26, tc.getCurrentTask().getTaskID());
 	}
 	
 	@Test 
@@ -61,7 +61,7 @@ class TaskCtrlTest {
 
 		
 		//Act
-		tc.createTask(date, "Heidis", "Aarhus", 2);
+		tc.createTask(date, "Heidis", "Aarhus", 14);
 		
 		tc.addShift(startTimeOne, endTimeOne);
 		tc.addEmployeeToShift(1);
@@ -79,7 +79,7 @@ class TaskCtrlTest {
 		TaskCtrl tc = new TaskCtrl();
 		
 		//Act
-		tc.createTask(date, "Heidis", "Aarhus", 2);
+		tc.createTask(date, "Heidis", "Aarhus", 15);
 		
 		tc.addShift(startTimeOne, endTimeOne);
 		tc.addEmployeeToShift(1);
@@ -87,7 +87,7 @@ class TaskCtrlTest {
 		tc.saveTask();
 		//Assert
 		
-		assertEquals(2, tc.findTaskByID(2));
+		assertEquals(2, tc.findTaskByID(2).getTaskID());
 	}
 
 }

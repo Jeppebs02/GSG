@@ -28,7 +28,7 @@ public class TaskDB implements TaskDBIF {
         "INSERT INTO [Task] (Description, Location, Approval, Date, User_ID) VALUES (?, ?, ?, ?, ?);";
     private static final String find_all_tasks_per_month = 
         "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE YEAR(Date) = ? AND MONTH(Date) = ?;";
-    private static final String get_task_from_id ="SELECT * FROM [Task] WHERE ID=?;";
+    private static final String get_task_from_id ="SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE ID=?;";
     
     private PreparedStatement insertTask;
     private PreparedStatement findAllTasks;
