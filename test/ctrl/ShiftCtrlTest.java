@@ -87,7 +87,7 @@ class ShiftCtrlTest {
 		testShift = sc.findShiftByShiftID(1);
 		
 		//Assert
-		assertEquals(20, testShift.getShiftID());
+		assertEquals(LocalDateTime.of(2024, 12, 6, 8, 0), testShift.getStartTime());
 	}
 
 	@Test
@@ -101,6 +101,6 @@ class ShiftCtrlTest {
 		sc.addEmployeeToShift(e);
 		
 		//Assert
-		assertEquals(1, sc.findShiftByShiftID(taskID).getShiftID());
+		assertEquals(LocalDateTime.of(2024, 12, 3, 9, 0), sc.findShiftByShiftID(taskID).getStartTime());
 	}
 }

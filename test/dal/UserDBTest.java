@@ -35,7 +35,7 @@ class UserDBTest {
 	void testUserDB() {
 		udb = new UserDB();
 		
-		User usr = udb.findCustomerByUserID(2);
+		User usr = udb.findCustomerByUserID(18);
 		
 		System.out.println("user email is: "+usr.getEmail());
 		
