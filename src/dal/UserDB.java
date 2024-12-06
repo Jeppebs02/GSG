@@ -23,7 +23,7 @@ public class UserDB implements UserDBIF {
 
     // SQL query for retrieving user information by user ID and ensuring the user is either a customer or guest.
     private static final String find_customer_info_by_user_id =
-        "SELECT * FROM [User] WHERE ID = ? AND Type IN ('CUSTOMER', 'GUEST');";
+        "SELECT * FROM [User] WHERE ID = ? AND AccountPrivileges IN ('CUSTOMER', 'GUEST');";
 
     private PreparedStatement findCustomerInfoByUserId;
 
