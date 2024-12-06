@@ -456,13 +456,31 @@ public class SchedulingApp {
         if (tasksForDate.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No tasks on this date.");
         } else {
-            StringBuilder sb = new StringBuilder("Tasks on " + date + ":\n");
-            for (Task t : tasksForDate) {
-                sb.append("- ").append(t.getDescription()).append("\n");
+            // Create a JList to display tasks
+            DefaultListModel<Task> taskListModel = new DefaultListModel<>();
+            for (Task task : tasksForDate) {
+                taskListModel.addElement(task);
             }
-            JOptionPane.showMessageDialog(frame, sb.toString(), "All Tasks", JOptionPane.INFORMATION_MESSAGE);
+
+            JList<Task> taskJList = new JList<>(taskListModel);
+            taskJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            taskJList.setVisibleRowCount(10);
+            JScrollPane listScrollPane = new JScrollPane(taskJList);
+
+            // Show the list of tasks in a dialog
+            int result = JOptionPane.showConfirmDialog(frame, listScrollPane, "Tasks on " + date,
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            // If the user clicks OK and a task is selected, open the ViewTaskDialog with the selected task
+            if (result == JOptionPane.OK_OPTION && !taskJList.isSelectionEmpty()) {
+                Task selectedTask = taskJList.getSelectedValue();
+                ViewTaskDialog dialog = new ViewTaskDialog(selectedTask);
+                dialog.setVisible(true);
+            }
         }
     }
+
+
 
     /**
      * Returns an array of Integers representing the year range for selection.
