@@ -27,7 +27,8 @@ public class ShiftDB implements ShiftDBIF {
     private static final String find_shifts_from_task_id = 
         "SELECT StartTime, EndTime, Employee_ID, Task_ID FROM [Shift] WHERE Task_ID =?;";
     private static final String get_shift_from_id ="SELECT * FROM [Shift] WHERE ID=?;";
-
+    
+    
     private PreparedStatement insertShiftWithEmployee;
     private PreparedStatement insertShiftWithoutEmployee;
     private PreparedStatement findShiftsFromTaskID;

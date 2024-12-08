@@ -3,8 +3,16 @@ package gui;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import dal.ShiftDB;
+
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import model.Task;
+import model.Shift;
+
 
 /**
  * ViewTaskDialog is a dialog used to display the information of a specific task.
@@ -16,13 +24,21 @@ public class ViewTaskDialog extends JDialog {
     private JTextField txtUser;
     private JTextField txtDate;
     private JTable shiftsTable;
+    private List<Shift> allShiftsOnTask;
 
     /**
      * Constructs a ViewTaskDialog instance, initializes components, and sets values.
      *
      * @param task the task whose information is to be displayed.
+     * @throws SQLException 
      */
-    public ViewTaskDialog(Task task) {
+    public ViewTaskDialog(Task task) throws SQLException {
+    	
+    	allShiftsOnTask = new ArrayList<>();
+    	ShiftDB sdb = new ShiftDB();
+    	allShiftsOnTask = sdb.findAllShiftsByTaskIDFromDB(task.getTaskID());
+    	
+    	
         setTitle("Vis Opgave");
         setBounds(100, 100, 600, 600);
         getContentPane().setLayout(null);
@@ -72,8 +88,8 @@ public class ViewTaskDialog extends JDialog {
         DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
         
         // Assuming Task has a method getShifts(), add each shift to the table
-        task.getShifts().forEach(shift -> {
-            model.addRow(new Object[]{shift.getStartTime(), shift.getEndTime(), shift.getEmployee()});
+        allShiftsOnTask.forEach(shift -> {
+            model.addRow(new Object[]{shift.getStartTime(), shift.getEndTime(), shift.getEmployee().getFirstName() + " " + shift.getEmployee().getFirstName()});
         });
 
         JScrollPane scrollPane = new JScrollPane(shiftsTable);

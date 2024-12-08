@@ -1,6 +1,8 @@
 package ctrl;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import dal.DataAccessException;
 import dal.ShiftDB;
@@ -81,4 +83,11 @@ public class ShiftCtrl {
     	Shift s = shiftDB.getShiftByID(shiftID);
     	return s;
     }
+    
+    public List<Shift> findAllShiftsByTaskID(int taskID) throws SQLException{
+    	ShiftDB shiftDB = new ShiftDB();
+		return shiftDB.findAllShiftsByTaskIDFromDB(taskID);
+    	
+    }
+    
 }

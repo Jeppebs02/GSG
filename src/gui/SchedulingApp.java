@@ -267,7 +267,12 @@ public class SchedulingApp {
         showTasksItem.addActionListener(e -> {
             if (isValidDateCell(hoveredRow, hoveredCol)) {
                 LocalDate date = calendarDates[hoveredRow][hoveredCol];
-                showAllTasksForDate(date);
+                try {
+					showAllTasksForDate(date);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
 
@@ -447,8 +452,9 @@ public class SchedulingApp {
      * Shows all tasks for a specific date in a message dialog.
      * 
      * @param date the LocalDate for which to display all tasks.
+     * @throws SQLException 
      */
-    private void showAllTasksForDate(LocalDate date) {
+    private void showAllTasksForDate(LocalDate date) throws SQLException {
         List<Task> tasksForDate = tasks.stream()
             .filter(task -> task.getDate().isEqual(date))
             .toList();
