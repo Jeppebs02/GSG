@@ -91,22 +91,6 @@ public class DBConnection {
     }
 
     /**
-     * Private helper method that handles the actual transaction commit.
-     * It commits the transaction and then resets the connection to auto-commit mode.
-     *
-     * @throws SQLException If an error occurs during commit or setting auto-commit.
-     */
-    private void comTra() throws SQLException {
-        try {
-            connection.commit();
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            connection.setAutoCommit(true);
-        }
-    }
-
-    /**
      * Rolls back the current database transaction.
      * 
      * @throws DataAccessException If rolling back the transaction fails.
@@ -134,6 +118,25 @@ public class DBConnection {
             connection.setAutoCommit(true);
         }
     }
+    
+    
+
+    /**
+     * Private helper method that handles the actual transaction commit.
+     * It commits the transaction and then resets the connection to auto-commit mode.
+     *
+     * @throws SQLException If an error occurs during commit or setting auto-commit.
+     */
+    private void comTra() throws SQLException {
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            connection.setAutoCommit(true);
+        }
+    }
+
 
     /**
      * Executes the given PreparedStatement (typically an INSERT) and returns the 
