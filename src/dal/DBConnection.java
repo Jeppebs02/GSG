@@ -69,7 +69,7 @@ public class DBConnection {
      * 
      * @throws DataAccessException If starting the transaction fails.
      */
-    public void startTransaction() throws DataAccessException {
+    public synchronized void startTransaction() throws DataAccessException {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
@@ -82,7 +82,7 @@ public class DBConnection {
      * 
      * @throws DataAccessException If committing the transaction fails.
      */
-    public void commitTransaction() throws DataAccessException {
+    public synchronized void commitTransaction() throws DataAccessException {
         try {
             comTra();
         } catch (SQLException e) {
@@ -111,7 +111,7 @@ public class DBConnection {
      * 
      * @throws DataAccessException If rolling back the transaction fails.
      */
-    public void rollbackTransaction() throws DataAccessException {
+    public synchronized void rollbackTransaction() throws DataAccessException {
         try {
             rolTra();
         } catch (SQLException e) {
