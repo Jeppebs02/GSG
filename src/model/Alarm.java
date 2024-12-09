@@ -1,5 +1,7 @@
 package model;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Alarm {
@@ -7,10 +9,14 @@ public class Alarm {
     private String description;
     private boolean notify;
     private Classification classification; // Uses the Classification enum
+    private List<String> extraDecsription;
 
-    public Alarm(LocalDateTime time, Classification classification) {
+    public Alarm(LocalDateTime time, Classification classification, String description) {
     	this.classification = classification;
     	this.time = time;
+    	this.description = description;
+    	notify = false;
+    	extraDecsription = new ArrayList<>();
     }
     
     // Getters and Setters
@@ -45,5 +51,15 @@ public class Alarm {
     public void setClassification(Classification classification) {
         this.classification = classification;
     }
+
+	public List<String> getExtraDecsription() {
+		return extraDecsription;
+	}
+	
+	public void addExtra(String extra) {
+		if (extra != null) {
+			extraDecsription.add(extra);
+		}
+	}
 
 }

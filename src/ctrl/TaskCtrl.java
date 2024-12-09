@@ -21,8 +21,9 @@ import model.User;
 public class TaskCtrl {
 
     private Task currentTask;
-    private ShiftCtrl sc = new ShiftCtrl();
+    private ShiftCtrl sc;
     private TaskDB tb;
+    private ReportCtrl rc;
 
     /**
      * Constructs a TaskCtrl instance and initializes a TaskDB instance 
@@ -32,6 +33,8 @@ public class TaskCtrl {
      */
     public TaskCtrl() throws SQLException {
         this.tb = new TaskDB();
+        this.sc = new ShiftCtrl();
+        this.rc = new ReportCtrl();
     }
 
     /**
@@ -94,33 +97,13 @@ public class TaskCtrl {
      * @throws Exception if an error occurs during the task or report saving processes.
      */
     public void saveTask() throws Exception {
-        ReportDB repDB = new ReportDB();
-
-        // Create a report with default values
-        Report report = createReport(0, 0, 0, "", "", "");
-
+       
         // Save the current task to the database and retrieve the newly assigned Task ID
         Task createdTask = tb.saveTask(currentTask);
-
-        // Associate the report with the saved task and save the report
-        report.setTaskID(createdTask.getTaskID());
-        repDB.saveReportToDb(report);
+        rc.saveReport(createdTask);
     }
 
-    /**
-     * Creates a new {@link Report} object with the specified parameters.
-     * 
-     * @param rejectionsAge the number of age-related rejections.
-     * @param rejectionsAttitude the number of attitude-related rejections.
-     * @param rejectionsAlternative the number of alternative-related rejections.
-     * @param alternativeRemarks additional remarks related to alternatives.
-     * @param employeeSignature the signature of the employee.
-     * @param customerSignature the signature of the customer.
-     * @return a newly created {@link Report} object.
-     */
-    public Report createReport(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks, String employeeSignature, String customerSignature) {
-        return new Report(rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, employeeSignature, customerSignature);
-    }
+    
 
     /**
      * Retrieves the current task managed by this controller.
