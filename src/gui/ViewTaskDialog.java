@@ -89,7 +89,7 @@ public class ViewTaskDialog extends JDialog {
         
         // Assuming Task has a method getShifts(), add each shift to the table
         allShiftsOnTask.forEach(shift -> {
-            model.addRow(new Object[]{shift.getStartTime(), shift.getEndTime(), shift.getEmployee().getFirstName() + " " + shift.getEmployee().getFirstName()});
+            model.addRow(new Object[]{shift.getStartTime(), shift.getEndTime(), shift.getEmployee().getFirstName() + " " + shift.getEmployee().getLastName()});
         });
 
         JScrollPane scrollPane = new JScrollPane(shiftsTable);
