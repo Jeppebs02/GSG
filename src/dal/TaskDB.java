@@ -20,7 +20,8 @@ import model.User;
  * including inserting tasks into the database and retrieving them by month and year.
  */
 public class TaskDB implements TaskDBIF {
-    private Connection connection;
+    // Connection
+	private Connection connection;
     private DBConnection dbConnection;
     
     // SQL queries
@@ -30,6 +31,7 @@ public class TaskDB implements TaskDBIF {
         "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE YEAR(Date) = ? AND MONTH(Date) = ?;";
     private static final String get_task_from_id ="SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE ID=?;";
     
+    // Prepared Statements
     private PreparedStatement insertTask;
     private PreparedStatement findAllTasks;
     private PreparedStatement getTaskFromTaskID;
@@ -62,7 +64,7 @@ public class TaskDB implements TaskDBIF {
      */
     @Override
     public Task saveTask(Task task) throws Exception {
-        int taskID = 0;
+        int taskID = -1;
         LocalDate date = task.getDate();
         LocalDateTime localDateTime = date.atStartOfDay();
         
