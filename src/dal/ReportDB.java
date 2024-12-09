@@ -40,7 +40,7 @@ public class ReportDB implements ReportDBIF {
      * @throws Exception if any database or other error occurs during the operation.
      */
     @Override
-    public boolean saveReportToDb(Report report) throws Exception {
+    public void saveReportToDb(Report report) throws Exception {
         try {
             // Prepare the statement and set parameters
             saveReportToDB = connection.prepareStatement(save_report_to_db, Statement.RETURN_GENERATED_KEYS);
@@ -58,10 +58,20 @@ public class ReportDB implements ReportDBIF {
         } catch (Exception e) {
             // Print stack trace if there is an error
             e.printStackTrace();
-            return false;
+            
         }
-        
-        return true;
     }
+
+	@Override
+	public Report getReportFromTaskID(int taskID) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteFromDB(Report report) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
