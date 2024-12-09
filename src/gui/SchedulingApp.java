@@ -136,9 +136,9 @@ public class SchedulingApp {
             }
         });
 
-        controlsPanel.add(new JLabel("År:"));
+        controlsPanel.add(new JLabel("Year:"));
         controlsPanel.add(yearSelector);
-        controlsPanel.add(new JLabel("Måned:"));
+        controlsPanel.add(new JLabel("Month:"));
         controlsPanel.add(monthSelector);
 
         topPanel.add(controlsPanel, BorderLayout.CENTER);

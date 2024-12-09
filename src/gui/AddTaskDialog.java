@@ -44,12 +44,12 @@ public class AddTaskDialog extends JDialog {
      */
     public AddTaskDialog(LocalDate date, HashMap<LocalDate, List<String>> taskMap) throws SQLException {
         tc = new TaskCtrl();
-        setTitle("Tilføj Opgave");
+        setTitle("Add task");
         setBounds(100, 100, 600, 600);
         getContentPane().setLayout(null);
         shifts = new ArrayList<>();
 
-        JLabel lblDescription = new JLabel("Beskrivelse:");
+        JLabel lblDescription = new JLabel("Discription:");
         lblDescription.setBounds(20, 20, 100, 25);
         getContentPane().add(lblDescription);
 
@@ -65,7 +65,7 @@ public class AddTaskDialog extends JDialog {
         txtLocation.setBounds(130, 60, 400, 25);
         getContentPane().add(txtLocation);
 
-        JLabel lblUser = new JLabel("Bruger:");
+        JLabel lblUser = new JLabel("CostumerID:");
         lblUser.setBounds(20, 100, 100, 25);
         getContentPane().add(lblUser);
 
@@ -73,7 +73,7 @@ public class AddTaskDialog extends JDialog {
         txtUser.setBounds(130, 100, 400, 25);
         getContentPane().add(txtUser);
 
-        JLabel lblDate = new JLabel("Dato:");
+        JLabel lblDate = new JLabel("Date:");
         lblDate.setBounds(20, 180, 100, 25);
         getContentPane().add(lblDate);
 
@@ -82,16 +82,16 @@ public class AddTaskDialog extends JDialog {
         txtDate.setBounds(130, 180, 400, 25);
         getContentPane().add(txtDate);
 
-        JLabel lblShifts = new JLabel("Vagter:");
+        JLabel lblShifts = new JLabel("Shifts:");
         lblShifts.setBounds(20, 220, 100, 25);
         getContentPane().add(lblShifts);
 
-        shiftsTable = new JTable(new DefaultTableModel(new Object[]{"Starttid", "Sluttid", "Medarbejder"}, 0));
+        shiftsTable = new JTable(new DefaultTableModel(new Object[]{"Starttime", "Endtime", "Employee"}, 0));
         JScrollPane scrollPane = new JScrollPane(shiftsTable);
         scrollPane.setBounds(130, 220, 400, 277);
         getContentPane().add(scrollPane);
 
-        JButton btnAddShift = new JButton("Tilføj Vagt");
+        JButton btnAddShift = new JButton("Add shift");
         btnAddShift.setBounds(130, 508, 150, 30);
         btnAddShift.addActionListener(e -> {
             try {
@@ -107,7 +107,7 @@ public class AddTaskDialog extends JDialog {
         btnOK.addActionListener((ActionEvent e) -> dispose());
         getContentPane().add(btnOK);
 
-        JButton btnSave = new JButton("Gem Opgave");
+        JButton btnSave = new JButton("Save task");
         btnSave.addActionListener((ActionEvent e) -> {
             try {
                 saveTask(date, taskMap);
@@ -155,19 +155,19 @@ public class AddTaskDialog extends JDialog {
 
         DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
         List<String> taskDetails = new ArrayList<>();
-        taskDetails.add("Beskrivelse: " + description);
+        taskDetails.add("discription: " + description);
         taskDetails.add("Lokation: " + location);
-        taskDetails.add("Bruger: " + user);
+        taskDetails.add("User: " + user);
 
         // Collect shift details from the table
         for (int i = 0; i < model.getRowCount(); i++) {
-            String shift = "Vagt: Starttid " + model.getValueAt(i, 0) + ", Sluttid " + model.getValueAt(i, 1)
-                    + ", Medarbejder " + model.getValueAt(i, 2);
+            String shift = "Shift: starttime " + model.getValueAt(i, 0) + ", Endtime " + model.getValueAt(i, 1)
+                    + ", Employee " + model.getValueAt(i, 2);
             taskDetails.add(shift);
         }
 
         // Update the taskMap with the new task details
         taskMap.put(date, taskDetails);
-        JOptionPane.showMessageDialog(this, "Opgave gemt for " + date);
+        JOptionPane.showMessageDialog(this, "Task saved at " + date);
     }
 }
