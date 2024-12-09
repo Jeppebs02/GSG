@@ -5,7 +5,8 @@ import java.util.List;
 
 
 public class Alarm {
-    private LocalDateTime time;
+	private int alarmID;
+	private LocalDateTime time;
     private String description;
     private boolean notify;
     private Classification classification; // Uses the Classification enum
@@ -60,6 +61,14 @@ public class Alarm {
 		if (extra != null) {
 			extraDecsription.add(extra);
 		}
+	}
+
+	public int getAlarmID() {
+		return alarmID;
+	}
+
+	public void setAlarmID(int alarmID) {
+		this.alarmID = alarmID;
 	}
 
 }

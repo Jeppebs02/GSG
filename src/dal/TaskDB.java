@@ -148,7 +148,7 @@ public class TaskDB implements TaskDBIF {
     }
 
 	@Override
-	public Task getTaskByID(int taskID) throws Exception {
+	public Task findTaskByID(int taskID) throws Exception {
 		getTaskFromTaskID.setInt(1, taskID);
 		Task task = null;
 		

@@ -14,7 +14,7 @@ public interface TaskDBIF {
 	
 	Task createTaskFromResultSet(ResultSet rs) throws SQLException;
 	
-	Task getTaskByID(int taskID) throws Exception;
+	Task findTaskByID(int taskID) throws Exception;
 }
 
 	

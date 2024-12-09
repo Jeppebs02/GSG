@@ -132,7 +132,7 @@ public class TaskCtrl {
     
     public Task findTaskByID(int taskID) throws Exception {
     	TaskDB taskDB = new TaskDB();
-    	Task t = taskDB.getTaskByID(taskID);
+    	Task t = taskDB.findTaskByID(taskID);
     	return t;
     }
 }
