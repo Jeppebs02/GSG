@@ -50,7 +50,11 @@ public class AlarmDB implements AlarmDBIF{
 		
 		// Set parameters for the insert statement
 		insertAlarm.setTimestamp(1, Timestamp.valueOf(alarm.getTime()));
-		return null;
+		insertAlarm.setString(2, alarm.getDescription());
+		insertAlarm.setBoolean(3, alarm.getNotify());
+		insertAlarm.setString(4, alarm.getClassificationValue());
+		
+		return alarm;
 	}
 
 	@Override

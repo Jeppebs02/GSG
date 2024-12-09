@@ -48,6 +48,10 @@ public class Alarm {
     public Classification getClassification() {
         return classification;
     }
+    
+    public String getClassificationValue() {
+    	return classification.toString();
+    }
 
     public void setClassification(Classification classification) {
         this.classification = classification;
