@@ -45,7 +45,7 @@ public class ViewTaskDialog extends JDialog {
         getContentPane().setLayout(null);
         setModal(true);  // Makes the dialog modal
 
-        JLabel lblDescription = new JLabel("Beskrivelse:");
+        JLabel lblDescription = new JLabel("Discription:");
         lblDescription.setBounds(20, 20, 100, 25);
         getContentPane().add(lblDescription);
 
@@ -63,7 +63,7 @@ public class ViewTaskDialog extends JDialog {
         txtLocation.setEditable(false);  // Read-only
         getContentPane().add(txtLocation);
 
-        JLabel lblUser = new JLabel("Bruger:");
+        JLabel lblUser = new JLabel("CustomerID:");
         lblUser.setBounds(20, 100, 100, 25);
         getContentPane().add(lblUser);
 
@@ -72,7 +72,7 @@ public class ViewTaskDialog extends JDialog {
         txtUser.setEditable(false);  // Read-only
         getContentPane().add(txtUser);
 
-        JLabel lblDate = new JLabel("Dato:");
+        JLabel lblDate = new JLabel("Date:");
         lblDate.setBounds(20, 180, 100, 25);
         getContentPane().add(lblDate);
 
@@ -81,11 +81,11 @@ public class ViewTaskDialog extends JDialog {
         txtDate.setEditable(false);  // Read-only
         getContentPane().add(txtDate);
 
-        JLabel lblShifts = new JLabel("Vagter:");
+        JLabel lblShifts = new JLabel("Shifts:");
         lblShifts.setBounds(20, 220, 100, 25);
         getContentPane().add(lblShifts);
 
-        shiftsTable = new JTable(new DefaultTableModel(new Object[]{"Starttid", "Sluttid", "Medarbejder"}, 0));
+        shiftsTable = new JTable(new DefaultTableModel(new Object[]{"Starttime", "Endtime", "Employee"}, 0));
         DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
         
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
