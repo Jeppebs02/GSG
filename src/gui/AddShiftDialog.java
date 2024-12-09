@@ -38,13 +38,13 @@ public class AddShiftDialog extends JDialog {
     public AddShiftDialog(JTable shiftsTable, LocalDate date, TaskCtrl tc) {
         this.tc = tc;
         this.shiftsTable = shiftsTable;
-        setTitle("Tilføj Vagt");
+        setTitle("Add shift");
         setBounds(100, 100, 400, 300);
         setLayout(null);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JLabel lblStartTime = new JLabel("Starttid:");
+        JLabel lblStartTime = new JLabel("Starttime:");
         lblStartTime.setBounds(20, 20, 100, 25);
         add(lblStartTime);
 
@@ -52,7 +52,7 @@ public class AddShiftDialog extends JDialog {
         txtStartTime.setBounds(130, 20, 200, 25);
         add(txtStartTime);
 
-        JLabel lblEndTime = new JLabel("Sluttid:");
+        JLabel lblEndTime = new JLabel("Endtime:");
         lblEndTime.setBounds(20, 60, 100, 25);
         add(lblEndTime);
 
@@ -60,7 +60,7 @@ public class AddShiftDialog extends JDialog {
         txtEndTime.setBounds(130, 60, 200, 25);
         add(txtEndTime);
 
-        JLabel lblEmployee = new JLabel("Medarbejder:");
+        JLabel lblEmployee = new JLabel("Employee:");
         lblEmployee.setBounds(20, 100, 100, 25);
         add(lblEmployee);
 
@@ -68,7 +68,7 @@ public class AddShiftDialog extends JDialog {
         txtEmployee.setBounds(130, 100, 200, 25);
         add(txtEmployee);
 
-        JButton btnAdd = new JButton("Tilføj");
+        JButton btnAdd = new JButton("Add");
         btnAdd.setBounds(130, 150, 100, 30);
         btnAdd.addActionListener(e -> {
             try {
@@ -100,7 +100,7 @@ public class AddShiftDialog extends JDialog {
             String startTime = txtStartTime.getText();
             Matcher startMatcher = pattern.matcher(startTime);
             if (!startMatcher.matches()) {
-                throw new IllegalArgumentException("Ugyldigt starttidsformat. Brug formatet HH:mm");
+                throw new IllegalArgumentException("Invalid time format. Use HH:mm");
             }
             LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
             LocalDateTime localTimeDate = LocalDateTime.of(date, localTime);
@@ -109,14 +109,14 @@ public class AddShiftDialog extends JDialog {
             String endTime = txtEndTime.getText();
             Matcher endMatcher = pattern.matcher(endTime);
             if (!endMatcher.matches()) {
-                throw new IllegalArgumentException("Ugyldigt sluttidsformat. Brug formatet HH:mm");
+                throw new IllegalArgumentException("Invalid time format. Use HH:mm");
             }
             LocalTime localTimeEnd = LocalTime.parse(endTime, timeFormatter);
             LocalDateTime localTimeDateEnd = LocalDateTime.of(date, localTimeEnd);
 
             // Check that end time is not before start time
             if (localTimeDateEnd.isBefore(localTimeDate)) {
-                throw new IllegalArgumentException("Sluttidspunktet er før starttidspunkt. Prøv igen");
+                throw new IllegalArgumentException("Endtime is before starttime, try again");
             }
 
             // Create and add the shift to the current task
@@ -133,22 +133,22 @@ public class AddShiftDialog extends JDialog {
             DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
             model.addRow(new Object[] { startTime, endTime, employee });
             dispose();
-            JOptionPane.showMessageDialog(this, "Vagt gemt: " + startTime + " - " + endTime);
+            JOptionPane.showMessageDialog(this, "Shift saved: " + startTime + " - " + endTime);
 
         } catch (DateTimeParseException e) {
             // Handle invalid time format parsing
-            JOptionPane.showMessageDialog(this, "Ugyldigt tidsformat. Brug venligst formatet HH:mm", "Fejl",
+            JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException e) {
             // Handle invalid employee ID format
-            JOptionPane.showMessageDialog(this, "Medarbejder-ID skal være et gyldigt tal", "Fejl",
+            JOptionPane.showMessageDialog(this, "Employee_ID has to be valid", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } catch (IllegalArgumentException e) {
             // Handle validation errors
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Fejl", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             // Handle any other errors, including database issues
-            JOptionPane.showMessageDialog(this, "Der opstod en fejl ved gemning af vagten", "Fejl",
+            JOptionPane.showMessageDialog(this, "A Error has occurred when trying to save employee", "Error",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
