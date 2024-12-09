@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Report {
 	private int taskID;
-    private int rapportNr;
+    private int reportNr;
     private int rejectionsAge;
     private int rejectionsAttitude;
     private int rejectionsAlternative;
@@ -46,12 +46,12 @@ public class Report {
 	}
 
 	// Getters and Setters
-    public int getRapportNr() {
-        return rapportNr;
+    public int getReportNr() {
+        return reportNr;
     }
 
-    public void setRapportNr(int rapportNr) {
-        this.rapportNr = rapportNr;
+    public void setReportNr(int reportNr) {
+        this.reportNr = reportNr;
     }
 
     public int getRejectionsAge() {
