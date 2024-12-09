@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import model.Alarm;
 
@@ -15,7 +16,7 @@ public class AlarmDB implements AlarmDBIF{
 	
 	// SQL queries
 	private static final String insert_alarm = 
-			"INSERT INTO [Alarm] (ID, Time, Description, Notify, Classification, Report_ID) VALUES (?, ?, ?, ?, ?, ?);";
+			"INSERT INTO [Alarm] (Time, Description, Notify, Classification, Report_ID) VALUES (?, ?, ?, ?, ?);";
 	private static final String get_alarm_from_id = 
 			"SELECT ID AS ALARM_ID, Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE ID = ?;";
 	private static final String delete_alarm_from_id = "";
@@ -44,7 +45,10 @@ public class AlarmDB implements AlarmDBIF{
 
 	@Override
 	public Alarm saveAlarm(Alarm alarm) throws Exception {
-		// TODO Auto-generated method stub
+		int alarmID = -1;
+		
+		// Set parameters for the insert statement
+		insertAlarm.
 		return null;
 	}
 
@@ -70,6 +74,12 @@ public class AlarmDB implements AlarmDBIF{
 	public void saveAlarmExtraDescription(String extraDescription) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Alarm> findAllAlarmsByReportID(int reportID) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
