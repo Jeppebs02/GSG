@@ -7,6 +7,7 @@ import dal.ShiftDB;
 
 import java.awt.*;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,9 +88,10 @@ public class ViewTaskDialog extends JDialog {
         shiftsTable = new JTable(new DefaultTableModel(new Object[]{"Starttid", "Sluttid", "Medarbejder"}, 0));
         DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
         
-        // Assuming Task has a method getShifts(), add each shift to the table
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         allShiftsOnTask.forEach(shift -> {
-            model.addRow(new Object[]{shift.getStartTime(), shift.getEndTime(), shift.getEmployee().getFirstName() + " " + shift.getEmployee().getLastName()});
+        	
+            model.addRow(new Object[]{shift.getStartTime().format(timeFormatter), shift.getEndTime().format(timeFormatter) , shift.getEmployee().getFirstName() + " " + shift.getEmployee().getLastName()});
         });
 
         JScrollPane scrollPane = new JScrollPane(shiftsTable);
@@ -101,4 +103,6 @@ public class ViewTaskDialog extends JDialog {
         btnOK.addActionListener(e -> dispose());
         getContentPane().add(btnOK);
     }
+    
+    	
 }

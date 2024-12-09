@@ -99,15 +99,16 @@ public class SchedulingApp {
      * @throws Exception if an error occurs during the calendar view initialization.
      */
     private void initialize() throws Exception {
-        frame = new JFrame("Skemalægningsprogram");
+        frame = new JFrame("Scheduling");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 700);
         frame.setLocationRelativeTo(null);
-        frame.setLayout(new BorderLayout(10, 10));
+        frame.getContentPane().setLayout(new BorderLayout(10, 10));
 
         // Top panel with title and controls
         JPanel topPanel = new JPanel(new BorderLayout(5, 5));
-        JLabel lblTitle = new JLabel("Skemalægningsprogram", JLabel.CENTER);
+        JLabel lblTitle = new JLabel("Scheduling", JLabel.CENTER);
+        lblTitle.setFont(new Font("Tahoma", Font.BOLD, 30));
         lblTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         topPanel.add(lblTitle, BorderLayout.NORTH);
 
@@ -141,7 +142,7 @@ public class SchedulingApp {
         controlsPanel.add(monthSelector);
 
         topPanel.add(controlsPanel, BorderLayout.CENTER);
-        frame.add(topPanel, BorderLayout.NORTH);
+        frame.getContentPane().add(topPanel, BorderLayout.NORTH);
 
         // Calendar table setup
         calendarTable = new JTable() {
@@ -216,7 +217,7 @@ public class SchedulingApp {
         });
 
         JScrollPane scrollPane = new JScrollPane(calendarTable);
-        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
         setupCellPopup();
         updateCalendarView();
@@ -313,7 +314,7 @@ public class SchedulingApp {
      * @throws Exception if an error occurs while rendering or fetching tasks.
      */
     private void renderMonthView(LocalDate date) throws Exception {
-        String[] columnNames = {"Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"};
+        String[] columnNames = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         calendarDates = new LocalDate[6][7];
         DefaultTableModel model = new DefaultTableModel(6, 7);
 
