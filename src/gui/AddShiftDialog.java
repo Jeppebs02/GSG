@@ -110,7 +110,7 @@ public class AddShiftDialog extends JDialog {
             Matcher endMatcher = pattern.matcher(endTime);
             if (!endMatcher.matches()) {
                 throw new IllegalArgumentException("Invalid time format. Use HH:mm");
-            }
+            } 
             LocalTime localTimeEnd = LocalTime.parse(endTime, timeFormatter);
             LocalDateTime localTimeDateEnd = LocalDateTime.of(date, localTimeEnd);
 
