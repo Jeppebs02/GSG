@@ -69,7 +69,7 @@ public class DBConnection {
      * 
      * @throws DataAccessException If starting the transaction fails.
      */
-    public void startTransaction() throws DataAccessException {
+    public synchronized void startTransaction() throws DataAccessException {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
@@ -82,7 +82,7 @@ public class DBConnection {
      * 
      * @throws DataAccessException If committing the transaction fails.
      */
-    public void commitTransaction() throws DataAccessException {
+    public synchronized void commitTransaction() throws DataAccessException {
         try {
             comTra();
         } catch (SQLException e) {
@@ -91,27 +91,11 @@ public class DBConnection {
     }
 
     /**
-     * Private helper method that handles the actual transaction commit.
-     * It commits the transaction and then resets the connection to auto-commit mode.
-     *
-     * @throws SQLException If an error occurs during commit or setting auto-commit.
-     */
-    private void comTra() throws SQLException {
-        try {
-            connection.commit();
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            connection.setAutoCommit(true);
-        }
-    }
-
-    /**
      * Rolls back the current database transaction.
      * 
      * @throws DataAccessException If rolling back the transaction fails.
      */
-    public void rollbackTransaction() throws DataAccessException {
+    public synchronized void rollbackTransaction() throws DataAccessException {
         try {
             rolTra();
         } catch (SQLException e) {
@@ -134,6 +118,25 @@ public class DBConnection {
             connection.setAutoCommit(true);
         }
     }
+    
+    
+
+    /**
+     * Private helper method that handles the actual transaction commit.
+     * It commits the transaction and then resets the connection to auto-commit mode.
+     *
+     * @throws SQLException If an error occurs during commit or setting auto-commit.
+     */
+    private void comTra() throws SQLException {
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            connection.setAutoCommit(true);
+        }
+    }
+
 
     /**
      * Executes the given PreparedStatement (typically an INSERT) and returns the 
