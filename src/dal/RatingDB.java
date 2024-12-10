@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import model.Employee;
 import model.Rating;
 import model.Report;
 import model.Task;
@@ -17,17 +19,22 @@ public class RatingDB implements RatingDBIF {
 	
 	private static final String save_rating = "INSERT INTO [Rating] (SecurityScore,SecurityComment,ServiceScore,ServiceComment,ReportNr,Employee_ID) VALUES(?,?,?,?,?,?);";
 	private static final String delete_rating_by_rating_id = "DELETE FROM [Rating] WHERE ID = ?;";
+	private static final String get_rating_info="SELECT r.ID AS RatingID, r.SecurityScore, r.SecurityComment, r.ServiceScore, r.ServiceComment, r.ReportNr, r.Employee_ID AS RatingEmployeeID, e.ID AS EmployeeID, e.CPR, e.SecurityClearance, e.AccountNr, e.Certification, e.RegistrationNr, e.Department, eu.ID AS EmployeeUserID, eu.User_ID AS EmployeeUser_UserID, eu.Employee_ID AS EmployeeUser_EmployeeID, u.ID AS UserID, u.UserName, u.Password, u.FirstName, u.LastName, u.Email, u.PhoneNr, u.AccountPrivileges, u.Type, u.Address_ID AS UserAddressID FROM Rating AS r INNER JOIN Employee AS e ON r.Employee_ID = e.ID INNER JOIN EmployeeUser AS eu ON e.ID = eu.Employee_ID INNER JOIN [User] AS u ON eu.User_ID = u.ID WHERE r.ReportNr = ?;";
 	
 	private PreparedStatement saveRating;
 	private PreparedStatement deleteRatingByRatingID;
+	private PreparedStatement getRatingInfo;
+	private EmployeeDB edb;
 
 	public RatingDB() throws SQLException {
 		super();
 		connection = DBConnection.getInstance().getConnection();
 		dbConnection = DBConnection.getInstance();
+		edb = new EmployeeDB();
 		
 		saveRating = connection.prepareStatement(save_rating);
 		deleteRatingByRatingID = connection.prepareStatement(delete_rating_by_rating_id);
+		getRatingInfo = connection.prepareStatement(get_rating_info);
 	}
 
 	
@@ -86,8 +93,16 @@ public class RatingDB implements RatingDBIF {
 
 	@Override
 	public List<Rating> findRatingsByReportID(int reportID) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Rating> ratings = new ArrayList<>();
+		ResultSet rs = findRatingByReportID(reportID);
+		Rating rating = null;
+		
+		while(rs.next()) {
+			rating = createRatingFromResultSet(rs);
+			ratings.add(rating);
+		}
+		
+		return ratings;
 	}
 
 
@@ -95,11 +110,34 @@ public class RatingDB implements RatingDBIF {
 
 	@Override
 	public Rating createRatingFromResultSet(ResultSet rs) throws Exception {
-		// TODO Auto-generated method stub
-		
 		Rating rating;
-		return rating = new Rating(rs.getInt("SecurityScore"), rs.getString("SecurityComment"), 0, null, null);
+		Employee employee;
 		
+		employee=edb.findEmployeeByUserID(rs.getInt("UserID"));
+		
+		rating = new Rating(rs.getInt("SecurityScore"), rs.getString("SecurityComment"), rs.getInt("ServiceScore"), rs.getString("ServiceComment"), employee);
+		
+		rating.setRatingID(rs.getInt("RatingID"));
+		
+		return rating;
+		
+	}
+
+
+
+
+	@Override
+	public ResultSet findRatingByReportID(int reportID) throws Exception {
+		getRatingInfo.setInt(1, reportID);
+		ResultSet rs = null;
+		
+		try {
+			rs=dbConnection.getResultSetWithPS(getRatingInfo);
+		
+		} catch (Exception e) {
+			
+		}
+		return rs;
 	}
 
 
