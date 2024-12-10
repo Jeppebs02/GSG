@@ -11,14 +11,17 @@ import model.Classification;
 public class AlarmCtrl {
 
 	private AlarmDB adb;
+	private Alarm currentAlarm;
 	
 	public AlarmCtrl() throws SQLException {
 		adb = new AlarmDB();
+		 
 	}
 	
 	public Alarm createAlarm(LocalDateTime time, Classification classification, String description) {
 		
-		return new Alarm(time, classification, description);
+		currentAlarm = new Alarm(time, classification, description);
+		return currentAlarm;
 		
 	}
 	//TODO 
@@ -28,15 +31,20 @@ public class AlarmCtrl {
 		
 	}
 	
-	//TODO
-	public List<Alarm> findAlarmsByReportID(int reportNr) {
-		return null;
+	
+	public List<Alarm> findAlarmsByReportID(int reportNr) throws Exception {
+		return adb.findAllAlarmsByReportID(reportNr);
+		
 		
 	}
 	
-	//TODO
+	
 	public void deleteAlarmByAlarmID(int alarmID) throws SQLException {
 		adb.deleteAlarmFromDB(alarmID);
+	}
+	
+	public void saveAlarm(int reportNr) throws Exception {
+		adb.saveAlarmToDB(currentAlarm, reportNr);
 	}
 	
 }
