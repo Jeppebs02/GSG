@@ -52,7 +52,7 @@ public class AlarmDB implements AlarmDBIF{
 	}
 
 	@Override
-	public Alarm saveAlarmToDB(Alarm alarm) throws Exception {
+	public Alarm saveAlarmToDB(Alarm alarm, int reportID) throws Exception {
 		int alarmID = -1;
 		
 		// Set parameters for the insert statement
@@ -60,6 +60,7 @@ public class AlarmDB implements AlarmDBIF{
 		insertAlarm.setString(2, alarm.getDescription());
 		insertAlarm.setBoolean(3, alarm.getNotify());
 		insertAlarm.setString(4, alarm.getClassificationValue());
+		insertAlarm.setInt(5, reportID);
 		
 		// Execute the insert and retrieve the generated key
 		alarmID = dbConnection.executeSqlInsertWithIdentityPS(insertAlarm);
