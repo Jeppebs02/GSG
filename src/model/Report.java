@@ -115,5 +115,10 @@ public class Report {
 			alarms.add(alarm);
 		}
 	}
-
+	
+	public void addRatings(Rating rating) {
+		if(rating != null) {
+			ratings.add(rating);
+		}
+	}
 }
