@@ -12,7 +12,7 @@ public class Report {
     private String alternativeRemarks;
     private String employeeSignature;
     private String customerSignature;
-    private List<Alarm> alarms; // Association with Alarm (0..*)
+    private List<Alarm> alarms; 
     private List<Rating> ratings;
 
     public Report() {
@@ -109,5 +109,16 @@ public class Report {
 	public List<Rating> getRatings() {
 		return new ArrayList<>(ratings);
 	}
-
+	
+	public void addAlarms(Alarm alarm) {
+		if(alarm != null) {
+			alarms.add(alarm);
+		}
+	}
+	
+	public void addRatings(Rating rating) {
+		if(rating != null) {
+			ratings.add(rating);
+		}
+	}
 }

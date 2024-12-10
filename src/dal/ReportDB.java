@@ -30,7 +30,7 @@ public class ReportDB implements ReportDBIF {
         "AlternativeRemarks, EmployeeSignature, CustomerSignature, Task_ID) " + 
         "VALUES (?,?,?,?,?,?,?)";
     private PreparedStatement saveReportToDB;
-    private PreparedStatement getReportFromTaskID;
+    private PreparedStatement findReportByTaskID;
     private PreparedStatement deleteReportByTaksID;
     
     /**
@@ -72,18 +72,20 @@ public class ReportDB implements ReportDBIF {
 
 	@Override
 	public Report findReportByTaskID(int taskID) throws Exception {
-		int tID = 0;
 		Report report = null;
+		findReportByTaskID = connection.prepareStatement(find_report_by_taskid);	
 		try {
+			report = findReportByTaskID(taskID);
 			
+			ResultSet rs = dbConnection.getResultSetWithPS(findReportByTaskID);
+			
+			rs.next();
+			report = createReportFromResultSet(rs);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			 e.printStackTrace();
 		}
-		
-		
-		
-		return null;
+		return report;
 	}
 
 	@Override
