@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import model.Rating;
 import model.Report;
+import model.Task;
 
 public class RatingDB implements RatingDBIF {
 	
@@ -25,8 +26,22 @@ public class RatingDB implements RatingDBIF {
 		createRating = connection.prepareStatement(create_rating);
 	}
 
+	
+	
+	
+	 /**
+     * Retrieves all tasks from the database that fall within a specified month and year.
+     * 
+     * <p>This method prepares a SELECT query using the given year and month, executes it, 
+     * and constructs a list of {@link Task} objects from the result set.</p>
+     * 
+     * @param rating - a rating object you want to save.
+     * @param reportNr - the reportNr of the report you want to save the rating to.
+     * @return the newly created rating entry in the db, as a Rating Object.
+     * @throws Exception.
+     */
 	@Override
-	public void saveRatingToDB(Rating rating, int reportNr) throws Exception {
+	public Rating saveRatingToDB(Rating rating, int reportNr) throws Exception {
 		int ratingID;
 		createRating.setInt(1, rating.getSecurityScore());
 		createRating.setString(2, rating.getSecurityComment());
@@ -39,12 +54,12 @@ public class RatingDB implements RatingDBIF {
 		 try {
 	            // Execute and retrieve generated key
 	            ratingID = dbConnection.executeSqlInsertWithIdentityPS(createRating);
-	            task.setTaskID(taskID);
+	            rating.setRatingID(ratingID);
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-		
-		
+		 
+		 return rating;
 	}
 
 	@Override
