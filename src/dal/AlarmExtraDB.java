@@ -82,7 +82,7 @@ public class AlarmExtraDB implements AlarmExtraDBIF{
 		String description = rs.getString("Description");
 		LocalDateTime timeMade = rs.getTimestamp("Time").toLocalDateTime();
 		
-		// Create AlarmExtra object and set values that isnt included in constructor
+		// Create AlarmExtra object and set value that isn't included in constructor
 		AlarmExtra alarmExtra = new AlarmExtra(description);
 		alarmExtra.setTimeMade(timeMade);
 		
