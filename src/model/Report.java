@@ -109,5 +109,11 @@ public class Report {
 	public List<Rating> getRatings() {
 		return new ArrayList<>(ratings);
 	}
+	
+	public void addAlarms(Alarm alarm) {
+		if(alarm != null) {
+			alarms.add(alarm);
+		}
+	}
 
 }
