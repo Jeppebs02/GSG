@@ -77,7 +77,7 @@ public class TaskDB implements TaskDBIF {
 
         try {
             // Execute and retrieve generated key
-            taskID = dbConnection.getInstance().executeSqlInsertWithIdentityPS(insertTask);
+            taskID = dbConnection.executeSqlInsertWithIdentityPS(insertTask);
             task.setTaskID(taskID);
         } catch (SQLException e) {
             e.printStackTrace();
