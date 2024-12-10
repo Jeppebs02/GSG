@@ -22,7 +22,7 @@ public class AlarmDB implements AlarmDBIF{
 	private static final String insert_alarm = 
 			"INSERT INTO [Alarm] (Time, Description, Notify, Classification, Report_ID) VALUES (?, ?, ?, ?, ?);";
 	private static final String find_alarm_from_id = 
-			"SELECT ID AS ALARM_ID, Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE ID = ?;";
+			"SELECT ID AS Alarm_ID, Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE ID = ?;";
 	private static final String delete_alarm_from_id = 
 			"DELETE FROM [Alarm] WHERE ID = ?;";
 	private static final String insert_alarm_extra = 
@@ -75,10 +75,12 @@ public class AlarmDB implements AlarmDBIF{
 		Classification classification = Classification.valueOf(rs.getString("classification"));
 		String description = rs.getString("Description");
 		Boolean notify = rs.getBoolean("Notify");
+		int alarmID = rs.getInt("Alarm_ID");
 		
 		// Create Alarm object and set value that aren't included in constructer
 		Alarm alarm = new Alarm(time, classification, description);
 		alarm.setNotify(notify);
+		alarm.setAlarmID(alarmID);
 		
 		//Set associated extra comments
 		//TODO
@@ -92,7 +94,11 @@ public class AlarmDB implements AlarmDBIF{
 		deleteAlarmFromID.setInt(1, alarmID);
 		
 		// Execute query
-
+		try {
+			dbConnection.executeSqlInsertWithIdentityPS(deleteAlarmFromID);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
