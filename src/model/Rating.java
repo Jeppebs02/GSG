@@ -8,8 +8,12 @@ public class Rating {
     private String serviceComment;
     private Employee employee;
     
-    public Rating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee empolyee) {
-    	this.employee = empolyee;
+    public Rating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee employee) {
+    	this.employee = employee;
+    	this.securityComment=securityComment;
+    	this.securityScore=securityScore;
+    	this.serviceComment= serviceComment;
+    	this.serviceScore = serviceScore;
     }
 
     // Getters and Setters

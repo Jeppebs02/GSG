@@ -18,12 +18,14 @@ public class AlarmCtrl {
 		 
 	}
 	
-	public Alarm createAlarm(LocalDateTime time, Classification classification, String description) {
+	public Alarm createAlarm(LocalDateTime time, Classification classification, String description, int reportNr) throws Exception {
 		
 		currentAlarm = new Alarm(time, classification, description);
+		saveAlarm(reportNr);
 		return currentAlarm;
 		
 	}
+	
 	//TODO 
 	public Alarm AddAlarmEkstraDescription(int alarmID) throws Exception {
 		
