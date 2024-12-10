@@ -4,9 +4,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import ctrl.TaskCtrl;
+import dal.ShiftDB;
+import model.Shift;
+import model.Task;
 
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +34,7 @@ public class ShiftReportView extends JDialog {
     private JTextField txtDescription;
     private JTextField txtDate;
     private JTable shiftsTable;
-    private List<String> shifts;
+    private List<Shift> shifts;
     private JTextField textField;
     private JTextField textField_1;
     private JTextField textField_2;
@@ -51,43 +55,54 @@ public class ShiftReportView extends JDialog {
      *                 This dialog adds the newly created task to this map.
      * @throws SQLException if there's an error initializing the underlying TaskCtrl or database operations.
      */
-    public ShiftReportView(LocalDate date) throws SQLException {
-        
-        setTitle("Add task");
+    public ShiftReportView(Task task) throws SQLException {
+    	setModal(true);
+
+    	setTitle("Add task");
         setBounds(100, 100, 600, 600);
         getContentPane().setLayout(null);
         shifts = new ArrayList<>();
-
+        ShiftDB sdb = new ShiftDB();
+    	shifts = sdb.findAllShiftsByTaskIDFromDB(task.getTaskID());
+    	
         JLabel lblDescription = new JLabel("Task Report");
         lblDescription.setBounds(20, 20, 72, 25);
         getContentPane().add(lblDescription);
 
-        txtDescription = new JTextField();
-        txtDescription.setBounds(94, 20, 116, 25);
+        txtDescription = new JTextField(task.getDescription());
+        txtDescription.setEditable(false);
+        txtDescription.setBounds(94, 20, 262, 25);
         getContentPane().add(txtDescription);
 
         JLabel lblDate = new JLabel("Date:");
-        lblDate.setBounds(266, 20, 44, 25);
+        lblDate.setBounds(380, 20, 44, 25);
         getContentPane().add(lblDate);
 
-        txtDate = new JTextField(date.toString());
-        txtDate.setEditable(false);
-        txtDate.setBounds(306, 20, 110, 25);
+        txtDate = new JTextField(task.getDate().toString());
+        txtDate.setBounds(420, 20, 110, 25);
         getContentPane().add(txtDate);
+        txtDate.setEditable(false);
 
         JLabel lblShifts = new JLabel("Shifts:");
         lblShifts.setBounds(20, 57, 100, 25);
         getContentPane().add(lblShifts);
 
         shiftsTable = new JTable(new DefaultTableModel(new Object[]{"Starttime", "Endtime", "Employee"}, 0));
+        DefaultTableModel model = (DefaultTableModel) shiftsTable.getModel();
+        
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        shifts.forEach(shift -> {
+        	
+            model.addRow(new Object[]{shift.getStartTime().format(timeFormatter), shift.getEndTime().format(timeFormatter) , shift.getEmployee().getFirstName() + " " + shift.getEmployee().getLastName()});
+        });
+        
         JScrollPane scrollPane = new JScrollPane(shiftsTable);
         scrollPane.setBounds(94, 55, 436, 114);
         getContentPane().add(scrollPane);
 
-        JButton btnOK = new JButton("PDF");
-        btnOK.setBounds(405, 508, 64, 30);
-        btnOK.addActionListener((ActionEvent e) -> dispose());
-        getContentPane().add(btnOK);
+        JButton bntPDF = new JButton("PDF");
+        bntPDF.setBounds(405, 508, 64, 30);
+        getContentPane().add(bntPDF);
         
         JLabel lblAge = new JLabel("Age:");
         lblAge.setBounds(363, 210, 64, 25);
@@ -163,6 +178,14 @@ public class ShiftReportView extends JDialog {
         
         JButton btnAddAlarm = new JButton("Add Alarm");
         btnAddAlarm.setBounds(0, 378, 93, 30);
+        btnAddAlarm.addActionListener((ActionEvent e) -> {
+			try {
+				addAlarmView();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
         getContentPane().add(btnAddAlarm);
         
         JLabel lblSignatureEmployee = new JLabel("Signature employee");
@@ -189,12 +212,18 @@ public class ShiftReportView extends JDialog {
         textField_9.setBounds(405, 354, 150, 104);
         getContentPane().add(textField_9);
         
-        JButton btnOK_1 = new JButton("OK");
-        btnOK_1.setBounds(491, 508, 64, 30);
-        getContentPane().add(btnOK_1);
+        JButton btnOK = new JButton("OK");
+        btnOK.setBounds(491, 508, 64, 30);
+        btnOK.addActionListener((ActionEvent e) -> dispose());
+        getContentPane().add(btnOK);
     }
 
-    
+    private void addAlarmView() throws SQLException {
+    	AddAlarmView view = new AddAlarmView();
+		view.setVisible(true);
+		
+		
+	}
 
     
 }

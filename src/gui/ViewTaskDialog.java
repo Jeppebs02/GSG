@@ -45,7 +45,6 @@ public class ViewTaskDialog extends JDialog {
         setTitle("Vis Opgave");
         setBounds(100, 100, 600, 600);
         getContentPane().setLayout(null);
-        setModal(true);  // Makes the dialog modal
 
         JLabel lblDescription = new JLabel("Discription:");
         lblDescription.setBounds(20, 20, 100, 25);
@@ -121,7 +120,7 @@ public class ViewTaskDialog extends JDialog {
     }
 
 	private void viewReport(Task task) throws SQLException {
-		ShiftReportView view = new ShiftReportView(task.getDate());
+		ShiftReportView view = new ShiftReportView(task);
 		view.setVisible(true);
 		
 		
