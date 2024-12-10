@@ -1,6 +1,7 @@
 package ctrl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import dal.AlarmDB;
 import model.Alarm;
@@ -24,7 +25,8 @@ public class AlarmCtrl {
 	}
 	
 	//TODO
-	public void findAlarmsByReportID() {
+	public List<Alarm> findAlarmsByReportID(int reportNr) {
+		return null;
 		
 	}
 	
