@@ -7,7 +7,7 @@ public class Rating {
     private String serviceComment;
     private Employee employee;
     
-    public Rating(Employee empolyee) {
+    public Rating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee empolyee) {
     	this.employee = empolyee;
     }
 
