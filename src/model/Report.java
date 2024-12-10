@@ -12,7 +12,7 @@ public class Report {
     private String alternativeRemarks;
     private String employeeSignature;
     private String customerSignature;
-    private List<Alarm> alarms; // Association with Alarm (0..*)
+    private List<Alarm> alarms; 
     private List<Rating> ratings;
 
     public Report() {

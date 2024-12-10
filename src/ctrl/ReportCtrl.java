@@ -35,7 +35,7 @@ public class ReportCtrl {
         repDB.saveReportToDb(report);
     }
     //TODO fix this ?? skal vi have den her?
-    public Report updateReport(int taskID, String alternativeRemarks) {
+    public Report updateReport(int taskID, String alternativeRemarks) throws Exception {
     	
     	
     	Report report = repDB.findReportByTaskID(taskID);
@@ -47,7 +47,7 @@ public class ReportCtrl {
     	return null;
     }
     
-    public Report findReportByTaskID(int taskID) {
+    public Report findReportByTaskID(int taskID) throws Exception {
     	
     	Report report = repDB.findReportByTaskID(taskID);
     	
@@ -57,7 +57,7 @@ public class ReportCtrl {
     	
     }
     
-    public void deleteReportByTaskID(int taskID) {
+    public void deleteReportByTaskID(int taskID) throws Exception {
     	
     	repDB.deleteReportByTaskID(taskID);
     	//TODO Slet tilhørende alarmer og ratings

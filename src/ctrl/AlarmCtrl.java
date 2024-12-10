@@ -16,17 +16,21 @@ public class AlarmCtrl {
 		return new Alarm(time, classification, description);
 		
 	}
-	
-	public Alarm updateAlarm(int alarmID) {
+	//TODO ??
+	public Alarm updateAlarm(int alarmID) throws Exception {
 		
 		adb.findAlarmByID(alarmID);
 		
-		
+	}
+	
+	//TODO
+	public void findAlarmsByReportID() {
 		
 	}
 	
-	public 
-	
-	
+	//TODO
+	public void deleteAlarmsByReportID() {
+		
+	}
 	
 }
