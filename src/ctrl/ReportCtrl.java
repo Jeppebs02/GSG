@@ -91,9 +91,8 @@ public class ReportCtrl {
     	
     	report.getRatings().forEach(r -> rc.deleteRatingByRatingID(r.getRatingID()));
     	
-    	
     	repDB.deleteReportByTaskID(taskID);
-    	//TODO Slet tilhørende alarmer og ratings
+    	
     	
     }
 	
