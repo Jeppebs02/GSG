@@ -89,9 +89,15 @@ public class ReportDB implements ReportDBIF {
 	}
 
 	@Override
-	public void deleteReportByTaskID(int reportID) throws Exception {
-		// TODO Auto-generated method stub
+	public void deleteReportByTaskID(int taskID) throws Exception {
+		deleteReportByTaksID = connection.prepareStatement(delete_report_by_taskid);	
 		
+		try {
+			deleteReportByTaksID.setInt(1, taskID);
+			dbConnection.executeSqlInsertWithIdentityPS(deleteReportByTaksID);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
