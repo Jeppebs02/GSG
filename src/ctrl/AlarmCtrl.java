@@ -1,5 +1,6 @@
 package ctrl;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,14 +12,17 @@ public class AlarmCtrl {
 
 	private AlarmDB adb;
 	
+	public AlarmCtrl() throws SQLException {
+		adb = new AlarmDB();
+	}
 	
 	public Alarm createAlarm(LocalDateTime time, Classification classification, String description) {
 		
 		return new Alarm(time, classification, description);
 		
 	}
-	//TODO ??
-	public Alarm updateAlarm(int alarmID) throws Exception {
+	//TODO 
+	public Alarm AddAlarmEkstraDescription(int alarmID) throws Exception {
 		
 		return adb.findAlarmByID(alarmID);
 		
@@ -31,8 +35,8 @@ public class AlarmCtrl {
 	}
 	
 	//TODO
-	public void deleteAlarmsByReportID() {
-		
+	public void deleteAlarmByAlarmID(int alarmID) throws SQLException {
+		adb.deleteAlarmFromDB(alarmID);
 	}
 	
 }
