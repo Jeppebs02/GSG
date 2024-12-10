@@ -28,6 +28,4 @@ public class AlarmExtra {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
 }
