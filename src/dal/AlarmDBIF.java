@@ -8,7 +8,7 @@ import model.Alarm;
 
 public interface AlarmDBIF {
 
-	Alarm saveAlarmToDB(Alarm alarm) throws Exception;
+	Alarm saveAlarmToDB(Alarm alarm, int reportID) throws Exception;
 	
 	Alarm createAlarmFromResultSet(ResultSet rs) throws SQLException;
 	
@@ -19,4 +19,6 @@ public interface AlarmDBIF {
 	void saveAlarmExtraDescription(String extraDescription) throws Exception;
 	
 	List<Alarm> findAllAlarmsByReportID(int reportID) throws Exception;
+	
+	
 }
