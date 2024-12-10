@@ -32,4 +32,8 @@ public class AlarmExtra {
 	public LocalDateTime getTimeMade() {
 		return timeMade;
 	}
+	
+	public void setTimeMade(LocalDateTime timeMade) {
+		this.timeMade = timeMade;
+	}
 }

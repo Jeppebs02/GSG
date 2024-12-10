@@ -2,9 +2,12 @@ package dal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.AlarmExtra;
@@ -53,9 +56,37 @@ public class AlarmExtraDB implements AlarmExtraDBIF{
 	}
 
 	@Override
-	public List<AlarmExtra> findAllAlarmExtraFromAlarmID(int alarmID) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<AlarmExtra> findAllAlarmExtraFromAlarmID(int alarmID) throws Exception {
+		List<AlarmExtra> alarmExtras = new ArrayList<>();
+		
+		// Set parameter
+		findAllAlarmExtraFromAlarmID.setInt(1, alarmID);
+		
+		try (ResultSet rs = dbConnection.getResultSetWithPS(findAllAlarmExtraFromAlarmID)) {
+			while (rs.next()) {
+				// Create AlarmExtra from ResultSet
+				AlarmExtra alarmExtra = createAlarmExtraFromResultSet(rs);
+				// add to list
+				alarmExtras.add(alarmExtra);
+			}
+		} catch (SQLException e) {
+			System.out.println("Creating/adding the alarmExtra failed");
+			e.printStackTrace();
+		}
+		return alarmExtras;
+	}
+
+	@Override
+	public AlarmExtra createAlarmExtraFromResultSet(ResultSet rs) throws Exception {
+		// Extract fields
+		String description = rs.getString("Description");
+		LocalDateTime timeMade = rs.getTimestamp("Time").toLocalDateTime();
+		
+		// Create AlarmExtra object and set values that isnt included in constructor
+		AlarmExtra alarmExtra = new AlarmExtra(description);
+		alarmExtra.setTimeMade(timeMade);
+		
+		return alarmExtra;
 	}
 
 }

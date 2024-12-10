@@ -25,10 +25,6 @@ public class AlarmDB implements AlarmDBIF{
 			"SELECT ID AS Alarm_ID, Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE ID = ?;";
 	private static final String delete_alarm_from_id = 
 			"DELETE FROM [Alarm] WHERE ID = ?;";
-	private static final String insert_alarm_extra = 
-			"INSERT INTO [AlarmExtra] (ID, AlarmID, Description) VALUES (?, ?, ?);";
-	private static final String find_all_alarm_extra_from_alarm_id = 
-			"SELECT ID AS AlarmExtraID, AlarmID, Description FROM [AlarmExtra] WHERE AlarmID = ?;";
 	private static final String find_all_alarms_from_report_id = 
 			"SELECT Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE Report_ID =?;";
 	
@@ -45,9 +41,8 @@ public class AlarmDB implements AlarmDBIF{
         insertAlarm = connection.prepareStatement(insert_alarm, Statement.RETURN_GENERATED_KEYS);
         findAlarmFromID = connection.prepareStatement(find_alarm_from_id);
         deleteAlarmFromID = connection.prepareStatement(delete_alarm_from_id);
-        findAlarmExtra = connection.prepareStatement(insert_alarm_extra, Statement.RETURN_GENERATED_KEYS);
-        findAllAlarmExtraFromAlarmID = connection.prepareStatement(find_all_alarm_extra_from_alarm_id);
-	}
+        findAllAlarmsFromReportID = connection.prepareStatement(find_all_alarms_from_report_id);
+        }
 
 	@Override
 	public Alarm saveAlarmToDB(Alarm alarm, int reportID) throws Exception {
