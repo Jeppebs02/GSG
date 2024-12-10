@@ -74,7 +74,7 @@ public class ShiftDB implements ShiftDBIF {
 
         try {
             // Execute and get generated key
-            shiftID = DBConnection.getInstance().executeSqlInsertWithIdentityPS(insertShiftWithEmployee);
+            shiftID = dbConnection.executeSqlInsertWithIdentityPS(insertShiftWithEmployee);
 
             // Set shift ID on the object
             shift.setShiftID(shiftID);
@@ -110,7 +110,7 @@ public class ShiftDB implements ShiftDBIF {
 
         try{
             // Execute and get generated key
-            shiftID = dbConnection.getInstance().executeSqlInsertWithIdentityPS(insertShiftWithoutEmployee);
+            shiftID = dbConnection.executeSqlInsertWithIdentityPS(insertShiftWithoutEmployee);
             // Set shift ID on the object
             shift.setShiftID(shiftID);
         } catch (SQLException e) {
