@@ -64,7 +64,7 @@ public class ShiftDB implements ShiftDBIF {
      */
     @Override
     public Shift saveShiftWithEmployee(Shift shift, int taskID) throws Exception {
-        int shiftID = 0;
+        int shiftID = -1;
         
         // Set parameters
         insertShiftWithEmployee.setTimestamp(1, Timestamp.valueOf(shift.getStartTime()));
