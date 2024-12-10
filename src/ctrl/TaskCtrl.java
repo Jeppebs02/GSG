@@ -103,6 +103,12 @@ public class TaskCtrl {
     }
 
     
+    public void createReport(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks,
+			String employeeSignature, String customerSignature) throws Exception {
+    	rc.saveReport(currentTask, rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, employeeSignature, customerSignature);
+    	
+    }
+    
 
     /**
      * Retrieves the current task managed by this controller.
