@@ -122,15 +122,6 @@ public class AlarmDB implements AlarmDBIF{
 	}
 
 	@Override
-	public void saveAlarmExtraDescription(String extraDescription) throws Exception {
-		int alarmExtraID = -1;
-		
-		// Set Parameters
-		
-		
-	}
-
-	@Override
 	public List<Alarm> findAllAlarmsByReportID(int reportID) throws Exception {
 		List<Alarm> alarms = new ArrayList<>();
 		
