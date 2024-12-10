@@ -100,7 +100,6 @@ public class TaskCtrl {
        
         // Save the current task to the database and retrieve the newly assigned Task ID
         Task createdTask = tb.saveTask(currentTask);
-        rc.saveReport(createdTask);
     }
 
     
