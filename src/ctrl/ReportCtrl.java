@@ -52,18 +52,6 @@ public class ReportCtrl {
         report.setTaskID(task.getTaskID());
         repDB.saveReportToDb(report);
     }
-//    //TODO fix this ?? skal vi have den her?
-//    public Report updateReport(int taskID, int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks,
-//			String employeeSignature, String customerSignature) throws Exception {
-//    	
-//    	Report report = repDB.findReportByTaskID(taskID);
-//    	
-//    	report.setAlternativeRemarks(alternativeRemarks);
-//    	
-//    	//push to DB after changes
-//    	
-//    	return null;
-//    }
     
     public Report findReportByTaskID(int taskID) throws Exception {
     	
@@ -87,7 +75,14 @@ public class ReportCtrl {
     	
     	Report report = findReportByTaskID(taskID);
     	
-    	report.getAlarms().forEach(a -> ac.deleteAlarmByAlarmID(a.getAlarmID()));
+    	report.getAlarms().forEach(a -> {
+			try {
+				ac.deleteAlarmByAlarmID(a.getAlarmID());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
     	
     	report.getRatings().forEach(r -> rc.deleteRatingByRatingID(r.getRatingID()));
     	
