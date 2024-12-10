@@ -15,5 +15,6 @@ public interface RatingDBIF {
 	public void deleteRatingByRatingID(int ratingID) throws Exception;
 	public List<Rating> findRatingsByReportID(int reportID) throws Exception;
 	public Rating createRatingFromResultSet(ResultSet rs) throws Exception;
+	public ResultSet findRatingByReportID(int reportID) throws Exception;
 
 }
