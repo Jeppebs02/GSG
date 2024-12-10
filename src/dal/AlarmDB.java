@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import model.Alarm;
+import model.Classification;
 
 public class AlarmDB implements AlarmDBIF{
 	// Connection
@@ -20,7 +22,8 @@ public class AlarmDB implements AlarmDBIF{
 			"INSERT INTO [Alarm] (Time, Description, Notify, Classification, Report_ID) VALUES (?, ?, ?, ?, ?);";
 	private static final String find_alarm_from_id = 
 			"SELECT ID AS ALARM_ID, Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE ID = ?;";
-	private static final String delete_alarm_from_id = "";
+	private static final String delete_alarm_from_id = 
+			"DELETE FROM [Alarm] WHERE ID = ?;";
 	private static final String insert_alarm_extra = 
 			"INSERT INTO [AlarmExtra] (ID, AlarmID, Description) VALUES (?, ?, ?);";
 	private static final String find_all_alarm_extra_from_alarm_id = 
@@ -45,7 +48,7 @@ public class AlarmDB implements AlarmDBIF{
 	}
 
 	@Override
-	public Alarm saveAlarm(Alarm alarm) throws Exception {
+	public Alarm saveAlarmToDB(Alarm alarm) throws Exception {
 		int alarmID = -1;
 		
 		// Set parameters for the insert statement
@@ -54,13 +57,29 @@ public class AlarmDB implements AlarmDBIF{
 		insertAlarm.setBoolean(3, alarm.getNotify());
 		insertAlarm.setString(4, alarm.getClassificationValue());
 		
+		// Execute the insert and retrieve the generated key
+		alarmID = dbConnection.executeSqlInsertWithIdentityPS(insertAlarm);
+		System.out.println("Alarm ID: " + alarmID);
+		
 		return alarm;
 	}
 
 	@Override
 	public Alarm createAlarmFromResultSet(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		// Extract fields
+		LocalDateTime time = rs.getTimestamp("Time").toLocalDateTime();
+		Classification classification = Classification.valueOf(rs.getString("classification"));
+		String description = rs.getString("Description");
+		Boolean notify = rs.getBoolean("Notify");
+		
+		// Create Alarm object and set value that aren't included in constructer
+		Alarm alarm = new Alarm(time, classification, description);
+		alarm.setNotify(notify);
+		
+		//Set associated extra comments
+		//TODO
+		
+		return alarm;
 	}
  
 	@Override

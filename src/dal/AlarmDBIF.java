@@ -8,7 +8,7 @@ import model.Alarm;
 
 public interface AlarmDBIF {
 
-	Alarm saveAlarm(Alarm alarm) throws Exception;
+	Alarm saveAlarmToDB(Alarm alarm) throws Exception;
 	
 	Alarm createAlarmFromResultSet(ResultSet rs) throws SQLException;
 	
