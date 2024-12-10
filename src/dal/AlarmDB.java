@@ -84,14 +84,30 @@ public class AlarmDB implements AlarmDBIF{
  
 	@Override
 	public void deleteAlarmFromDB(int alarmID) throws SQLException {
-		// TODO Auto-generated method stub
+		// Set parameters for SQL query
+		deleteAlarmFromID.setInt(1, alarmID);
 		
+		// Execute query
+
 	}
 
 	@Override
 	public Alarm findAlarmByID(int alarmID) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Alarm alarm = null;
+		findAlarmFromID = connection.prepareStatement(find_alarm_from_id);
+		try {
+			alarm = findAlarmByID(alarmID);
+			
+			ResultSet rs = dbConnection.getResultSetWithPS(findAlarmFromID);
+			
+			rs.next();
+			alarm = createAlarmFromResultSet(rs);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return alarm;
 	}
 
 	@Override
