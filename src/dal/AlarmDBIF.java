@@ -16,8 +16,6 @@ public interface AlarmDBIF {
 	
 	Alarm findAlarmByID(int alarmID) throws Exception;
 	
-	void saveAlarmExtraDescription(String extraDescription) throws Exception;
-	
 	List<Alarm> findAllAlarmsByReportID(int reportID) throws Exception;
 	
 	
