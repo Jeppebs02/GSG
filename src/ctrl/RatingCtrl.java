@@ -24,13 +24,13 @@ public class RatingCtrl {
 			
 			
 		}
-		//TODO
+		
 		public List<Rating> findRatingsByReportID(int reportID) throws Exception {
-			rdb.findRatingsByReportID(reportID);
-			return null;
+			return rdb.findRatingsByReportID(reportID);
+			
 		}
 		
-		//TODO
+		
 		public void deleteRatingByRatingID(int ratingID) throws Exception {
 			
 			rdb.deleteRatingByRatingID(ratingID);
