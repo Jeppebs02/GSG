@@ -84,7 +84,14 @@ public class ReportCtrl {
 			}
 		});
     	
-    	report.getRatings().forEach(r -> rc.deleteRatingByRatingID(r.getRatingID()));
+    	report.getRatings().forEach(r -> {
+			try {
+				rc.deleteRatingByRatingID(r.getRatingID());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
     	
     	repDB.deleteReportByTaskID(taskID);
     	
