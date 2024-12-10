@@ -1,8 +1,9 @@
 	package ctrl;
 
 	import java.time.LocalDateTime;
+import java.util.List;
 
-	import dal.RatingDB;
+import dal.RatingDB;
 import model.Employee;
 import model.Rating;
 
@@ -23,16 +24,16 @@ public class RatingCtrl {
 			
 		}
 		//TODO
-		public void findRatingsByReportID(int reportID) {
+		public List<Rating> findRatingsByReportID(int reportID) {
 			rdb.findRatingsByReportID(reportID);
+			return null;
 		}
 		
 		//TODO
-		public void deleteRatingsByReportID(int ratingID) {
+		public void deleteRatingByRatingID(int ratingID) {
 			
 			rdb.deleteRatingByRatingID(ratingID);
 		}
 		
 	}
 
-}

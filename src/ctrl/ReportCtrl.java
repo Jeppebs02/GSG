@@ -1,13 +1,30 @@
 package ctrl;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import dal.AlarmDB;
 import dal.ReportDB;
+import model.Alarm;
+import model.Rating;
 import model.Report;
 import model.Task;
 
 public class ReportCtrl {
 	
 	
-	ReportDB repDB = new ReportDB();
+	ReportDB repDB;
+	AlarmCtrl ac;
+	RatingCtrl rc;
+	
+	
+	public ReportCtrl() throws SQLException {
+		repDB = new ReportDB();
+		ac = new AlarmCtrl();
+		rc = new RatingCtrl();
+		
+	}
+	
 	
 	
 	/**
@@ -25,42 +42,59 @@ public class ReportCtrl {
         return new Report(rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, employeeSignature, customerSignature);
     }
     
-    public void saveReport(Task task) throws Exception {
+    public void saveReport(Task task, int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks,
+			String employeeSignature, String customerSignature) throws Exception {
     	ReportDB repDB = new ReportDB();
     	// Create a report with default values
-        Report report = createReport(0, 0, 0, "", "", "");
+        Report report = createReport(rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, employeeSignature, customerSignature);
         
         // Associate the report with the saved task and save the report
         report.setTaskID(task.getTaskID());
         repDB.saveReportToDb(report);
     }
-    //TODO fix this ?? skal vi have den her?
-    public Report updateReport(int taskID, String alternativeRemarks) throws Exception {
-    	
-    	
-    	Report report = repDB.findReportByTaskID(taskID);
-    	
-    	report.setAlternativeRemarks(alternativeRemarks);
-    	
-    	//push to DB after changes
-    	
-    	return null;
-    }
+//    //TODO fix this ?? skal vi have den her?
+//    public Report updateReport(int taskID, int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks,
+//			String employeeSignature, String customerSignature) throws Exception {
+//    	
+//    	Report report = repDB.findReportByTaskID(taskID);
+//    	
+//    	report.setAlternativeRemarks(alternativeRemarks);
+//    	
+//    	//push to DB after changes
+//    	
+//    	return null;
+//    }
     
     public Report findReportByTaskID(int taskID) throws Exception {
     	
     	Report report = repDB.findReportByTaskID(taskID);
     	
+		ArrayList<Alarm> alarms = (ArrayList<Alarm>) ac.findAlarmsByReportID(report.getReportNr()); 
     	//TODO find alarm og ratings også
+		alarms.forEach(a -> report.addAlarms(a));
+		
+		ArrayList<Rating> ratings = (ArrayList<Rating>) rc.findRatingsByReportID(report.getReportNr());
+		ratings.forEach(r -> report.addRatings(r));
     	
-    	return null;
+		//TODO Find extra alarms comments
+		
+    	return report;
     	
     }
     
     public void deleteReportByTaskID(int taskID) throws Exception {
     	
+    	
+    	Report report = findReportByTaskID(taskID);
+    	
+    	report.getAlarms().forEach(a -> ac.deleteAlarmByAlarmID(a.getAlarmID()));
+    	
+    	report.getRatings().forEach(r -> rc.deleteRatingByRatingID(r.getRatingID()));
+    	
+    	
     	repDB.deleteReportByTaskID(taskID);
     	//TODO Slet tilhørende alarmer og ratings
+    	
     }
 	
 }
