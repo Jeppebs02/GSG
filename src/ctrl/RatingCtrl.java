@@ -1,6 +1,7 @@
 	package ctrl;
 
-	import java.time.LocalDateTime;
+	import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import dal.RatingDB;
@@ -13,7 +14,7 @@ public class RatingCtrl {
 		private RatingDB rdb;
 		
 		
-		public RatingCtrl() {
+		public RatingCtrl() throws SQLException {
 			rdb = new RatingDB();
 		}
 		
@@ -24,13 +25,13 @@ public class RatingCtrl {
 			
 		}
 		//TODO
-		public List<Rating> findRatingsByReportID(int reportID) {
+		public List<Rating> findRatingsByReportID(int reportID) throws Exception {
 			rdb.findRatingsByReportID(reportID);
 			return null;
 		}
 		
 		//TODO
-		public void deleteRatingByRatingID(int ratingID) {
+		public void deleteRatingByRatingID(int ratingID) throws Exception {
 			
 			rdb.deleteRatingByRatingID(ratingID);
 		}
