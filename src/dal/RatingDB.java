@@ -3,6 +3,7 @@ package dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import model.Rating;
 import model.Report;
@@ -14,6 +15,7 @@ public class RatingDB implements RatingDBIF {
 	private DBConnection dbConnection;
 	
 	private static final String create_rating = "INSERT INTO [Rating] (SecurityScore,SecurityComment,ServiceScore,ServiceComment,ReportNr,Employee_ID) VALUES(?,?,?,?,?,?);";
+	private static final String
 	
 	private PreparedStatement createRating;
 	
@@ -68,10 +70,15 @@ public class RatingDB implements RatingDBIF {
 		
 	}
 
+
+
+
 	@Override
-	public Rating findRatingByReportID(int reportID) throws Exception {
+	public List<Rating> findRatingsByReportID(int reportID) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
