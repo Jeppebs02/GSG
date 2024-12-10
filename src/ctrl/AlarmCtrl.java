@@ -19,7 +19,7 @@ public class AlarmCtrl {
 	//TODO ??
 	public Alarm updateAlarm(int alarmID) throws Exception {
 		
-		adb.findAlarmByID(alarmID);
+		return adb.findAlarmByID(alarmID);
 		
 	}
 	
