@@ -36,8 +36,6 @@ public class AlarmDB implements AlarmDBIF{
 	private PreparedStatement insertAlarm;
 	private PreparedStatement findAlarmFromID;
 	private PreparedStatement deleteAlarmFromID;
-	private PreparedStatement findAlarmExtra;
-	private PreparedStatement findAllAlarmExtraFromAlarmID;
 	private PreparedStatement findAllAlarmsFromReportID;
 	
 	public AlarmDB() throws SQLException {
