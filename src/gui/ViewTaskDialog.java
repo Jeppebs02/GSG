@@ -13,6 +13,8 @@ import java.util.List;
 
 import model.Task;
 import model.Shift;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 /**
@@ -102,7 +104,28 @@ public class ViewTaskDialog extends JDialog {
         btnOK.setBounds(380, 508, 150, 30);
         btnOK.addActionListener(e -> dispose());
         getContentPane().add(btnOK);
+        
+        JButton btnViewReport = new JButton("View report");
+        btnViewReport.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					viewReport(task);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+        		
+        	}
+        });
+        btnViewReport.setBounds(130, 508, 150, 30);
+        getContentPane().add(btnViewReport);
     }
+
+	private void viewReport(Task task) throws SQLException {
+		ShiftReportView view = new ShiftReportView(task.getDate());
+		view.setVisible(true);
+		
+		
+	}
     
     	
 }
