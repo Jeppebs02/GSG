@@ -51,7 +51,7 @@ public class ShiftReportView extends JDialog {
      *                 This dialog adds the newly created task to this map.
      * @throws SQLException if there's an error initializing the underlying TaskCtrl or database operations.
      */
-    public ShiftReportView(LocalDate date, HashMap<LocalDate, List<String>> taskMap) throws SQLException {
+    public ShiftReportView(LocalDate date) throws SQLException {
         
         setTitle("Add task");
         setBounds(100, 100, 600, 600);
