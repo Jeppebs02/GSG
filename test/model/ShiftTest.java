@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import sqlscripts.SQLManager;
+
 class ShiftTest {
 
 	@BeforeAll
@@ -24,6 +26,7 @@ class ShiftTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		SQLManager.tearDown();
 	}
 
 	@Test

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import dal.EmployeeDB;
 import dal.*;
 import model.*;
+import sqlscripts.SQLManager;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -41,6 +42,7 @@ public class EmployeeDBTestCase {
 	 */
 	@AfterEach
 	void tearDown() throws Exception {
+		SQLManager.tearDown();
 	}
 	
 	@Test

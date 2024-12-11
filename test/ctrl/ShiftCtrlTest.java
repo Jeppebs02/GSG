@@ -16,6 +16,7 @@ import dal.EmployeeDB;
 import model.AccountPrivileges;
 import model.Employee;
 import model.Shift;
+import sqlscripts.SQLManager;
 
 class ShiftCtrlTest {
 	private ShiftCtrl sc;
@@ -30,6 +31,7 @@ class ShiftCtrlTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		SQLManager.tearDown();
 	}
 
 	@BeforeEach
