@@ -29,9 +29,11 @@ public class ReportDB implements ReportDBIF {
         "INSERT INTO [Report] (RejectionAge, RejectionAttitude, RejectionAlternative, " + 
         "AlternativeRemarks, EmployeeSignature, CustomerSignature, Task_ID) " + 
         "VALUES (?,?,?,?,?,?,?)";
+    private static final String update_report_by_taskid = "UPDATE dbo.[Report] SET RejectionAge = ?, RejectionAttitude = ?, RejectionAlternative = ?, AlternativeRemarks = ?, EmployeeSignature = ?, CustomerSignature = ? WHERE Task_ID = ?;";
     private PreparedStatement saveReportToDB;
     private PreparedStatement findReportByTaskID;
-    private PreparedStatement deleteReportByTaksID;
+    private PreparedStatement deleteReportByTaskID;
+    private PreparedStatement updateReportByTaskID;
     
     /**
      * Saves the given Report object to the database.
@@ -69,6 +71,8 @@ public class ReportDB implements ReportDBIF {
             
         }
     }
+    
+    
 
 	@Override
 	public Report findReportByTaskID(int taskID) throws Exception {
@@ -89,11 +93,11 @@ public class ReportDB implements ReportDBIF {
 
 	@Override
 	public void deleteReportByTaskID(int taskID) throws Exception {
-		deleteReportByTaksID = connection.prepareStatement(delete_report_by_taskid);	
+		deleteReportByTaskID = connection.prepareStatement(delete_report_by_taskid);	
 		
 		try {
-			deleteReportByTaksID.setInt(1, taskID);
-			dbConnection.executeSqlInsertWithIdentityPS(deleteReportByTaksID);
+			deleteReportByTaskID.setInt(1, taskID);
+			dbConnection.executeSqlInsertWithIdentityPS(deleteReportByTaskID);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -118,4 +122,33 @@ public class ReportDB implements ReportDBIF {
 	     rep.setReportNr(reportNr);
 	     return rep;
 	}
+
+
+
+	@Override
+	public void updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative,
+			String alternativeRemarks, String employeeSignature, String customerSignature, int taskID)
+			throws Exception {
+		
+		
+		try {
+			updateReportByTaskID = connection.prepareStatement(update_report_by_taskid);
+			updateReportByTaskID.setInt(1, rejectionAge);
+			updateReportByTaskID.setInt(2, rejectionAttitude);
+			updateReportByTaskID.setInt(3, rejectionAlternative);
+			updateReportByTaskID.setString(4, alternativeRemarks);
+			updateReportByTaskID.setString(5, employeeSignature);
+			updateReportByTaskID.setString(6, customerSignature);
+			updateReportByTaskID.setInt(7, taskID);
+			
+			dbConnection.executeSqlInsertWithIdentityPS(updateReportByTaskID);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		
+		}
+	}
+
+
+
 }
