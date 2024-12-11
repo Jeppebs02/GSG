@@ -72,8 +72,7 @@ public class AlarmDB implements AlarmDBIF{
 		int alarmID = rs.getInt("Alarm_ID");
 		
 		// Create Alarm object and set value that aren't included in constructer
-		Alarm alarm = new Alarm(time, classification, description);
-		alarm.setNotify(notify);
+		Alarm alarm = new Alarm(time, classification, description, notify);
 		alarm.setAlarmID(alarmID);
 		
 		//Set associated extra comments
@@ -98,10 +97,9 @@ public class AlarmDB implements AlarmDBIF{
 	@Override
 	public Alarm findAlarmByID(int alarmID) throws Exception {
 		Alarm alarm = null;
-		findAlarmFromID = connection.prepareStatement(find_alarm_from_id);
+		findAlarmFromID.setInt(1, alarmID);
+		
 		try {
-			alarm = findAlarmByID(alarmID);
-			
 			ResultSet rs = dbConnection.getResultSetWithPS(findAlarmFromID);
 			
 			rs.next();

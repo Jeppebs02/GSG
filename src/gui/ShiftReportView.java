@@ -180,9 +180,9 @@ public class ShiftReportView extends JDialog {
         btnAddAlarm.setBounds(0, 378, 93, 30);
         btnAddAlarm.addActionListener((ActionEvent e) -> {
 			try {
-				addAlarmView();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
+				addAlarmView(task);
+			} catch (Exception e1) {
+				
 				e1.printStackTrace();
 			}
 		});
@@ -218,8 +218,8 @@ public class ShiftReportView extends JDialog {
         getContentPane().add(btnOK);
     }
 
-    private void addAlarmView() throws SQLException {
-    	AddAlarmView view = new AddAlarmView();
+    private void addAlarmView(Task task) throws Exception {
+    	AddAlarmView view = new AddAlarmView(task);
 		view.setVisible(true);
 		
 		

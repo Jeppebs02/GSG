@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import model.User;
+import sqlscripts.SQLManager;
 
 class UserDBTest {
 	UserDB udb;
@@ -29,6 +30,7 @@ class UserDBTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		SQLManager.tearDown();
 	}
 
 	@Test
