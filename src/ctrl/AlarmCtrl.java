@@ -18,9 +18,9 @@ public class AlarmCtrl {
 		 
 	}
 	
-	public Alarm createAlarm(LocalDateTime time, Classification classification, String description, int reportNr) throws Exception {
+	public Alarm createAlarm(LocalDateTime time, Classification classification, String description, boolean notify, int reportNr) throws Exception {
 		
-		currentAlarm = new Alarm(time, classification, description);
+		currentAlarm = new Alarm(time, classification, description, notify);
 		saveAlarm(reportNr);
 		return currentAlarm;
 		

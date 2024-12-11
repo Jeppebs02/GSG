@@ -72,8 +72,7 @@ public class AlarmDB implements AlarmDBIF{
 		int alarmID = rs.getInt("Alarm_ID");
 		
 		// Create Alarm object and set value that aren't included in constructer
-		Alarm alarm = new Alarm(time, classification, description);
-		alarm.setNotify(notify);
+		Alarm alarm = new Alarm(time, classification, description, notify);
 		alarm.setAlarmID(alarmID);
 		
 		//Set associated extra comments
