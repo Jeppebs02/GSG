@@ -98,9 +98,8 @@ public class AlarmDB implements AlarmDBIF{
 	public Alarm findAlarmByID(int alarmID) throws Exception {
 		Alarm alarm = null;
 		findAlarmFromID.setInt(1, alarmID);
+		
 		try {
-			alarm = findAlarmByID(alarmID);
-			
 			ResultSet rs = dbConnection.getResultSetWithPS(findAlarmFromID);
 			
 			rs.next();
