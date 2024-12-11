@@ -1,6 +1,11 @@
 package gui;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,6 +28,7 @@ public class AddAlarmView extends JDialog {
 	private JCheckBox chckbxNotify;
 	private AlarmCtrl ac;
 	private ReportCtrl rc;
+	private JTextField textFieldTime;
 
 	public AddAlarmView(Task task) throws Exception {
 
@@ -42,11 +48,11 @@ public class AddAlarmView extends JDialog {
 
 		JLabel lblcomments = new JLabel("Comments");
 		lblcomments.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblcomments.setBounds(20, 100, 100, 25);
+		lblcomments.setBounds(20, 131, 100, 25);
 		getContentPane().add(lblcomments);
 
 		txtComments = new JTextField();
-		txtComments.setBounds(130, 100, 200, 94);
+		txtComments.setBounds(130, 131, 200, 63);
 		getContentPane().add(txtComments);
 
 		JButton btnAdd = new JButton("Add");
@@ -78,6 +84,15 @@ public class AddAlarmView extends JDialog {
 		chckbxNotify = new JCheckBox("Notify");
 		chckbxNotify.setBounds(130, 226, 99, 23);
 		getContentPane().add(chckbxNotify);
+		
+		JLabel lblTimeOfAlarm = new JLabel("Time of alarm");
+		lblTimeOfAlarm.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTimeOfAlarm.setBounds(20, 95, 100, 25);
+		getContentPane().add(lblTimeOfAlarm);
+		
+		textFieldTime = new JTextField();
+		textFieldTime.setBounds(130, 93, 100, 25);
+		getContentPane().add(textFieldTime);
 	}
 
 	// A utility method to check if exactly one checkbox is selected
@@ -110,9 +125,34 @@ public class AddAlarmView extends JDialog {
 		if(chckbxNotify.isSelected()) {
 			notify = true;
 		}
-		ac.createAlarm(LocalDateTime.now(), getClassification(), txtComments.getText(), notify, reportID);
+		
+		LocalDateTime localTimeDate = null;
+		try {
+			// Prepare the time format and regex for validation
+			DateTimeFormatter timeFormatter;
+			// Validate and parse start time
+			String startTime;
+			timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+			String regex = "^([01]\\d|2[0-3]):[0-5]\\d$";
+			Pattern pattern = Pattern.compile(regex);
+
+			startTime = textFieldTime.getText();
+			Matcher startMatcher = pattern.matcher(startTime);
+			if (!startMatcher.matches()) {
+			    throw new IllegalArgumentException("Invalid time format. Use HH:mm");
+			}
+			
+			LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
+	        localTimeDate = LocalDateTime.of(task.getDate(), localTime);
+	        
+		} catch (DateTimeParseException e) {
+            // Handle invalid time format parsing
+            JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+		}
+        
+		ac.createAlarm(localTimeDate, getClassification(), txtComments.getText(), notify, reportID);
 		
 
 	}
-
 }
