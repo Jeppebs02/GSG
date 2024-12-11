@@ -104,9 +104,9 @@ public class ReportDB implements ReportDBIF {
 		
 		 int taskID = rs.getInt("Task_ID");
 	     int reportNr = rs.getInt("ReportNr");
-	     int rejectionsAge = rs.getInt("RejectionsAge");
-	     int rejectionsAttitude = rs.getInt("RejectionsAttitude");
-	     int rejectionsAlternative =  rs.getInt("RejectionsAlternative");;
+	     int rejectionsAge = rs.getInt("RejectionAge");
+	     int rejectionsAttitude = rs.getInt("RejectionAttitude");
+	     int rejectionsAlternative =  rs.getInt("RejectionAlternative");;
 	     String alternativeRemarks = rs.getString("AlternativeRemarks");
 	     String employeeSignature = rs.getString("EmployeeSignature");
 	     String customerSignature = rs.getString("CustomerSignature");
