@@ -58,7 +58,6 @@ public class ReportCtrl {
     	Report report = repDB.findReportByTaskID(taskID);
     	
 		ArrayList<Alarm> alarms = (ArrayList<Alarm>) ac.findAlarmsByReportID(report.getReportNr()); 
-    	//TODO find alarm og ratings også
 		alarms.forEach(a -> report.addAlarms(a));
 		
 		ArrayList<Rating> ratings = (ArrayList<Rating>) rc.findRatingsByReportID(report.getReportNr());
