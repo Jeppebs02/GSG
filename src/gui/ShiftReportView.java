@@ -22,19 +22,28 @@ import java.awt.Component;
 import javax.swing.table.TableModel;
 
 /**
- * The AddTaskDialog class provides a GUI dialog for creating a new task, adding
- * shifts to it, and saving it along with associated details (such as user and
- * location).
+ * The {@code ShiftReportView} class provides a GUI dialog for viewing and
+ * updating a task's report details, including shifts, alarms, and rejection
+ * counts.
  * 
  * <p>
- * This dialog allows the user to:
+ * In particular, this dialog allows the user to:
  * <ul>
- * <li>Enter task information (description, location, user ID).</li>
- * <li>Specify the date of the task.</li>
- * <li>Add one or more shifts to the task using the {@link AddShiftDialog}.</li>
- * <li>Save the task and its shifts to a provided data structure and the
- * database via {@link TaskCtrl}.</li>
+ * <li>View the associated {@link Task} description and date.</li>
+ * <li>View all {@link Shift} objects related to the task.</li>
+ * <li>View and add {@link Alarm} entries associated with the task's
+ * report.</li>
+ * <li>Specify the number of rejections for certain categories (age, attitude,
+ * other).</li>
+ * <li>Include extra comments and employee/manager signatures.</li>
  * </ul>
+ * 
+ * <p>
+ * When saving, the updated report information is persisted to the database via
+ * the {@link ReportCtrl} class. This dialog interacts with {@link ShiftDB} to
+ * fetch shifts and with the {@link ReportCtrl} to fetch and update report
+ * details.
+ * </p>
  */
 public class ShiftReportView extends JDialog {
 	private JTextField txtDescription;
@@ -55,29 +64,24 @@ public class ShiftReportView extends JDialog {
 	private JTable alarmTable;
 
 	/**
-	 * Constructs an AddTaskDialog instance, initializing the GUI components,
-	 * setting default values, and preparing the dialog for user input.
+	 * Constructs a {@code ShiftReportView} dialog, initializing the GUI components
+	 * with data from the given {@link Task}, fetching associated {@link Shift} and
+	 * {@link Alarm} details, and preparing the user interface for viewing/updating
+	 * the report.
 	 * 
-	 * @param date    the default date to use for the task, typically passed from a
-	 *                calendar or scheduler view.
-	 * @param taskMap a HashMap where the key is a LocalDate and the value is a list
-	 *                of task details. This dialog adds the newly created task to
-	 *                this map.
-	 * @throws Exception
+	 * @param task the {@link Task} for which the report is being viewed or updated.
+	 * @throws Exception if an error occurs while retrieving data from the database.
 	 */
 	public ShiftReportView(Task task) throws Exception {
-
 		rc = new ReportCtrl();
 		shifts = new ArrayList<>();
 		alarms = new ArrayList<>();
 		ShiftDB sdb = new ShiftDB();
 		shifts = sdb.findAllShiftsByTaskIDFromDB(task.getTaskID());
 		Report r = rc.findReportByTaskID(task.getTaskID());
-
 		alarms = r.getAlarms();
 
 		setModal(true);
-
 		setTitle("Add task");
 		setBounds(100, 100, 600, 600);
 		getContentPane().setLayout(null);
@@ -97,8 +101,8 @@ public class ShiftReportView extends JDialog {
 
 		txtDate = new JTextField(task.getDate().toString());
 		txtDate.setBounds(420, 20, 110, 25);
-		getContentPane().add(txtDate);
 		txtDate.setEditable(false);
+		getContentPane().add(txtDate);
 
 		JLabel lblShifts = new JLabel("Shifts:");
 		lblShifts.setBounds(20, 57, 100, 25);
@@ -109,7 +113,6 @@ public class ShiftReportView extends JDialog {
 
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 		shifts.forEach(shift -> {
-
 			model.addRow(
 					new Object[] { shift.getStartTime().format(timeFormatter), shift.getEndTime().format(timeFormatter),
 							shift.getEmployee().getFirstName() + " " + shift.getEmployee().getLastName() });
@@ -137,14 +140,17 @@ public class ShiftReportView extends JDialog {
 
 		textFieldAge = new JTextField();
 		textFieldAge.setBounds(437, 212, 93, 25);
+		textFieldAge.setText(String.valueOf(r.getRejectionsAge()));
 		getContentPane().add(textFieldAge);
 
 		textFieldOther = new JTextField();
 		textFieldOther.setBounds(437, 282, 93, 25);
+		textFieldOther.setText(String.valueOf(r.getRejectionsAlternative()));
 		getContentPane().add(textFieldOther);
 
 		textFieldAttitude = new JTextField();
 		textFieldAttitude.setBounds(437, 246, 93, 25);
+		textFieldAttitude.setText(String.valueOf(r.getRejectionsAttitude()));
 		getContentPane().add(textFieldAttitude);
 
 		JLabel lblRejection = new JLabel("Number of rejections");
@@ -180,14 +186,13 @@ public class ShiftReportView extends JDialog {
 		getContentPane().add(lblAlarms);
 
 		JScrollPane scrollPane_1 = new JScrollPane((Component) null);
-		scrollPane_1.setBounds(94, 354, 203, 104);
+		scrollPane_1.setBounds(94, 354, 255, 104);
 		getContentPane().add(scrollPane_1);
 
 		alarmTable = new JTable(new DefaultTableModel(new Object[] { "Time", "Classification", "Description" }, 0));
 		DefaultTableModel model2 = (DefaultTableModel) alarmTable.getModel();
 
 		alarms.forEach(alarm -> {
-
 			model2.addRow(new Object[] { alarm.getTime().format(timeFormatter), alarm.getClassificationValue(),
 					alarm.getDescription() });
 		});
@@ -203,26 +208,35 @@ public class ShiftReportView extends JDialog {
 			try {
 				addAlarmView(task);
 			} catch (Exception e1) {
-
 				e1.printStackTrace();
 			}
 		});
 		getContentPane().add(btnAddAlarm);
 
 		JLabel lblSignatureEmployee = new JLabel("Signature employee");
-		lblSignatureEmployee.setBounds(109, 481, 100, 25);
+		lblSignatureEmployee.setBounds(117, 481, 129, 25);
 		getContentPane().add(lblSignatureEmployee);
 
 		JLabel lblSignatureManager = new JLabel("Signature manager");
-		lblSignatureManager.setBounds(256, 481, 100, 25);
+		lblSignatureManager.setBounds(256, 481, 123, 25);
 		getContentPane().add(lblSignatureManager);
 
 		textFieldEmpSign = new JTextField();
 		textFieldEmpSign.setBounds(109, 511, 93, 25);
+		if(r.getEmployeeSignature() == null) {
+			textFieldEmpSign.setText("");
+		} else {
+			textFieldEmpSign.setText(r.getEmployeeSignature());
+		}
 		getContentPane().add(textFieldEmpSign);
 
 		textFieldManaSign = new JTextField();
 		textFieldManaSign.setBounds(256, 513, 93, 25);
+		if(r.getCustomerSignature() == null) {
+			textFieldManaSign.setText("");
+		} else {
+			textFieldManaSign.setText(r.getCustomerSignature());
+		}
 		getContentPane().add(textFieldManaSign);
 
 		JLabel lblOther_1 = new JLabel("Other:");
@@ -231,6 +245,11 @@ public class ShiftReportView extends JDialog {
 
 		textFieldOtherComments = new JTextField();
 		textFieldOtherComments.setBounds(405, 354, 150, 104);
+		if(r.getAlternativeRemarks() == null) {
+			textFieldOtherComments.setText("");
+		} else {
+			textFieldOtherComments.setText(r.getAlternativeRemarks());
+		}
 		getContentPane().add(textFieldOtherComments);
 
 		JButton btnOK = new JButton("OK");
@@ -247,17 +266,30 @@ public class ShiftReportView extends JDialog {
 		numberOfAlarms(task);
 	}
 
+	/**
+	 * Opens the {@link AddAlarmView} dialog to add a new {@link Alarm} to the
+	 * task's report. After the alarm is added, the alarm list and counts are
+	 * refreshed.
+	 * 
+	 * @param task the {@link Task} to which a new alarm will be added.
+	 * @throws Exception if an error occurs while adding or refreshing alarms.
+	 */
 	private void addAlarmView(Task task) throws Exception {
 		AddAlarmView view = new AddAlarmView(task);
 		view.setVisible(true);
 		numberOfAlarms(task);
 		refreshAlarmTable(task);
-		
 	}
 
+	/**
+	 * Updates the counts of red, green, and total alarms for the given task and
+	 * displays them in the respective text fields.
+	 * 
+	 * @param task the {@link Task} whose alarm counts are being updated.
+	 * @throws Exception if an error occurs while fetching the report or alarms.
+	 */
 	private void numberOfAlarms(Task task) throws Exception {
-		ArrayList<Alarm> listOfAlarms = new ArrayList<>();
-		listOfAlarms = (ArrayList<Alarm>) rc.findReportByTaskID(task.getTaskID()).getAlarms();
+		ArrayList<Alarm> listOfAlarms = (ArrayList<Alarm>) rc.findReportByTaskID(task.getTaskID()).getAlarms();
 
 		int numberOfGreen = (int) listOfAlarms.stream().filter(a -> a.getClassification() == Classification.GREEN)
 				.count();
@@ -270,67 +302,81 @@ public class ShiftReportView extends JDialog {
 		textFieldGreenAlarm.setEditable(false);
 		textFieldRedAlarm.setText(String.valueOf(numberOfRed));
 		textFieldRedAlarm.setEditable(false);
-
 	}
 
+	/**
+	 * Saves the updated report information, including rejections, comments, and
+	 * signatures, back to the database via {@link ReportCtrl}.
+	 * 
+	 * <p>
+	 * If the input for rejections is invalid (non-integer), an error dialog is
+	 * shown.
+	 * </p>
+	 * 
+	 * @param task the {@link Task} whose report is being updated.
+	 * @throws Exception if an error occurs while updating the report.
+	 */
 	private void saveReport(Task task) throws Exception {
 		int age = 0;
 		int attitude = 0;
 		int other = 0;
 
+		// Validate age input
 		String inputAge = textFieldAge.getText().trim();
 		if (inputAge.matches("\\d+")) {
 			age = Integer.parseInt(inputAge);
 		} else if (textFieldAge.getText().isBlank()) {
 			age = 0;
 		} else {
-			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the age.", "Invalid Input",
+			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the age rejections.", "Invalid Input",
 					JOptionPane.ERROR_MESSAGE);
 		}
 
+		// Validate attitude input
 		String inputAttitude = textFieldAttitude.getText().trim();
 		if (inputAttitude.matches("\\d+")) {
 			attitude = Integer.parseInt(inputAttitude);
 		} else if (textFieldAttitude.getText().isBlank()) {
 			attitude = 0;
 		} else {
-			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the age.", "Invalid Input",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the attitude rejections.",
+					"Invalid Input", JOptionPane.ERROR_MESSAGE);
 		}
 
+		// Validate other input
 		String inputOther = textFieldOther.getText().trim();
 		if (inputOther.matches("\\d+")) {
 			other = Integer.parseInt(inputOther);
 		} else if (textFieldOther.getText().isBlank()) {
 			other = 0;
 		} else {
-			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the age.", "Invalid Input",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the other rejections.",
+					"Invalid Input", JOptionPane.ERROR_MESSAGE);
 		}
-		
-		
-		rc.updateReportByTaskID(age, attitude, other, textFieldOtherComments.getText(), 
-				textFieldEmpSign.getText(), textFieldManaSign.getText(),task);
+
+		// Update the report with the validated data
+		rc.updateReportByTaskID(age, attitude, other, textFieldOtherComments.getText(), textFieldEmpSign.getText(),
+				textFieldManaSign.getText(), task);
 		this.dispose();
 	}
-	
+
+	/**
+	 * Refreshes the alarm table after adding a new alarm. Fetches the updated
+	 * alarms from the database and repopulates the alarm table.
+	 * 
+	 * @param task the {@link Task} whose alarms are being refreshed.
+	 * @throws Exception if an error occurs while fetching the updated alarms.
+	 */
 	private void refreshAlarmTable(Task task) throws Exception {
-	    // Fetch the updated list of alarms from the database
-	    ArrayList<Alarm> updatedAlarms = (ArrayList<Alarm>) rc.findReportByTaskID(task.getTaskID()).getAlarms();
+		ArrayList<Alarm> updatedAlarms = (ArrayList<Alarm>) rc.findReportByTaskID(task.getTaskID()).getAlarms();
 
-	    // Clear the existing rows
-	    DefaultTableModel model2 = (DefaultTableModel) alarmTable.getModel();
-	    model2.setRowCount(0);
+		DefaultTableModel model2 = (DefaultTableModel) alarmTable.getModel();
+		model2.setRowCount(0);
 
-	    // Re-populate the table
-	    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-	    updatedAlarms.forEach(alarm -> {
-	        model2.addRow(new Object[] {
-	            alarm.getTime().format(timeFormatter),
-	            alarm.getClassificationValue(),
-	            alarm.getDescription()
-	        });
-	    });
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		updatedAlarms.forEach(alarm -> {
+			model2.addRow(new Object[] { alarm.getTime().format(timeFormatter), alarm.getClassificationValue(),
+					alarm.getDescription() });
+		});
 	}
-
 }
