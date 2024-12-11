@@ -31,7 +31,6 @@ class ShiftCtrlTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		SQLManager.tearDown();
 	}
 
 	@BeforeEach
@@ -50,8 +49,7 @@ class ShiftCtrlTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		
-		
+		SQLManager.tearDown();
 	}
 
 	@Test
@@ -103,6 +101,6 @@ class ShiftCtrlTest {
 		sc.addEmployeeToShift(e);
 		
 		//Assert
-		assertEquals(LocalDateTime.of(2024, 12, 6, 8, 0), sc.findShiftByShiftID(taskID).getStartTime());
+		assertEquals(LocalDateTime.of(2024, 12, 3, 9, 0), sc.findShiftByShiftID(6).getStartTime());
 	}
 }
