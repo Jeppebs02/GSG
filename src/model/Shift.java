@@ -12,7 +12,7 @@ public class Shift {
     private int shiftID;
 
     public Shift(LocalDateTime startTime, LocalDateTime endTime) {
-        if (startTime.isAfter(endTime)) {
+        if (endTime.isBefore(startTime)) {
             throw new IllegalArgumentException("Start time cannot be later than end time.");
         }
         this.startTime = startTime;
