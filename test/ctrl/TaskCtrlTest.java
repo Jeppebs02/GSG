@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import ctrl.TaskCtrl;
 import model.Shift;
 import model.Task;
+import sqlscripts.SQLManager;
 
 class TaskCtrlTest {
 	private LocalDate date;
@@ -29,6 +30,7 @@ class TaskCtrlTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		SQLManager.tearDown();
 	}
 
 	@BeforeEach
