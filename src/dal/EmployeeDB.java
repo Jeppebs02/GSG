@@ -22,9 +22,7 @@ public class EmployeeDB implements EmployeeDBIF {
     private static final String find_employee_id_by_user_id =
             "SELECT User_ID, Employee_ID FROM EmployeeUser WHERE User_ID = ?;";
     private static final String find_employee_info_from_user_id_and_employee_id =
-            "SELECT Employee.ID AS EmployeeID, Employee.CPR, Employee.SecurityClearance, Employee.AccountNr, Employee.Certification, Employee.RegistrationNr, Employee.Department, [User].ID AS UserID, [User].UserName, [User].Password, [User].FirstName, [User].LastName, [User].Email, [User].PhoneNr, [User].Type, [User].Address_ID, [User].AccountPrivileges " +
-            "FROM Employee CROSS JOIN [User] " +
-            "WHERE Employee.ID = ? AND [User].ID = ?;";
+            "SELECT Employee.ID AS EmployeeID, Employee.CPR, Employee.SecurityClearance, Employee.AccountNr, Employee.Certification, Employee.RegistrationNr, Employee.Department, U.ID AS UserID, U.UserName, U.Password, U.FirstName, U.LastName, U.Email, U.PhoneNr, U.Type, U.Address_ID, U.AccountPrivileges FROM Employee CROSS JOIN [User] AS U WHERE Employee.ID = ? AND U.ID = ?;";
 
     private PreparedStatement findEmployeeIDByUserID;
     private PreparedStatement findEmployeeInfoFromUserIDAndEmployeeID;
