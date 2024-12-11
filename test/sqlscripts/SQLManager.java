@@ -16,124 +16,69 @@ import dal.DataAccessException;
 public class SQLManager {
 
     /**
-     * Executes the SQL script located at the given file path.
+     * Executes a SQL script from the specified file path.
      *
-     * @param filePath The path to the .sql file.
-     * @throws IOException         If an error occurs while reading the file.
-     * @throws DataAccessException If a database access error occurs.
+     * @param filePath The path to the .sql file containing the SQL script.
+     * @throws DataAccessException If an error occurs while reading the file or executing the SQL commands.
      */
-    public void executeSqlScript(String filePath) throws IOException, DataAccessException {
-        String script = readSqlFile(filePath);
-        String[] statements = splitSqlScript(script);
+	
+	
+    public static void executeScript(String filePath) throws DataAccessException {
+        StringBuilder scriptBuilder = new StringBuilder();
 
-        DBConnection dbConnection = DBConnection.getInstance();
-        Connection connection = dbConnection.getConnection();
-
-        try {
-            dbConnection.startTransaction();
-
-            for (String statement : statements) {
-                statement = statement.trim();
-                if (statement.isEmpty()) {
-                    continue;
-                }
-
-                executeStatement(connection, statement);
-            }
-
-            dbConnection.commitTransaction();
-            System.out.println("SQL script executed successfully.");
-        } catch (SQLException | DataAccessException e) {
-            try {
-                dbConnection.rollbackTransaction();
-            } catch (DataAccessException rollbackEx) {
-                System.err.println("Failed to rollback transaction: " + rollbackEx.getMessage());
-            }
-            System.err.println("Error executing SQL script: " + e.getMessage());
-            throw new DataAccessException("Error executing SQL script.", e);
-        }
-    }
-
-    /**
-     * Reads the entire SQL file into a single String.
-     *
-     * @param filePath The path to the .sql file.
-     * @return The content of the SQL file as a String.
-     * @throws IOException If an error occurs while reading the file.
-     */
-    private String readSqlFile(String filePath) throws IOException {
-        StringBuilder sb = new StringBuilder();
+        // Read the SQL file
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                // Skip comments
+                // Ignore lines that are comments
                 String trimmedLine = line.trim();
-                if (trimmedLine.startsWith("--") || trimmedLine.startsWith("//") || trimmedLine.startsWith("/*")) {
+                if (trimmedLine.startsWith("--") || trimmedLine.startsWith("//") || trimmedLine.isEmpty()) {
                     continue;
                 }
-                sb.append(line).append("\n");
+                scriptBuilder.append(line).append("\n");
             }
-        }
-        return sb.toString();
-    }
-
-    /**
-     * Splits the SQL script into individual statements using 'GO' as the separator.
-     *
-     * @param script The full SQL script.
-     * @return An array of individual SQL statements.
-     */
-    private String[] splitSqlScript(String script) {
-        // Split by GO command (case-insensitive) on a line by itself
-        return script.split("(?i)^GO$", java.util.regex.Pattern.MULTILINE);
-    }
-
-    /**
-     * Executes a single SQL statement.
-     *
-     * @param connection The active database connection.
-     * @param sql        The SQL statement to execute.
-     * @throws SQLException If a database access error occurs.
-     */
-    private void executeStatement(Connection connection, String sql) throws SQLException {
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("Executed: " + getFirstLine(sql));
-        }
-    }
-
-    /**
-     * Retrieves the first line of the SQL statement for logging purposes.
-     *
-     * @param sql The full SQL statement.
-     * @return The first line of the SQL statement.
-     */
-    private String getFirstLine(String sql) {
-        String[] lines = sql.split("\n");
-        return lines.length > 0 ? lines[0].trim() : sql.trim();
-    }
-
-    /**
-     * Main method for executing the SQL script.
-     *
-     * @param args Command-line arguments. Expects a single argument: path to the .sql file.
-     */
-    public static void main(String[] args) {
-        // Check if the file path is provided
-        if (args.length != 1) {
-            System.err.println("Usage: java dal.SqlScriptExecutor <path_to_sql_script>");
-            System.exit(1);
-        }
-
-        String filePath = args[0];
-        SQLManager executor = new SQLManager();
-
-        try {
-            executor.executeSqlScript(filePath);
         } catch (IOException e) {
-            System.err.println("Error reading the SQL file: " + e.getMessage());
-        } catch (DataAccessException e) {
-            System.err.println("Database access error: " + e.getMessage());
+            throw new DataAccessException("Error reading SQL script file: " + filePath, e);
+        }
+
+        // Split the script by "GO" batch separator
+        String[] commands = scriptBuilder.toString().split("(?i)\\bGO\\b");
+
+        // Get the database connection
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        // Execute each command
+        try (Statement stmt = connection.createStatement()) {
+            for (String command : commands) {
+                String sql = command.trim();
+                if (sql.isEmpty()) {
+                    continue;
+                }
+                stmt.execute(sql);
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Error executing SQL script: " + filePath, e);
         }
     }
+
+    /**
+     * Executes multiple SQL scripts provided as file paths.
+     *
+     * @param filePaths An array of file paths to the .sql files containing SQL scripts.
+     * @throws DataAccessException If an error occurs while reading the files or executing the SQL commands.
+     */
+    public static void executeScripts(String[] filePaths) throws DataAccessException {
+        for (String filePath : filePaths) {
+            executeScript(filePath);
+        }
+    }
+    
+    
+    
+    public static void tearDown() throws Exception {
+    	executeScript("SQL_Scripts/RESET_ALL_TABLES.sql");
+    	executeScript("SQL_Scripts/CREATE_TEST_DATA.sql");
+    }
+    
+    
 }
