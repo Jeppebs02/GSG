@@ -109,7 +109,7 @@ public class ViewTaskDialog extends JDialog {
         	public void actionPerformed(ActionEvent e) {
         		try {
 					viewReport(task);
-				} catch (SQLException e1) {
+				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
         		
@@ -119,7 +119,7 @@ public class ViewTaskDialog extends JDialog {
         getContentPane().add(btnViewReport);
     }
 
-	private void viewReport(Task task) throws SQLException {
+	private void viewReport(Task task) throws Exception {
 		ShiftReportView view = new ShiftReportView(task);
 		view.setVisible(true);
 		
