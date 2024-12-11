@@ -105,9 +105,13 @@ public class AddAlarmView extends JDialog {
 	}
 
 	private void saveAlarm(Task task) throws Exception {
-		
+		boolean notify = false;
 		int reportID = rc.findReportByTaskID(task.getTaskID()).getReportNr();
-		ac.createAlarm(LocalDateTime.now(), getClassification(), txtComments.getText(), reportID);
+		if(chckbxNotify.isSelected()) {
+			notify = true;
+		}
+		ac.createAlarm(LocalDateTime.now(), getClassification(), txtComments.getText(), notify, reportID);
+		
 
 	}
 
