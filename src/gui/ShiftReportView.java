@@ -52,7 +52,7 @@ public class ShiftReportView extends JDialog {
 	private JTextField textFieldManaSign;
 	private JTextField textFieldOtherComments;
 	private ReportCtrl rc;
-	private JTable AlarmTable;
+	private JTable alarmTable;
 
 	/**
 	 * Constructs an AddTaskDialog instance, initializing the GUI components,
@@ -73,9 +73,8 @@ public class ShiftReportView extends JDialog {
 		ShiftDB sdb = new ShiftDB();
 		shifts = sdb.findAllShiftsByTaskIDFromDB(task.getTaskID());
 		Report r = rc.findReportByTaskID(task.getTaskID());
-		
+
 		alarms = r.getAlarms();
-		
 
 		setModal(true);
 
@@ -183,17 +182,16 @@ public class ShiftReportView extends JDialog {
 		JScrollPane scrollPane_1 = new JScrollPane((Component) null);
 		scrollPane_1.setBounds(94, 354, 203, 104);
 		getContentPane().add(scrollPane_1);
-		
-		AlarmTable = new JTable(new DefaultTableModel(new Object[] { "Time", "Classification", "Description" }, 0));
-		DefaultTableModel model2 = (DefaultTableModel) shiftsTable.getModel();
+
+		alarmTable = new JTable(new DefaultTableModel(new Object[] { "Time", "Classification", "Description" }, 0));
+		DefaultTableModel model2 = (DefaultTableModel) alarmTable.getModel();
 
 		alarms.forEach(alarm -> {
 
-			model2.addRow(
-					new Object[] { alarm.getTime().format(timeFormatter), alarm.getClassificationValue(),
-							alarm.getDescription() });
+			model2.addRow(new Object[] { alarm.getTime().format(timeFormatter), alarm.getClassificationValue(),
+					alarm.getDescription() });
 		});
-		scrollPane_1.setViewportView(AlarmTable);
+		scrollPane_1.setViewportView(alarmTable);
 
 		JLabel lblAlarms_1 = new JLabel("Alarms");
 		lblAlarms_1.setBounds(20, 342, 66, 25);
@@ -241,7 +239,6 @@ public class ShiftReportView extends JDialog {
 			try {
 				saveReport(task);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -254,6 +251,8 @@ public class ShiftReportView extends JDialog {
 		AddAlarmView view = new AddAlarmView(task);
 		view.setVisible(true);
 		numberOfAlarms(task);
+		refreshAlarmTable(task);
+		
 	}
 
 	private void numberOfAlarms(Task task) throws Exception {
@@ -278,39 +277,59 @@ public class ShiftReportView extends JDialog {
 		int age = 0;
 		int attitude = 0;
 		int other = 0;
-		
+
 		String inputAge = textFieldAge.getText().trim();
-		if (inputAge.matches("\\d+")) { 
-		    age = Integer.parseInt(inputAge);
+		if (inputAge.matches("\\d+")) {
+			age = Integer.parseInt(inputAge);
+		} else if (textFieldAge.getText().isBlank()) {
+			age = 0;
 		} else {
-		    JOptionPane.showMessageDialog(this, 
-		        "Please enter a valid integer for the age.", 
-		        "Invalid Input", 
-		        JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the age.", "Invalid Input",
+					JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 		String inputAttitude = textFieldAttitude.getText().trim();
-		if (inputAttitude.matches("\\d+")) { 
-		    attitude = Integer.parseInt(inputAttitude);
+		if (inputAttitude.matches("\\d+")) {
+			attitude = Integer.parseInt(inputAttitude);
+		} else if (textFieldAttitude.getText().isBlank()) {
+			attitude = 0;
 		} else {
-		    JOptionPane.showMessageDialog(this, 
-		        "Please enter a valid integer for the age.", 
-		        "Invalid Input", 
-		        JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the age.", "Invalid Input",
+					JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 		String inputOther = textFieldOther.getText().trim();
-		if (inputOther.matches("\\d+")) { 
-		    other = Integer.parseInt(inputOther);
+		if (inputOther.matches("\\d+")) {
+			other = Integer.parseInt(inputOther);
+		} else if (textFieldOther.getText().isBlank()) {
+			other = 0;
 		} else {
-		    JOptionPane.showMessageDialog(this, 
-		        "Please enter a valid integer for the age.", 
-		        "Invalid Input", 
-		        JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the age.", "Invalid Input",
+					JOptionPane.ERROR_MESSAGE);
 		}
-		
-		
-		rc.saveReport(task, age, attitude, other, textFieldOtherComments.getText(), textFieldEmpSign.getText(), textFieldManaSign.getText());
+
+		rc.saveReport(task, age, attitude, other, textFieldOtherComments.getText(), textFieldEmpSign.getText(),
+				textFieldManaSign.getText());
 		this.dispose();
 	}
+	
+	private void refreshAlarmTable(Task task) throws Exception {
+	    // Fetch the updated list of alarms from the database
+	    ArrayList<Alarm> updatedAlarms = (ArrayList<Alarm>) rc.findReportByTaskID(task.getTaskID()).getAlarms();
+
+	    // Clear the existing rows
+	    DefaultTableModel model2 = (DefaultTableModel) alarmTable.getModel();
+	    model2.setRowCount(0);
+
+	    // Re-populate the table
+	    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+	    updatedAlarms.forEach(alarm -> {
+	        model2.addRow(new Object[] {
+	            alarm.getTime().format(timeFormatter),
+	            alarm.getClassificationValue(),
+	            alarm.getDescription()
+	        });
+	    });
+	}
+
 }
