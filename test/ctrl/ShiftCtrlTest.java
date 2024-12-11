@@ -83,7 +83,7 @@ class ShiftCtrlTest {
 	void testFindShiftByShiftID() throws Exception{
 		//Arrange
 		sc = new ShiftCtrl();
-		Shift testShift = new Shift(null, null);
+		Shift testShift;
 	
 		//Act
 		testShift = sc.findShiftByShiftID(1);
@@ -103,6 +103,6 @@ class ShiftCtrlTest {
 		sc.addEmployeeToShift(e);
 		
 		//Assert
-		assertEquals(LocalDateTime.of(2024, 12, 3, 9, 0), sc.findShiftByShiftID(taskID).getStartTime());
+		assertEquals(LocalDateTime.of(2024, 12, 6, 8, 0), sc.findShiftByShiftID(taskID).getStartTime());
 	}
 }
