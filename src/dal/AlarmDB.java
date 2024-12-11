@@ -97,7 +97,7 @@ public class AlarmDB implements AlarmDBIF{
 	@Override
 	public Alarm findAlarmByID(int alarmID) throws Exception {
 		Alarm alarm = null;
-		findAlarmFromID = connection.prepareStatement(find_alarm_from_id);
+		findAlarmFromID.setInt(1, alarmID);
 		try {
 			alarm = findAlarmByID(alarmID);
 			
