@@ -178,6 +178,29 @@ public class DBConnection {
         }
         return key;
     }
+    
+    
+    
+    public int executeSqlInsertPS(PreparedStatement ps) throws SQLException, DataAccessException {
+        int key = -1;
+        try {
+            // Start the transaction
+            startTransaction();
+
+            // Execute insert statement
+            key = ps.executeUpdate();
+           
+
+            // Commit transaction
+            commitTransaction();
+        } catch (SQLException e) {
+            // Rollback transaction if there is an exception
+            rollbackTransaction();
+            e.printStackTrace();
+            throw e;
+        }
+        return key;
+    }
 
     /**
      * Executes a SELECT query using the provided PreparedStatement and returns a ResultSet.
