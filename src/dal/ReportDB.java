@@ -75,8 +75,7 @@ public class ReportDB implements ReportDBIF {
 		Report report = null;
 		findReportByTaskID = connection.prepareStatement(find_report_by_taskid);	
 		try {
-			report = findReportByTaskID(taskID);
-			
+			findReportByTaskID.setInt(1, taskID);
 			ResultSet rs = dbConnection.getResultSetWithPS(findReportByTaskID);
 			
 			rs.next();
@@ -103,7 +102,7 @@ public class ReportDB implements ReportDBIF {
 	@Override
 	public Report createReportFromResultSet(ResultSet rs) throws Exception {
 		
-		 int taskID = rs.getInt("TaskID");
+		 int taskID = rs.getInt("Task_ID");
 	     int reportNr = rs.getInt("ReportNr");
 	     int rejectionsAge = rs.getInt("RejectionsAge");
 	     int rejectionsAttitude = rs.getInt("RejectionsAttitude");
