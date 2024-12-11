@@ -141,7 +141,7 @@ public class ReportDB implements ReportDBIF {
 			updateReportByTaskID.setString(6, customerSignature);
 			updateReportByTaskID.setInt(7, taskID);
 			
-			dbConnection.executeSqlInsertWithIdentityPS(updateReportByTaskID);
+			dbConnection.getResultSetWithPS(updateReportByTaskID);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
