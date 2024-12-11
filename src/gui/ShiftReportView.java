@@ -3,8 +3,11 @@ package gui;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import ctrl.ReportCtrl;
 import ctrl.TaskCtrl;
 import dal.ShiftDB;
+import model.Alarm;
+import model.Classification;
 import model.Shift;
 import model.Task;
 
@@ -14,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.sql.SQLException;
 import java.awt.Component;
 import javax.swing.table.TableModel;
 
@@ -35,16 +37,17 @@ public class ShiftReportView extends JDialog {
     private JTextField txtDate;
     private JTable shiftsTable;
     private List<Shift> shifts;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
-    private JTextField textField_3;
-    private JTextField textField_4;
-    private JTextField textField_5;
-    private JTextField textField_6;
-    private JTextField textField_7;
-    private JTextField textField_8;
-    private JTextField textField_9;
+    private JTextField textFieldAge;
+    private JTextField textFieldOther;
+    private JTextField textFieldAttitude;
+    private JTextField textFieldTotalRejections;
+    private JTextField textFieldRedAlarm;
+    private JTextField textFieldGreenAlarm;
+    private JTextField textFieldTotalAlarm;
+    private JTextField textFieldEmpSign;
+    private JTextField textFieldManaSign;
+    private JTextField textFieldOtherComments;
+    private ReportCtrl rc;
 
     /**
      * Constructs an AddTaskDialog instance, initializing the GUI components, setting default values,
@@ -53,18 +56,21 @@ public class ShiftReportView extends JDialog {
      * @param date     the default date to use for the task, typically passed from a calendar or scheduler view.
      * @param taskMap  a HashMap where the key is a LocalDate and the value is a list of task details. 
      *                 This dialog adds the newly created task to this map.
-     * @throws SQLException if there's an error initializing the underlying TaskCtrl or database operations.
+     * @throws Exception 
      */
-    public ShiftReportView(Task task) throws SQLException {
+    public ShiftReportView(Task task) throws Exception {
+    	
+    	rc = new ReportCtrl();
+    	shifts = new ArrayList<>();
+        ShiftDB sdb = new ShiftDB();
+    	shifts = sdb.findAllShiftsByTaskIDFromDB(task.getTaskID());
+    	
     	setModal(true);
 
     	setTitle("Add task");
         setBounds(100, 100, 600, 600);
         getContentPane().setLayout(null);
-        shifts = new ArrayList<>();
-        ShiftDB sdb = new ShiftDB();
-    	shifts = sdb.findAllShiftsByTaskIDFromDB(task.getTaskID());
-    	
+        
         JLabel lblDescription = new JLabel("Task Report");
         lblDescription.setBounds(20, 20, 72, 25);
         getContentPane().add(lblDescription);
@@ -100,9 +106,9 @@ public class ShiftReportView extends JDialog {
         scrollPane.setBounds(94, 55, 436, 114);
         getContentPane().add(scrollPane);
 
-        JButton bntPDF = new JButton("PDF");
-        bntPDF.setBounds(405, 508, 64, 30);
-        getContentPane().add(bntPDF);
+        JButton btnPDF = new JButton("PDF");
+        btnPDF.setBounds(405, 508, 64, 30);
+        getContentPane().add(btnPDF);
         
         JLabel lblAge = new JLabel("Age:");
         lblAge.setBounds(363, 210, 64, 25);
@@ -116,25 +122,25 @@ public class ShiftReportView extends JDialog {
         lblOther.setBounds(363, 282, 64, 25);
         getContentPane().add(lblOther);
         
-        textField = new JTextField();
-        textField.setBounds(437, 212, 93, 25);
-        getContentPane().add(textField);
+        textFieldAge = new JTextField();
+        textFieldAge.setBounds(437, 212, 93, 25);
+        getContentPane().add(textFieldAge);
         
-        textField_1 = new JTextField();
-        textField_1.setBounds(437, 282, 93, 25);
-        getContentPane().add(textField_1);
+        textFieldOther = new JTextField();
+        textFieldOther.setBounds(437, 282, 93, 25);
+        getContentPane().add(textFieldOther);
         
-        textField_2 = new JTextField();
-        textField_2.setBounds(437, 246, 93, 25);
-        getContentPane().add(textField_2);
+        textFieldAttitude = new JTextField();
+        textFieldAttitude.setBounds(437, 246, 93, 25);
+        getContentPane().add(textFieldAttitude);
         
         JLabel lblTotal = new JLabel("Total:");
         lblTotal.setBounds(363, 318, 64, 25);
         getContentPane().add(lblTotal);
         
-        textField_3 = new JTextField();
-        textField_3.setBounds(437, 318, 93, 25);
-        getContentPane().add(textField_3);
+        textFieldTotalRejections = new JTextField();
+        textFieldTotalRejections.setBounds(437, 318, 93, 25);
+        getContentPane().add(textFieldTotalRejections);
         
         JLabel lblRejection = new JLabel("Number of rejections");
         lblRejection.setBounds(363, 180, 167, 25);
@@ -148,17 +154,17 @@ public class ShiftReportView extends JDialog {
         lblRed.setBounds(20, 247, 64, 25);
         getContentPane().add(lblRed);
         
-        textField_4 = new JTextField();
-        textField_4.setBounds(94, 249, 93, 25);
-        getContentPane().add(textField_4);
+        textFieldRedAlarm = new JTextField();
+        textFieldRedAlarm.setBounds(94, 249, 93, 25);
+        getContentPane().add(textFieldRedAlarm);
         
-        textField_5 = new JTextField();
-        textField_5.setBounds(94, 215, 93, 25);
-        getContentPane().add(textField_5);
+        textFieldGreenAlarm = new JTextField();
+        textFieldGreenAlarm.setBounds(94, 215, 93, 25);
+        getContentPane().add(textFieldGreenAlarm);
         
-        textField_6 = new JTextField();
-        textField_6.setBounds(94, 285, 93, 25);
-        getContentPane().add(textField_6);
+        textFieldTotalAlarm = new JTextField();
+        textFieldTotalAlarm.setBounds(94, 285, 93, 25);
+        getContentPane().add(textFieldTotalAlarm);
         
         JLabel lblTotal_1 = new JLabel("Total:");
         lblTotal_1.setBounds(20, 283, 64, 25);
@@ -196,34 +202,58 @@ public class ShiftReportView extends JDialog {
         lblSignatureManager.setBounds(256, 481, 100, 25);
         getContentPane().add(lblSignatureManager);
         
-        textField_7 = new JTextField();
-        textField_7.setBounds(109, 511, 93, 25);
-        getContentPane().add(textField_7);
+        textFieldEmpSign = new JTextField();
+        textFieldEmpSign.setBounds(109, 511, 93, 25);
+        getContentPane().add(textFieldEmpSign);
         
-        textField_8 = new JTextField();
-        textField_8.setBounds(256, 513, 93, 25);
-        getContentPane().add(textField_8);
+        textFieldManaSign = new JTextField();
+        textFieldManaSign.setBounds(256, 513, 93, 25);
+        getContentPane().add(textFieldManaSign);
         
         JLabel lblOther_1 = new JLabel("Other:");
         lblOther_1.setBounds(363, 394, 64, 25);
         getContentPane().add(lblOther_1);
         
-        textField_9 = new JTextField();
-        textField_9.setBounds(405, 354, 150, 104);
-        getContentPane().add(textField_9);
+        textFieldOtherComments = new JTextField();
+        textFieldOtherComments.setBounds(405, 354, 150, 104);
+        getContentPane().add(textFieldOtherComments);
         
         JButton btnOK = new JButton("OK");
         btnOK.setBounds(491, 508, 64, 30);
         btnOK.addActionListener((ActionEvent e) -> dispose());
         getContentPane().add(btnOK);
+        
+        numberOfAlarms(task);
     }
 
     private void addAlarmView(Task task) throws Exception {
     	AddAlarmView view = new AddAlarmView(task);
 		view.setVisible(true);
-		
-		
+		numberOfAlarms(task);
 	}
 
+    public void numberOfAlarms(Task task) throws Exception {
+    	ArrayList<Alarm> listOfAlarms = new ArrayList<>();
+    	listOfAlarms = (ArrayList<Alarm>) rc.findReportByTaskID(task.getTaskID()).getAlarms();
+    	
+    	int numberOfGreen = (int) listOfAlarms.stream()
+    			.filter(a -> a.getClassification() == Classification.GREEN)
+                .count();
+    	int numberOfRed = (int) listOfAlarms.stream()
+                .filter(a -> a.getClassification() == Classification.RED)
+                .count();
+    	int totalNumber = listOfAlarms.size();
+    	
+    	textFieldTotalAlarm.setText(String.valueOf(totalNumber));
+    	textFieldTotalAlarm.setEditable(false);
+    	textFieldGreenAlarm.setText(String.valueOf(numberOfGreen));
+    	textFieldGreenAlarm.setEditable(false);
+    	textFieldRedAlarm.setText(String.valueOf(numberOfRed));
+    	textFieldRedAlarm.setEditable(false);
+    	
+    	
+    	
+    }
+    
     
 }

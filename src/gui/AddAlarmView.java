@@ -119,41 +119,46 @@ public class AddAlarmView extends JDialog {
 		return c;
 	}
 
-	private void saveAlarm(Task task) throws Exception {
-		boolean notify = false;
-		int reportID = rc.findReportByTaskID(task.getTaskID()).getReportNr();
-		if(chckbxNotify.isSelected()) {
-			notify = true;
-		}
-		
-		LocalDateTime localTimeDate = null;
-		try {
-			// Prepare the time format and regex for validation
-			DateTimeFormatter timeFormatter;
-			// Validate and parse start time
-			String startTime;
-			timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-			String regex = "^([01]\\d|2[0-3]):[0-5]\\d$";
-			Pattern pattern = Pattern.compile(regex);
+	private void saveAlarm(Task task) {
+	    boolean notify = chckbxNotify.isSelected();
+	    int reportID;
+	    try {
+	        reportID = rc.findReportByTaskID(task.getTaskID()).getReportNr();
+	    } catch (Exception ex) {
+	        JOptionPane.showMessageDialog(this, "Could not find report for this task: " + ex.getMessage(),
+	                "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
 
-			startTime = textFieldTime.getText();
-			Matcher startMatcher = pattern.matcher(startTime);
-			if (!startMatcher.matches()) {
-			    throw new IllegalArgumentException("Invalid time format. Use HH:mm");
-			}
-			
-			LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
+	    LocalDateTime localTimeDate = null;
+	    String startTime = textFieldTime.getText().trim();
+
+	    // Validate and parse the start time
+	    String regex = "^([01]\\d|2[0-3]):[0-5]\\d$";
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher startMatcher = pattern.matcher(startTime);
+
+	    if (!startMatcher.matches()) {
+	        JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+
+	    try {
+	        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+	        LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
 	        localTimeDate = LocalDateTime.of(task.getDate(), localTime);
-	        
-		} catch (DateTimeParseException e) {
-            // Handle invalid time format parsing
-            JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-		}
-        
-		ac.createAlarm(localTimeDate, getClassification(), txtComments.getText(), notify, reportID);
-		this.dispose();
-		
+	    } catch (DateTimeParseException e) {
+	        JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
 
+	    try {
+	        ac.createAlarm(localTimeDate, getClassification(), txtComments.getText(), notify, reportID);
+	        this.dispose();
+	    } catch (Exception ex) {
+	        JOptionPane.showMessageDialog(this, "Error creating alarm: " + ex.getMessage(),
+	                "Error", JOptionPane.ERROR_MESSAGE);
+	    }
 	}
+
 }
