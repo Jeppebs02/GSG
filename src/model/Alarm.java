@@ -12,11 +12,11 @@ public class Alarm {
     private Classification classification; // Uses the Classification enum
     private List<String> extraDecsription;
 
-    public Alarm(LocalDateTime time, Classification classification, String description) {
+    public Alarm(LocalDateTime time, Classification classification, String description, boolean notify) {
     	this.classification = classification;
     	this.time = time;
     	this.description = description;
-    	notify = false;
+    	this.notify = notify;
     	extraDecsription = new ArrayList<>();
     }
     
