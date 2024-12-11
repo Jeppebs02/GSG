@@ -26,7 +26,7 @@ public class AlarmDB implements AlarmDBIF{
 	private static final String delete_alarm_from_id = 
 			"DELETE FROM [Alarm] WHERE ID = ?;";
 	private static final String find_all_alarms_from_report_id = 
-			"SELECT Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE Report_ID =?;";
+			"SELECT ID AS Alarm_ID, Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE Report_ID =?;";
 	
 	// Prepared Statements
 	private PreparedStatement insertAlarm;
