@@ -24,7 +24,7 @@ public class ReportDB implements ReportDBIF {
     
     // SQL Queries
     private static final String delete_report_by_taskid ="DELETE FROM [Report] WHERE [Task_ID] = ?;";
-    private static final String find_report_by_taskid = "SELECT Report.ReportNr FROM Report INNER JOIN Task ON Report.Task_ID = Task.ID WHERE Task.ID = ?;";
+    private static final String find_report_by_taskid = "SELECT * FROM Report INNER JOIN Task ON Report.Task_ID = Task.ID WHERE Task.ID = ?;";
     private static final String save_report_to_db = 
         "INSERT INTO [Report] (RejectionAge, RejectionAttitude, RejectionAlternative, " + 
         "AlternativeRemarks, EmployeeSignature, CustomerSignature, Task_ID) " + 
@@ -104,9 +104,9 @@ public class ReportDB implements ReportDBIF {
 		
 		 int taskID = rs.getInt("Task_ID");
 	     int reportNr = rs.getInt("ReportNr");
-	     int rejectionsAge = rs.getInt("RejectionsAge");
-	     int rejectionsAttitude = rs.getInt("RejectionsAttitude");
-	     int rejectionsAlternative =  rs.getInt("RejectionsAlternative");;
+	     int rejectionsAge = rs.getInt("RejectionAge");
+	     int rejectionsAttitude = rs.getInt("RejectionAttitude");
+	     int rejectionsAlternative =  rs.getInt("RejectionAlternative");;
 	     String alternativeRemarks = rs.getString("AlternativeRemarks");
 	     String employeeSignature = rs.getString("EmployeeSignature");
 	     String customerSignature = rs.getString("CustomerSignature");

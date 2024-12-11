@@ -152,6 +152,7 @@ public class AddAlarmView extends JDialog {
 		}
         
 		ac.createAlarm(localTimeDate, getClassification(), txtComments.getText(), notify, reportID);
+		this.dispose();
 		
 
 	}
