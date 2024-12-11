@@ -100,15 +100,9 @@ public class TaskCtrl {
        
         // Save the current task to the database and retrieve the newly assigned Task ID
         Task createdTask = tb.saveTask(currentTask);
+        rc.saveReport(createdTask, 0, 0, 0, null, null, null);
     }
 
-    
-    public void createReport(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks,
-			String employeeSignature, String customerSignature) throws Exception {
-    	rc.saveReport(currentTask, rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, employeeSignature, customerSignature);
-    	
-    }
-    
 
     /**
      * Retrieves the current task managed by this controller.
