@@ -49,7 +49,7 @@ class ShiftCtrlTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		SQLManager.tearDown();
+		 SQLManager.tearDown();
 	}
 
 	@Test
@@ -58,6 +58,7 @@ class ShiftCtrlTest {
 		sc = new ShiftCtrl();
 		
 		//Act
+		System.out.println("testCreateShift");
 		sc.createShift(startTime, endTime);
 		
 		//Assert
@@ -70,6 +71,7 @@ class ShiftCtrlTest {
 		sc = new ShiftCtrl();
 		
 		//Act
+		System.out.println("testAddEmployeeToShift");
 		sc.createShift(startTime, endTime);
 		sc.addEmployeeToShift(e);
 		
@@ -84,6 +86,7 @@ class ShiftCtrlTest {
 		Shift testShift;
 	
 		//Act
+		System.out.println("testFindShiftByShiftID");
 		testShift = sc.findShiftByShiftID(1);
 		
 		//Assert
@@ -96,8 +99,10 @@ class ShiftCtrlTest {
 		sc = new ShiftCtrl();
 		
 		//Act
+		System.out.println("TestSaveShift");
 		sc.createShift(startTime, endTime);
 		sc.saveShift(taskID);
+		System.out.println("Adding");
 		sc.addEmployeeToShift(e);
 		
 		//Assert

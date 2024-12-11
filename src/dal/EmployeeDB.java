@@ -37,7 +37,7 @@ public class EmployeeDB implements EmployeeDBIF {
      */
     public EmployeeDB() throws SQLException {
         connection = DBConnection.getInstance().getConnection();
-
+        
         findEmployeeIDByUserID = connection.prepareStatement(find_employee_id_by_user_id);
         findEmployeeInfoFromUserIDAndEmployeeID = connection.prepareStatement(find_employee_info_from_user_id_and_employee_id);
     }
@@ -56,7 +56,7 @@ public class EmployeeDB implements EmployeeDBIF {
     @Override
     public Employee findEmployeeByUserID(int userID) throws Exception {
         Employee employee = null;
-        int employeeId = 0;
+        int employeeId;
 
         try {
             employeeId = findEmployeeIDFromUserID(userID);
