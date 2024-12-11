@@ -92,9 +92,10 @@ public class ReportCtrl {
 
 	}
 
-	public void updateReportByTaskID(Task task, int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative,
-			String alternativeRemarks, String employeeSignature, String customerSignature) {
-		repDB.updateReportByTaskID();
+	public void updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative,
+			String alternativeRemarks, String employeeSignature, String customerSignature, Task task) throws Exception {
+		repDB.updateReportByTaskID(rejectionAge, rejectionAttitude, rejectionAlternative, alternativeRemarks, employeeSignature,
+				customerSignature, task.getTaskID());
 		
 	}
 	

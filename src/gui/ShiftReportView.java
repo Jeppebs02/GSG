@@ -307,9 +307,10 @@ public class ShiftReportView extends JDialog {
 			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the age.", "Invalid Input",
 					JOptionPane.ERROR_MESSAGE);
 		}
-		//TODO UPDATE REPORT INSTED
-		rc.updateReportByTaskID(task, age, attitude, other, textFieldOtherComments.getText(), textFieldEmpSign.getText(),
-				textFieldManaSign.getText());
+		
+		
+		rc.updateReportByTaskID(age, attitude, other, textFieldOtherComments.getText(), 
+				textFieldEmpSign.getText(), textFieldManaSign.getText(),task);
 		this.dispose();
 	}
 	
