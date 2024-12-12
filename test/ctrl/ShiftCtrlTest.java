@@ -31,7 +31,6 @@ class ShiftCtrlTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		SQLManager.tearDown();
 	}
 
 	@BeforeEach
@@ -50,8 +49,7 @@ class ShiftCtrlTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		
-		
+		 SQLManager.tearDown();
 	}
 
 	@Test
@@ -60,6 +58,7 @@ class ShiftCtrlTest {
 		sc = new ShiftCtrl();
 		
 		//Act
+		System.out.println("testCreateShift");
 		sc.createShift(startTime, endTime);
 		
 		//Assert
@@ -72,6 +71,7 @@ class ShiftCtrlTest {
 		sc = new ShiftCtrl();
 		
 		//Act
+		System.out.println("testAddEmployeeToShift");
 		sc.createShift(startTime, endTime);
 		sc.addEmployeeToShift(e);
 		
@@ -83,9 +83,10 @@ class ShiftCtrlTest {
 	void testFindShiftByShiftID() throws Exception{
 		//Arrange
 		sc = new ShiftCtrl();
-		Shift testShift = new Shift(null, null);
+		Shift testShift;
 	
 		//Act
+		System.out.println("testFindShiftByShiftID");
 		testShift = sc.findShiftByShiftID(1);
 		
 		//Assert
@@ -98,11 +99,13 @@ class ShiftCtrlTest {
 		sc = new ShiftCtrl();
 		
 		//Act
+		System.out.println("TestSaveShift");
 		sc.createShift(startTime, endTime);
 		sc.saveShift(taskID);
+		System.out.println("Adding");
 		sc.addEmployeeToShift(e);
 		
 		//Assert
-		assertEquals(LocalDateTime.of(2024, 12, 3, 9, 0), sc.findShiftByShiftID(taskID).getStartTime());
+		assertEquals(LocalDateTime.of(2024, 12, 3, 9, 0), sc.findShiftByShiftID(6).getStartTime());
 	}
 }

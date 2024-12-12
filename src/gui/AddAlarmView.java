@@ -21,6 +21,18 @@ import model.Task;
 import javax.swing.JCheckBox;
 import java.awt.Font;
 
+/**
+ * The {@code AddAlarmView} class provides a GUI dialog that allows the user to
+ * add an alarm associated with a given {@link Task}. Users can specify the
+ * time, classification (GREEN or RED), comments, and whether a notification
+ * should be triggered.
+ * 
+ * <p>
+ * This dialog validates user input such as time format and ensures that only
+ * one classification option is selected at a time. Upon successful validation,
+ * the alarm is created and saved to the database.
+ * </p>
+ */
 public class AddAlarmView extends JDialog {
 	private JTextField txtComments;
 	private JCheckBox chckbxGREEN;
@@ -30,12 +42,19 @@ public class AddAlarmView extends JDialog {
 	private ReportCtrl rc;
 	private JTextField textFieldTime;
 
+	/**
+	 * Constructs an {@code AddAlarmView} dialog for adding an alarm to the given
+	 * task.
+	 * 
+	 * @param task the {@link Task} for which the alarm is to be created.
+	 * @throws Exception if there's an issue initializing the controllers or
+	 *                   fetching report data.
+	 */
 	public AddAlarmView(Task task) throws Exception {
-
 		ac = new AlarmCtrl();
 		rc = new ReportCtrl();
 
-		setTitle("Add shift");
+		setTitle("Add Alarm");
 		setBounds(100, 100, 400, 300);
 		getContentPane().setLayout(null);
 		setModal(true);
@@ -62,7 +81,7 @@ public class AddAlarmView extends JDialog {
 				if (!isOneColorSelected(chckbxGREEN, chckbxRed)) {
 					JOptionPane.showMessageDialog(this, "You can only select one of the GREEN or RED options.",
 							"Invalid Selection", JOptionPane.WARNING_MESSAGE);
-					return; // Stop execution here, don't proceed to add
+					return; // Stop execution here
 				}
 				saveAlarm(task);
 			} catch (Exception e1) {
@@ -84,29 +103,39 @@ public class AddAlarmView extends JDialog {
 		chckbxNotify = new JCheckBox("Notify");
 		chckbxNotify.setBounds(130, 226, 99, 23);
 		getContentPane().add(chckbxNotify);
-		
+
 		JLabel lblTimeOfAlarm = new JLabel("Time of alarm");
 		lblTimeOfAlarm.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblTimeOfAlarm.setBounds(20, 95, 100, 25);
 		getContentPane().add(lblTimeOfAlarm);
-		
+
 		textFieldTime = new JTextField();
 		textFieldTime.setBounds(130, 93, 100, 25);
 		getContentPane().add(textFieldTime);
 	}
 
-	// A utility method to check if exactly one checkbox is selected
+	/**
+	 * Checks if exactly one of the provided checkboxes (GREEN, RED) is selected.
+	 * 
+	 * @param chckbxGREEN the checkbox representing GREEN classification.
+	 * @param chckbxRED   the checkbox representing RED classification.
+	 * @return {@code true} if exactly one checkbox is selected, {@code false}
+	 *         otherwise.
+	 */
 	private boolean isOneColorSelected(JCheckBox chckbxGREEN, JCheckBox chckbxRED) {
 		boolean greenSelected = chckbxGREEN.isSelected();
 		boolean redSelected = chckbxRED.isSelected();
 
 		// Check if exactly one is selected
-		if ((greenSelected && !redSelected) || (!greenSelected && redSelected)) {
-			return true;
-		}
-		return false;
+		return (greenSelected && !redSelected) || (!greenSelected && redSelected);
 	}
 
+	/**
+	 * Determines the alarm classification based on which checkbox is selected.
+	 * 
+	 * @return a {@link Classification} enum (GREEN or RED) depending on the
+	 *         selected checkbox, or {@code null} if none is selected.
+	 */
 	private Classification getClassification() {
 		Classification c = null;
 
@@ -119,41 +148,53 @@ public class AddAlarmView extends JDialog {
 		return c;
 	}
 
-	private void saveAlarm(Task task) throws Exception {
-		boolean notify = false;
-		int reportID = rc.findReportByTaskID(task.getTaskID()).getReportNr();
-		if(chckbxNotify.isSelected()) {
-			notify = true;
-		}
-		
-		LocalDateTime localTimeDate = null;
+	/**
+	 * Validates and saves the alarm to the database. It checks the time format,
+	 * ensures a valid {@link Classification} is selected, and then calls the
+	 * {@link AlarmCtrl} to create and persist the alarm.
+	 * 
+	 * @param task the {@link Task} to which the alarm is associated.
+	 */
+	private void saveAlarm(Task task) {
+		boolean notify = chckbxNotify.isSelected();
+		int reportID;
 		try {
-			// Prepare the time format and regex for validation
-			DateTimeFormatter timeFormatter;
-			// Validate and parse start time
-			String startTime;
-			timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-			String regex = "^([01]\\d|2[0-3]):[0-5]\\d$";
-			Pattern pattern = Pattern.compile(regex);
-
-			startTime = textFieldTime.getText();
-			Matcher startMatcher = pattern.matcher(startTime);
-			if (!startMatcher.matches()) {
-			    throw new IllegalArgumentException("Invalid time format. Use HH:mm");
-			}
-			
-			LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
-	        localTimeDate = LocalDateTime.of(task.getDate(), localTime);
-	        
-		} catch (DateTimeParseException e) {
-            // Handle invalid time format parsing
-            JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+			reportID = rc.findReportByTaskID(task.getTaskID()).getReportNr();
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this, "Could not find report for this task: " + ex.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
 		}
-        
-		ac.createAlarm(localTimeDate, getClassification(), txtComments.getText(), notify, reportID);
-		this.dispose();
-		
 
+		LocalDateTime localTimeDate = null;
+		String startTime = textFieldTime.getText().trim();
+
+		// Validate and parse the start time
+		String regex = "^([01]\\d|2[0-3]):[0-5]\\d$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher startMatcher = pattern.matcher(startTime);
+
+		if (!startMatcher.matches()) {
+			JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		try {
+			DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+			LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
+			localTimeDate = LocalDateTime.of(task.getDate(), localTime);
+		} catch (DateTimeParseException e) {
+			JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		try {
+			ac.createAlarm(localTimeDate, getClassification(), txtComments.getText(), notify, reportID);
+			this.dispose();
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this, "Error creating alarm: " + ex.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
+
 }

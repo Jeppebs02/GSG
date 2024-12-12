@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,10 @@ class TaskCtrlTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+	}
+	
+	@AfterEach
+	void tearDown() throws Exception {
 		SQLManager.tearDown();
 	}
 
@@ -53,7 +58,7 @@ class TaskCtrlTest {
 		tc.addEmployeeToShift(1);
 		
 		//Assert
-		assertEquals(26, tc.getCurrentTask().getTaskID());
+		assertEquals(6, tc.getCurrentTask().getTaskID());
 	}
 	
 	@Test 

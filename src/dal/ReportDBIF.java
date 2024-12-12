@@ -10,4 +10,5 @@ public interface ReportDBIF {
 	public Report findReportByTaskID(int taskID) throws Exception;
 	public void deleteReportByTaskID(int reportID) throws Exception; 
 	public Report createReportFromResultSet(ResultSet rs) throws Exception;
+	public void updateReportByTaskID( int rejectionAge, int rejectionAttitude, int rejectionAlternative, String alternativeRemarks, String employeeSignature, String customerSignature, int taskID) throws Exception;
 }
