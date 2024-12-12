@@ -10,7 +10,7 @@ public class Alarm {
     private String description;
     private boolean notify;
     private Classification classification; // Uses the Classification enum
-    private List<String> extraDecsription;
+    private List<AlarmExtra> extraDecsription;
 
     public Alarm(LocalDateTime time, Classification classification, String description, boolean notify) {
     	this.classification = classification;
@@ -57,14 +57,12 @@ public class Alarm {
         this.classification = classification;
     }
 
-	public List<String> getExtraDecsription() {
+	public List<AlarmExtra> getExtraDecsription() {
 		return extraDecsription;
 	}
 	
-	public void addExtra(String extra) {
-		if (extra != null) {
-			extraDecsription.add(extra);
-		}
+	public void addExtra(List<AlarmExtra> extra) {
+		this.extraDecsription = extra;
 	}
 
 	public int getAlarmID() {
@@ -74,5 +72,4 @@ public class Alarm {
 	public void setAlarmID(int alarmID) {
 		this.alarmID = alarmID;
 	}
-
 }

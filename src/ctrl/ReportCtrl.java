@@ -93,8 +93,6 @@ public class ReportCtrl {
 		ArrayList<Rating> ratings = (ArrayList<Rating>) rc.findRatingsByReportID(report.getReportNr());
 		ratings.forEach(report::addRatings);
 
-		// TODO: Implement logic to find extra alarm comments if needed.
-
 		return report;
 	}
 

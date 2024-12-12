@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import dal.AlarmDB;
+import dal.AlarmExtraDB;
 import model.Alarm;
 import model.Classification;
 
@@ -17,6 +18,7 @@ public class AlarmCtrl {
 
 	private AlarmDB adb;
 	private Alarm currentAlarm;
+	private AlarmExtraDB aedb;
 
 	/**
 	 * Constructs an {@code AlarmCtrl} instance and initializes the underlying
@@ -26,6 +28,7 @@ public class AlarmCtrl {
 	 */
 	public AlarmCtrl() throws SQLException {
 		adb = new AlarmDB();
+		aedb = new AlarmExtraDB();
 	}
 
 	/**
@@ -59,9 +62,10 @@ public class AlarmCtrl {
 	 * @return the {@link Alarm} instance with the specified ID.
 	 * @throws Exception if the alarm cannot be retrieved or does not exist.
 	 */
-	// TODO
 	public Alarm AddAlarmEkstraDescription(int alarmID) throws Exception {
-		return adb.findAlarmByID(alarmID);
+		Alarm alarm = adb.findAlarmByID(alarmID);
+		alarm.addExtra(aedb.findAllAlarmExtraFromAlarmID(alarmID));
+		return alarm;
 	}
 
 	/**
@@ -101,5 +105,4 @@ public class AlarmCtrl {
 	public void saveAlarm(int reportNr) throws Exception {
 		adb.saveAlarmToDB(currentAlarm, reportNr);
 	}
-
 }

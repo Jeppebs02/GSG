@@ -36,6 +36,8 @@ public class AlarmDB implements AlarmDBIF {
 	private PreparedStatement findAlarmFromID;
 	private PreparedStatement deleteAlarmFromID;
 	private PreparedStatement findAllAlarmsFromReportID;
+	
+	private AlarmExtraDB aedb;
 
 	/**
 	 * Constructs an {@code AlarmDB} instance, initializes database connection, and
@@ -51,6 +53,8 @@ public class AlarmDB implements AlarmDBIF {
 		findAlarmFromID = connection.prepareStatement(find_alarm_from_id);
 		deleteAlarmFromID = connection.prepareStatement(delete_alarm_from_id);
 		findAllAlarmsFromReportID = connection.prepareStatement(find_all_alarms_from_report_id);
+		
+		aedb = new AlarmExtraDB();
 	}
 
 	/**
@@ -101,8 +105,13 @@ public class AlarmDB implements AlarmDBIF {
 		Alarm alarm = new Alarm(time, classification, description, notify);
 		alarm.setAlarmID(alarmID);
 
-		// TODO: Add logic to retrieve and set any additional alarm comments or related
-		// data if needed.
+		// add extra comments for alarm
+		try {
+			alarm.addExtra(aedb.findAllAlarmExtraFromAlarmID(alarm.getAlarmID()));
+		} catch (Exception e) {
+			System.out.println("adding additional comments failed");
+			e.printStackTrace();
+		}
 
 		return alarm;
 	}
