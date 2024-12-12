@@ -2,6 +2,8 @@ package ctrl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,7 +25,6 @@ class ReportCtrlTest {
 	private String alternativeRemarks;
 	private String empSig;
 	private String cusSig;
-	private Task testTask;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -43,7 +44,6 @@ class ReportCtrlTest {
 		alternativeRemarks = "Generelt god aften";
 		empSig = "OH";
 		cusSig = "KL";
-		testTask = tc.findTaskByID(1);
 	}
 
 	@AfterEach
@@ -60,6 +60,53 @@ class ReportCtrlTest {
 		
 		// assert
 		assertEquals("OH", testReport.getEmployeeSignature());
+	}
+	
+	@Test
+	void testSaveReport() throws Exception {
+		// arrange
+		tc.createTask(LocalDate.of(2024, 12, 9), "TestTask", "TestLocation", 15);
+		//tc.saveTask();
+		
+		// act
+		try {
+			rc.saveReport(tc.getCurrentTask(), rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, empSig, empSig);
+		} catch (Exception e) {
+			System.out.println("Saving report with task ID failed");
+			e.printStackTrace();
+		}
+		
+		// assert
+		assertEquals(4 ,rc.findReportByTaskID(7).getRejectionsAge());
+	}
+	
+	@Test 
+	void testFindReportByTaskID() throws Exception {
+		// arrange
+		
+		// act
+		testReport = rc.findReportByTaskID(tc.findTaskByID(1).getTaskID());
+		
+		// assert
+		assertEquals(1 , testReport.getRejectionsAttitude());
+	}
+	
+	@Test
+	void testDeleteReportByTaskID() {
+		// arrange
+		
+		// act
+		
+		// assert
+	}
+	
+	@Test
+	void testUpdateReportByTaskID() {
+		// arrange
+		
+		// act
+		
+		// assert
 	}
 
 }
