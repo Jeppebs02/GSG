@@ -51,6 +51,7 @@ public class ViewTaskDialog extends JDialog {
 
 		setTitle("Vis Opgave");
 		setBounds(100, 100, 600, 600);
+		setResizable(false);
 		getContentPane().setLayout(null);
 
 		JLabel lblDescription = new JLabel("Discription:");

@@ -50,6 +50,7 @@ public class AddShiftDialog extends JDialog {
 		setTitle("Add shift");
 		setBounds(100, 100, 400, 300);
 		setLayout(null);
+		setResizable(false);
 		setModal(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 

@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import ctrl.AlarmCtrl;
@@ -34,7 +36,7 @@ import java.awt.Font;
  * </p>
  */
 public class AddAlarmView extends JDialog {
-	private JTextField txtComments;
+	private JTextArea txtCommentsArea;
 	private JCheckBox chckbxGREEN;
 	private JCheckBox chckbxRed;
 	private JCheckBox chckbxNotify;
@@ -55,6 +57,7 @@ public class AddAlarmView extends JDialog {
 		rc = new ReportCtrl();
 
 		setTitle("Add Alarm");
+		setResizable(false);
 		setBounds(100, 100, 400, 300);
 		getContentPane().setLayout(null);
 		setModal(true);
@@ -70,9 +73,16 @@ public class AddAlarmView extends JDialog {
 		lblcomments.setBounds(20, 131, 100, 25);
 		getContentPane().add(lblcomments);
 
-		txtComments = new JTextField();
-		txtComments.setBounds(130, 131, 200, 63);
-		getContentPane().add(txtComments);
+		txtCommentsArea = new JTextArea();
+		txtCommentsArea.setLineWrap(true);
+		txtCommentsArea.setWrapStyleWord(true);
+
+		// Place the JTextArea into a JScrollPane for scrolling:
+		JScrollPane scrollPaneComments = new JScrollPane(txtCommentsArea,
+		    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPaneComments.setBounds(130, 131, 200, 63);
+		getContentPane().add(scrollPaneComments);
 
 		JButton btnAdd = new JButton("Add");
 		btnAdd.setBounds(276, 222, 100, 30);
@@ -112,6 +122,7 @@ public class AddAlarmView extends JDialog {
 		textFieldTime = new JTextField();
 		textFieldTime.setBounds(130, 93, 100, 25);
 		getContentPane().add(textFieldTime);
+		
 	}
 
 	/**
@@ -189,7 +200,7 @@ public class AddAlarmView extends JDialog {
 		}
 
 		try {
-			ac.createAlarm(localTimeDate, getClassification(), txtComments.getText(), notify, reportID);
+			ac.createAlarm(localTimeDate, getClassification(), txtCommentsArea.getText(), notify, reportID);
 			this.dispose();
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(this, "Error creating alarm: " + ex.getMessage(), "Error",

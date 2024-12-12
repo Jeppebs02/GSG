@@ -59,7 +59,7 @@ public class ShiftReportView extends JDialog {
 	private JTextField textFieldTotalAlarm;
 	private JTextField textFieldEmpSign;
 	private JTextField textFieldManaSign;
-	private JTextField textFieldOtherComments;
+	private JTextArea textAreaOtherComments;
 	private ReportCtrl rc;
 	private JTable alarmTable;
 
@@ -84,6 +84,7 @@ public class ShiftReportView extends JDialog {
 		setModal(true);
 		setTitle("Add task");
 		setBounds(100, 100, 600, 600);
+		setResizable(false);
 		getContentPane().setLayout(null);
 
 		JLabel lblDescription = new JLabel("Task Report");
@@ -243,14 +244,21 @@ public class ShiftReportView extends JDialog {
 		lblOther_1.setBounds(363, 394, 64, 25);
 		getContentPane().add(lblOther_1);
 
-		textFieldOtherComments = new JTextField();
-		textFieldOtherComments.setBounds(405, 354, 150, 104);
-		if(r.getAlternativeRemarks() == null) {
-			textFieldOtherComments.setText("");
+		textAreaOtherComments = new JTextArea();
+		textAreaOtherComments.setLineWrap(true);
+		textAreaOtherComments.setWrapStyleWord(true); // Wrap at word boundaries
+		if (r.getAlternativeRemarks() == null) {
+		    textAreaOtherComments.setText("");
 		} else {
-			textFieldOtherComments.setText(r.getAlternativeRemarks());
+		    textAreaOtherComments.setText(r.getAlternativeRemarks());
 		}
-		getContentPane().add(textFieldOtherComments);
+		JScrollPane scrollPaneOtherComments = new JScrollPane(
+			    textAreaOtherComments, 
+			    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+			    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+			);
+			scrollPaneOtherComments.setBounds(405, 354, 150, 104);
+			getContentPane().add(scrollPaneOtherComments);
 
 		JButton btnOK = new JButton("OK");
 		btnOK.setBounds(491, 508, 64, 30);
@@ -358,7 +366,7 @@ public class ShiftReportView extends JDialog {
 		}
 
 		// Update the report with the validated data
-		rc.updateReportByTaskID(age, attitude, other, textFieldOtherComments.getText(), textFieldEmpSign.getText(),
+		rc.updateReportByTaskID(age, attitude, other, textAreaOtherComments.getText(), textFieldEmpSign.getText(),
 				textFieldManaSign.getText(), task);
 		this.dispose();
 	}

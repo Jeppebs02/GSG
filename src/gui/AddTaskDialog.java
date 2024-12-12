@@ -52,6 +52,7 @@ public class AddTaskDialog extends JDialog {
 		tc = new TaskCtrl();
 		setTitle("Add task");
 		setBounds(100, 100, 600, 600);
+		setResizable(false);
 		getContentPane().setLayout(null);
 		shifts = new ArrayList<>();
 
