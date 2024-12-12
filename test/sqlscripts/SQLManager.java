@@ -24,6 +24,7 @@ public class SQLManager {
 	
 	
     public static void executeScript(String filePath) throws DataAccessException {
+    	// String builder to make working with strings easier :)
         StringBuilder scriptBuilder = new StringBuilder();
 
         // Read the SQL file
@@ -38,16 +39,17 @@ public class SQLManager {
                 scriptBuilder.append(line).append("\n");
             }
         } catch (IOException e) {
+        	// Error if something goes wrong
             throw new DataAccessException("Error reading SQL script file: " + filePath, e);
         }
 
-        // Split the script by "GO" batch separator
+        // Split the script by "GO"
         String[] commands = scriptBuilder.toString().split("(?i)\\bGO\\b");
 
         // Get the database connection
         Connection connection = DBConnection.getInstance().getConnection();
 
-        // Execute each command
+        // Execute each statement
         try (Statement stmt = connection.createStatement()) {
             for (String command : commands) {
                 String sql = command.trim();
@@ -64,7 +66,7 @@ public class SQLManager {
     /**
      * Executes multiple SQL scripts provided as file paths.
      *
-     * @param filePaths An array of file paths to the .sql files containing SQL scripts.
+     * @param filePaths - An array of file paths to the .sql files containing SQL scripts.
      * @throws DataAccessException If an error occurs while reading the files or executing the SQL commands.
      */
     public static void executeScripts(String[] filePaths) throws DataAccessException {
@@ -74,7 +76,11 @@ public class SQLManager {
     }
     
     
-    
+    /**
+     * Teardown method to be used in tests.
+     * It first resets all tables, then populates them with test data.
+     *
+     */
     public static void tearDown() throws Exception {
     	executeScript("SQL_Scripts/RESET_ALL_TABLES.sql");
     	executeScript("SQL_Scripts/CREATE_TEST_DATA.sql");
