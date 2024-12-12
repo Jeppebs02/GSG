@@ -1,0 +1,1152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1.0">
+  <zoom_level>3</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>393</x>
+      <y>633</y>
+      <w>108</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>gui::SchedulingApp
+--
+-frame: JFrame
+-calendarTable: JTable
+-yearSelector: JComboBox&lt;Integer&gt;
+-monthSelector: JComboBox&lt;String&gt;
+-currentDate: LocalDate
+-taskMap: HashMap&lt;LocalDate, List&lt;String&gt;&gt;
+-calendarDates: LocalDate[][]
+-tasks: List&lt;Task&gt;
+-hoveredRow = -1: int
+-hoveredCol = -1: int
+-cellPopup: JPopupMenu
+-createTaskItem: JMenuItem
+-showTasksItem: JMenuItem
+--
++SchedulingApp(): ctor
++main(String[] args): void
+-initialize(): void
+-isValidDateCell(int row, int col): boolean
+-setupCellPopup(): void
+-showCellPopup(MouseEvent evt, int row, int col): void
+-updateCalendarView(): void
+-renderMonthView(LocalDate date): void
+-fetchTasksInBackground(LocalDate date): void
+-updateCellRendering(LocalDate date): void
+-handleCalendarClick(int row, int col): void
+-openAddTaskDialog(LocalDate date): void
+-showAllTasksForDate(LocalDate date): void
+-getYearRange(): Integer[]
+-getMonths(): String[]
+-getMonthIndex(String monthName): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>504</x>
+      <y>633</y>
+      <w>75</w>
+      <h>123</h>
+    </coordinates>
+    <panel_attributes>gui::ShiftReportView
+--
+-txtDescription: JTextField
+-txtDate: JTextField
+-shiftsTable: JTable
+-shifts: List&lt;Shift&gt;
+-alarms: List&lt;Alarm&gt;
+-textFieldAge: JTextField
+-textFieldOther: JTextField
+-textFieldAttitude: JTextField
+-textFieldRedAlarm: JTextField
+-textFieldGreenAlarm: JTextField
+-textFieldTotalAlarm: JTextField
+-textFieldEmpSign: JTextField
+-textFieldManaSign: JTextField
+-textAreaOtherComments: JTextArea
+-rc: ReportCtrl
+-alarmTable: JTable
+--
++ShiftReportView(Task task): ctor
+-addAlarmView(Task task): void
+-numberOfAlarms(Task task): void
+-saveReport(Task task): void
+-refreshAlarmTable(Task task): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>582</x>
+      <y>633</y>
+      <w>117</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>dal::DBConnection
+--
+-connection = null: Connection
+-dBConnection = new DBConnection(): DBConnection
+-DBNAME = "DMA-CSD-V24_10519150": String
+-SERVERNAME = "hildur.ucn.dk": String
+-PORTNUMBER = "1433": String
+-USERNAME = "DMA-CSD-V24_10519150": String
+-PASSWORD = "Password1!": String
+--
+-DBConnection(): ctor
++getInstance(): DBConnection
++getConnection(): Connection
++startTransaction(): void
++commitTransaction(): void
++rollbackTransaction(): void
+-rolTra(): void
+-comTra(): void
++executeSqlInsertWithIdentityPS(PreparedStatement ps): int
++executeSqlInsertPS(PreparedStatement ps): int
++getResultSetWithPS(PreparedStatement ps): ResultSet
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>702</x>
+      <y>633</y>
+      <w>303</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>dal::AlarmDB
+--
+-connection: Connection
+-dbConnection: DBConnection
+-insert_alarm = "INSERT INTO [Alarm] (Time, Description, Notify, Classification, Report_ID) VALUES (?, ?, ?, ?, ?);": String
+-find_alarm_from_id = "SELECT ID AS Alarm_ID, Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE ID = ?;": String
+-delete_alarm_from_id = "DELETE FROM [Alarm] WHERE ID = ?;": String
+-find_all_alarms_from_report_id = "SELECT ID AS Alarm_ID, Time, Description, Notify, Classification, Report_ID FROM [Alarm] WHERE Report_ID = ?;": String
+-insertAlarm: PreparedStatement
+-findAlarmFromID: PreparedStatement
+-deleteAlarmFromID: PreparedStatement
+-findAllAlarmsFromReportID: PreparedStatement
+-aedb: AlarmExtraDB
+--
++AlarmDB(): ctor
++saveAlarmToDB(Alarm alarm, int reportID): Alarm
++createAlarmFromResultSet(ResultSet rs): Alarm
++deleteAlarmFromDB(int alarmID): void
++findAlarmByID(int alarmID): Alarm
++findAllAlarmsByReportID(int reportID): List&lt;Alarm&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1008</x>
+      <y>633</y>
+      <w>243</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>dal::ShiftDB
+--
+-connection: Connection
+-dbConnection: DBConnection
+-insert_shift_with_employee = "INSERT INTO [Shift] (StartTime, EndTime, Employee_ID, Task_ID) VALUES (?, ?, ?, ?);": String
+-insert_shift_without_employee = "INSERT INTO [Shift] (StartTime, EndTime, Task_ID) VALUES(?, ?, ?)": String
+-find_shifts_from_task_id = "SELECT StartTime, EndTime, Employee_ID, Task_ID FROM [Shift] WHERE Task_ID =?;": String
+-get_shift_from_id = "SELECT * FROM [Shift] WHERE ID=?;": String
+-insertShiftWithEmployee: PreparedStatement
+-insertShiftWithoutEmployee: PreparedStatement
+-findShiftsFromTaskID: PreparedStatement
+-getShiftFromShiftID: PreparedStatement
+--
++ShiftDB(): ctor
++saveShiftWithEmployee(Shift shift, int taskID): Shift
++saveShiftWithoutEmployee(Shift shift, int taskID): Shift
++saveShift(Shift shift, int taskID): Shift
++findAllShiftsByTaskIDFromDB(int taskID): List&lt;Shift&gt;
++createShiftFromResultSet(ResultSet rs): Shift
++getShiftByID(int shiftID): Shift
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1254</x>
+      <y>633</y>
+      <w>1518</w>
+      <h>93</h>
+    </coordinates>
+    <panel_attributes>dal::RatingDB
+--
+-connection: Connection
+-dbConnection: DBConnection
+-save_rating = "INSERT INTO [Rating] (SecurityScore,SecurityComment,ServiceScore,ServiceComment,ReportNr,Employee_ID) VALUES(?,?,?,?,?,?);": String
+-delete_rating_by_rating_id = "DELETE FROM [Rating] WHERE ID = ?;": String
+-get_rating_info = "SELECT r.ID AS RatingID, r.SecurityScore, r.SecurityComment, r.ServiceScore, r.ServiceComment, r.ReportNr, " + "r.Employee_ID AS RatingEmployeeID, e.ID AS EmployeeID, e.CPR, e.SecurityClearance, e.AccountNr, e.Certification, " + "e.RegistrationNr, e.Department, eu.ID AS EmployeeUserID, eu.User_ID AS EmployeeUser_UserID, " + "eu.Employee_ID AS EmployeeUser_EmployeeID, u.ID AS UserID, u.UserName, u.Password, u.FirstName, u.LastName, " + "u.Email, u.PhoneNr, u.AccountPrivileges, u.Type, u.Address_ID AS UserAddressID " + "FROM Rating AS r " + "INNER JOIN Employee AS e ON r.Employee_ID = e.ID " + "INNER JOIN EmployeeUser AS eu ON e.ID = eu.Employee_ID " + "INNER JOIN [User] AS u ON eu.User_ID = u.ID " + "WHERE r.ReportNr = ?;": String
+-saveRating: PreparedStatement
+-deleteRatingByRatingID: PreparedStatement
+-getRatingInfo: PreparedStatement
+-edb: EmployeeDB
+--
++RatingDB(): ctor
++saveRatingToDB(Rating rating, int reportNr): Rating
++deleteRatingByRatingID(int ratingID): void
++findRatingsByReportID(int reportID): List&lt;Rating&gt;
++createRatingFromResultSet(ResultSet rs): Rating
++findRatingByReportID(int reportID): ResultSet
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>393</x>
+      <y>801</y>
+      <w>426</w>
+      <h>93</h>
+    </coordinates>
+    <panel_attributes>dal::ReportDB
+--
+-dbConnection = DBConnection.getInstance(): DBConnection
+-connection = DBConnection.getInstance().getConnection(): Connection
+-delete_report_by_taskid = "DELETE FROM [Report] WHERE [Task_ID] = ?;": String
+-find_report_by_taskid = "SELECT * FROM Report INNER JOIN Task ON Report.Task_ID = Task.ID WHERE Task.ID = ?;": String
+-save_report_to_db = "INSERT INTO [Report] (RejectionAge, RejectionAttitude, RejectionAlternative, " + "AlternativeRemarks, EmployeeSignature, CustomerSignature, Task_ID) " + "VALUES (?,?,?,?,?,?,?)": String
+-update_report_by_taskid = "UPDATE dbo.[Report] SET RejectionAge = ?, RejectionAttitude = ?, RejectionAlternative = ?, AlternativeRemarks = ?, EmployeeSignature = ?, CustomerSignature = ? WHERE Task_ID = ?;": String
+-saveReportToDB: PreparedStatement
+-findReportByTaskID: PreparedStatement
+-deleteReportByTaskID: PreparedStatement
+-updateReportByTaskID: PreparedStatement
+--
++saveReportToDb(Report report): void
++findReportByTaskID(int taskID): Report
++deleteReportByTaskID(int taskID): void
++createReportFromResultSet(ResultSet rs): Report
++updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative, String alternativeRemarks, String employeeSignature, String customerSignature, int taskID): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>822</x>
+      <y>801</y>
+      <w>330</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>dal::TaskDB
+--
+-connection: Connection
+-dbConnection: DBConnection
+-insert_task = "INSERT INTO [Task] (Description, Location, Approval, Date, User_ID) VALUES (?, ?, ?, ?, ?);": String
+-find_all_tasks_per_month = "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE YEAR(Date) = ? AND MONTH(Date) = ?;": String
+-get_task_from_id = "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE ID=?;": String
+-insertTask: PreparedStatement
+-findAllTasks: PreparedStatement
+-getTaskFromTaskID: PreparedStatement
+--
++TaskDB(): ctor
++saveTask(Task task): Task
++findAllTasksFromDB(int year, String month): List&lt;Task&gt;
++createTaskFromResultSet(ResultSet rs): Task
++findTaskByID(int taskID): Task
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1155</x>
+      <y>801</y>
+      <w>156</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>ctrl::TaskCtrl
+--
+-currentTask: Task
+-sc: ShiftCtrl
+-tb: TaskDB
+-rc: ReportCtrl
+--
++TaskCtrl(): ctor
++createTask(LocalDate date, String description, String location, int userID): Task
++addShift(LocalDateTime startTime, LocalDateTime expectedEndTime): Shift
++addEmployeeToShift(int userID): void
++saveTask(): void
++getCurrentTask(): Task
++findAllTasks(int year, String month): List&lt;Task&gt;
++findTaskByID(int taskID): Task
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>393</x>
+      <y>897</y>
+      <w>162</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>gui::AddAlarmView
+--
+-txtCommentsArea: JTextArea
+-chckbxGREEN: JCheckBox
+-chckbxRed: JCheckBox
+-chckbxNotify: JCheckBox
+-ac: AlarmCtrl
+-rc: ReportCtrl
+-textFieldTime: JTextField
+--
++AddAlarmView(Task task): ctor
+-isOneColorSelected(JCheckBox chckbxGREEN, JCheckBox chckbxRED): boolean
+-getClassification(): Classification
+-saveAlarm(Task task): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>558</x>
+      <y>897</y>
+      <w>282</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>dal::AlarmExtraDB
+--
+-connection: Connection
+-dbConnection: DBConnection
+-insert_alarm_extra = "INSERT INTO [AlarmExtra] (Time, AlarmID, Description) VALUES (?, ?, ?);": String
+-find_all_alarm_extra_from_alarm_id = "SELECT ID AS AlarmExtraID, AlarmID, Description, Time FROM [AlarmExtra] WHERE AlarmID = ?;": String
+-insertAlarmExtra: PreparedStatement
+-findAllAlarmExtraFromAlarmID: PreparedStatement
+--
++AlarmExtraDB(): ctor
++saveAlarmExtra(AlarmExtra alarmExtra, int alarmID): AlarmExtra
++findAllAlarmExtraFromAlarmID(int alarmID): List&lt;AlarmExtra&gt;
++createAlarmExtraFromResultSet(ResultSet rs): AlarmExtra
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>843</x>
+      <y>897</y>
+      <w>918</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>dal::EmployeeDB
+--
+-dbConnection = DBConnection.getInstance(): DBConnection
+-connection = DBConnection.getInstance().getConnection(): Connection
+-find_employee_id_by_user_id = "SELECT User_ID, Employee_ID FROM EmployeeUser WHERE User_ID = ?;": String
+-find_employee_info_from_user_id_and_employee_id = "SELECT Employee.ID AS EmployeeID, Employee.CPR, Employee.SecurityClearance, Employee.AccountNr, " + "Employee.Certification, Employee.RegistrationNr, Employee.Department, U.ID AS UserID, U.UserName, " + "U.Password, U.FirstName, U.LastName, U.Email, U.PhoneNr, U.Type, U.Address_ID, U.AccountPrivileges " + "FROM Employee CROSS JOIN [User] AS U " + "WHERE Employee.ID = ? AND U.ID = ?;": String
+-findEmployeeIDByUserID: PreparedStatement
+-findEmployeeInfoFromUserIDAndEmployeeID: PreparedStatement
+--
++EmployeeDB(): ctor
++findEmployeeByUserID(int userID): Employee
++createEmployeeFromResultSet(ResultSet rs): Employee
++findEmployeeIDFromUserID(int userID): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1764</x>
+      <y>897</y>
+      <w>162</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>gui::AddTaskDialog
+--
+-txtDescription: JTextField
+-txtLocation: JTextField
+-txtUser: JTextField
+-txtDate: JTextField
+-shiftsTable: JTable
+-shifts: List&lt;String&gt;
+-tc: TaskCtrl
+--
++AddTaskDialog(LocalDate date, HashMap&lt;LocalDate, List&lt;String&gt;&gt; taskMap): ctor
+-addShiftDialog(LocalDate date): void
+-saveTask(LocalDate date, HashMap&lt;LocalDate, List&lt;String&gt;&gt; taskMap): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>393</x>
+      <y>972</y>
+      <w>222</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>ctrl::AlarmCtrl
+--
+-adb: AlarmDB
+-currentAlarm: Alarm
+-aedb: AlarmExtraDB
+--
++AlarmCtrl(): ctor
++createAlarm(LocalDateTime time, Classification classification, String description, boolean notify, int reportNr): Alarm
++AddAlarmEkstraDescription(int alarmID): Alarm
++findAlarmsByReportID(int reportNr): List&lt;Alarm&gt;
++deleteAlarmByAlarmID(int alarmID): void
++saveAlarm(int reportNr): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>618</x>
+      <y>972</y>
+      <w>345</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>ctrl::ReportCtrl
+--
+-repDB: ReportDB
+-ac: AlarmCtrl
+-rc: RatingCtrl
+--
++ReportCtrl(): ctor
++createReport(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks, String employeeSignature, String customerSignature): Report
++saveReport(Task task, int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks, String employeeSignature, String customerSignature): void
++findReportByTaskID(int taskID): Report
++deleteReportByTaskID(int taskID): void
++updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative, String alternativeRemarks, String employeeSignature, String customerSignature, Task task): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>966</x>
+      <y>972</y>
+      <w>138</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>ctrl::ShiftCtrl
+--
+-currentShift: Shift
+--
++ShiftCtrl(): ctor
++createShift(LocalDateTime startTime, LocalDateTime endTime): Shift
++addEmployeeToShift(Employee employee): void
++saveShift(int taskID): void
++getCurrentShift(): Shift
++findShiftByShiftID(int shiftID): Shift
++findAllShiftsByTaskID(int taskID): List&lt;Shift&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1107</x>
+      <y>972</y>
+      <w>69</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>gui::ViewTaskDialog
+--
+-txtDescription: JTextField
+-txtLocation: JTextField
+-txtUser: JTextField
+-txtDate: JTextField
+-shiftsTable: JTable
+-allShiftsOnTask: List&lt;Shift&gt;
+--
++ViewTaskDialog(Task task): ctor
+-viewReport(Task task): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>393</x>
+      <y>1038</y>
+      <w>108</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::ShiftDBIF
+--
+--
+~saveShiftWithEmployee(Shift shift, int taskID): Shift
+~saveShiftWithoutEmployee(Shift shift, int taskID): Shift
+~saveShift(Shift shift, int taskID): Shift
+~findAllShiftsByTaskIDFromDB(int taskID): List&lt;Shift&gt;
+~createShiftFromResultSet(ResultSet rs): Shift
+~getShiftByID(int shiftID): Shift
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>504</x>
+      <y>1038</y>
+      <w>135</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>gui::AddShiftDialog
+--
+-txtStartTime: JTextField
+-txtEndTime: JTextField
+-txtEmployee: JTextField
+-shiftsTable: JTable
+-tc: TaskCtrl
+--
++AddShiftDialog(JTable shiftsTable, LocalDate date, TaskCtrl tc): ctor
+-saveShift(LocalDate date): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>642</x>
+      <y>1038</y>
+      <w>99</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::AlarmDBIF
+--
+--
+~saveAlarmToDB(Alarm alarm, int reportID): Alarm
+~createAlarmFromResultSet(ResultSet rs): Alarm
+~deleteAlarmFromDB(int alarmID): void
+~findAlarmByID(int alarmID): Alarm
+~findAllAlarmsByReportID(int reportID): List&lt;Alarm&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>744</x>
+      <y>1038</y>
+      <w>105</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::RatingDBIF
+--
+--
++saveRatingToDB(Rating rating, int reportNr): Rating
++deleteRatingByRatingID(int ratingID): void
++findRatingsByReportID(int reportID): List&lt;Rating&gt;
++createRatingFromResultSet(ResultSet rs): Rating
++findRatingByReportID(int reportID): ResultSet
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>852</x>
+      <y>1038</y>
+      <w>345</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::ReportDBIF
+--
+--
++saveReportToDb(Report report): void
++findReportByTaskID(int taskID): Report
++deleteReportByTaskID(int reportID): void
++createReportFromResultSet(ResultSet rs): Report
++updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative, String alternativeRemarks, String employeeSignature, String customerSignature, int taskID): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1200</x>
+      <y>1038</y>
+      <w>261</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>dal::UserDB
+--
+-dbConnection = DBConnection.getInstance(): DBConnection
+-connection = DBConnection.getInstance().getConnection(): Connection
+-find_customer_info_by_user_id = "SELECT * FROM [User] WHERE ID = ? AND AccountPrivileges IN ('CUSTOMER', 'GUEST');": String
+-findCustomerInfoByUserId: PreparedStatement
+--
++findCustomerByUserID(int userID): User
++createUserFromResultSet(ResultSet rs): User
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>393</x>
+      <y>1095</y>
+      <w>246</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>ctrl::RatingCtrl
+--
+-rdb: RatingDB
+--
++RatingCtrl(): ctor
++createRating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee empolyee): Rating
++findRatingsByReportID(int reportID): List&lt;Rating&gt;
++deleteRatingByRatingID(int ratingID): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>642</x>
+      <y>1095</y>
+      <w>111</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::TaskDBIF
+--
+--
+~saveTask(Task task): Task
+~findAllTasksFromDB(int year, String month): List&lt;Task&gt;
+~createTaskFromResultSet(ResultSet rs): Task
+~findTaskByID(int taskID): Task
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>756</x>
+      <y>1095</y>
+      <w>129</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::AlarmExtraDBIF
+--
+--
+~saveAlarmExtra(AlarmExtra alarmExtra, int alarmID): AlarmExtra
+~findAllAlarmExtraFromAlarmID(int alarmID): List&lt;AlarmExtra&gt;
+~createAlarmExtraFromResultSet(ResultSet rs): AlarmExtra
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>888</x>
+      <y>1095</y>
+      <w>114</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::EmployeeDBIF
+--
+--
++findEmployeeByUserID(int userID): Employee
++createEmployeeFromResultSet(ResultSet rs): Employee
++findEmployeeIDFromUserID(int userID): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1005</x>
+      <y>1095</y>
+      <w>93</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::UserDBIF
+--
+--
++findCustomerByUserID(int userID): User
+~createUserFromResultSet(ResultSet rs): User
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1101</x>
+      <y>1095</y>
+      <w>93</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>ctrl::UserCtrl
+--
+--
++findCustomerByUserID(int userID): User
++findEmployeeByUserID(int userID): Employee
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1197</x>
+      <y>1095</y>
+      <w>42</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::AvailabilityDBIF
+--
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>393</x>
+      <y>1140</y>
+      <w>39</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+dal::BusinessDBIF
+--
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>435</x>
+      <y>1140</y>
+      <w>105</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>dal::DataAccessException
+--
+--
++DataAccessException(String expl, Exception e): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>543</x>
+      <y>1140</y>
+      <w>39</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>dal::AvailabilityDB
+--
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>585</x>
+      <y>1140</y>
+      <w>36</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>dal::BusinessDB
+--
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>306</w>
+      <h>177</h>
+    </coordinates>
+    <panel_attributes>model::Report
+--
+-taskID: int
+-reportNr: int
+-rejectionsAge: int
+-rejectionsAttitude: int
+-rejectionsAlternative: int
+-alternativeRemarks: String
+-employeeSignature: String
+-customerSignature: String
+-alarms: List&lt;Alarm&gt;
+-ratings: List&lt;Rating&gt;
+--
++Report(): ctor
++Report(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks, String employeeSignature, String customerSignature): ctor
++getTaskID(): int
++setTaskID(int taskID): void
++getReportNr(): int
++setReportNr(int reportNr): void
++getRejectionsAge(): int
++setRejectionsAge(int rejectionsAge): void
++getRejectionsAttitude(): int
++setRejectionsAttitude(int rejectionsAttitude): void
++getRejectionsAlternative(): int
++setRejectionsAlternative(int rejectionsAlternative): void
++getAlternativeRemarks(): String
++setAlternativeRemarks(String alternativeRemarks): void
++getEmployeeSignature(): String
++setEmployeeSignature(String employeeSignature): void
++getCustomerSignature(): String
++setCustomerSignature(String customerSignature): void
++getAlarms(): List&lt;Alarm&gt;
++getRatings(): List&lt;Rating&gt;
++addAlarms(Alarm alarm): void
++addRatings(Rating rating): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>309</x>
+      <y>0</y>
+      <w>321</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>model::User
+--
+-userID: int
+-userName: String
+-passWord: String
+-firstName: String
+-lastName: String
+-email: String
+-phoneNr: String
+-address: String
+-accountPrivileges: AccountPrivileges
+--
++User(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges): ctor
++getUserName(): String
++setUserName(String userName): void
++getPassWord(): String
++setPassWord(String passWord): void
++getFirstName(): String
++setFirstName(String firstName): void
++getLastName(): String
++setLastName(String lastName): void
++getEmail(): String
++setEmail(String email): void
++getPhoneNr(): String
++setPhoneNr(String phoneNr): void
++getAddress(): String
++setAddress(String address): void
++getAccountPrivileges(): AccountPrivileges
++setAccountPrivileges(AccountPrivileges accountPrivileges): void
++getUserID(): int
++setUserID(int userID): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>633</x>
+      <y>0</y>
+      <w>177</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>model::Task
+--
+-description: String
+-location: String
+-approval: boolean
+-date: LocalDate
+-shifts: List&lt;Shift&gt;
+-report: Report
+-user: User
+-taskID: int
+--
++Task(String description, String location, LocalDate date, Report report, User user): ctor
++Task(LocalDate date, String description, String location, User userID): ctor
++getDescription(): String
++setDescription(String description): void
++getLocation(): String
++setLocation(String location): void
++isApproval(): boolean
++setApproval(boolean approval): void
++getDate(): LocalDate
++setDate(LocalDate date): void
++addShift(Shift shift): void
++getShifts(): List&lt;Shift&gt;
++setTaskID(int taskID): void
++getTaskID(): int
++getReport(): Report
++setReport(Report report): void
++getUser(): User
++setUser(User user): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>180</y>
+      <w>573</w>
+      <h>141</h>
+    </coordinates>
+    <panel_attributes>model::Employee
+--
+-employeeID: int
+-cpr: String
+-securityClearance: String
+-certification: String
+-accountNr: String
+-registrationNr: String
+-department: String
+-unavailabilities: List&lt;Availability&gt;
+--
++Employee(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges, int employeeID, String cpr, String securityClearance, String certification, String accountNr, String registrationNr, String department): ctor
++Employee(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges, String cpr, String securityClearance, String certification, String accountNr, String registrationNr, String department): ctor
++getCpr(): String
++setCpr(String cpr): void
++getSecurityClearance(): String
++setSecurityClearance(String securityClearance): void
++getCertification(): String
++setCertification(String certification): void
++getAccountNr(): String
++setAccountNr(String accountNr): void
++getRegistrationNr(): String
++setRegistrationNr(String registrationNr): void
++getDepartment(): String
++setDepartment(String department): void
++getEmployeeID(): int
++setEmployeeID(int employeeID): void
++getUnavailabilities(): List&lt;Availability&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>576</x>
+      <y>180</y>
+      <w>192</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>model::Alarm
+--
+-alarmID: int
+-time: LocalDateTime
+-description: String
+-notify: boolean
+-classification: Classification
+-extraDecsription: List&lt;AlarmExtra&gt;
+--
++Alarm(LocalDateTime time, Classification classification, String description, boolean notify): ctor
++getTime(): LocalDateTime
++setTime(LocalDateTime time): void
++getDescription(): String
++setDescription(String description): void
++getNotify(): boolean
++setNotify(boolean notify): void
++getClassification(): Classification
++getClassificationValue(): String
++setClassification(Classification classification): void
++getExtraDecsription(): List&lt;AlarmExtra&gt;
++addExtra(List&lt;AlarmExtra&gt; extra): void
++getAlarmID(): int
++setAlarmID(int alarmID): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>324</y>
+      <w>237</w>
+      <h>111</h>
+    </coordinates>
+    <panel_attributes>model::Rating
+--
+-ratingID: int
+-securityScore: int
+-securityComment: String
+-serviceScore: int
+-serviceComment: String
+-employee: Employee
+--
++Rating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee employee): ctor
++getSecurityScore(): int
++setSecurityScore(int securityScore): void
++getSecurityComment(): String
++setSecurityComment(String securityComment): void
++getServiceScore(): int
++setServiceScore(int serviceScore): void
++getServiceComment(): String
++setServiceComment(String serviceComment): void
++getEmployee(): Employee
++setEmployee(Employee employee): void
++getRatingID(): int
++setRatingID(int ratingID): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>324</y>
+      <w>129</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>model::Shift
+--
+-startTime: LocalDateTime
+-endTime: LocalDateTime
+-employee: Employee
+-shiftID: int
+--
++Shift(LocalDateTime startTime, LocalDateTime endTime): ctor
++getStartTime(): LocalDateTime
++setStartTime(LocalDateTime startTime): void
++getEndTime(): LocalDateTime
++setEndTime(LocalDateTime endTime): void
++getEmployee(): Employee
++setEmployee(Employee employee): void
++getShiftID(): int
++setShiftID(int shiftID): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>372</x>
+      <y>324</y>
+      <w>162</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>model::Availability
+--
+-date: LocalDateTime
+-time: LocalDateTime
+-status: Unavailable
+--
++Availability(LocalDateTime date, LocalDateTime time, Unavailable status): ctor
++getDate(): LocalDateTime
++getTime(): LocalDateTime
++getStatus(): Unavailable
++setDate(LocalDateTime date): void
++setTime(LocalDateTime time): void
++setStatus(Unavailable status): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>537</x>
+      <y>324</y>
+      <w>102</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>model::AlarmExtra
+--
+-alarmExtraID: int
+-description: String
+-timeMade: LocalDateTime
+--
++AlarmExtra(String description): ctor
++getAlarmExtraID(): int
++getDescription(): String
++setAlarmExtraID(int alarmExtraID): void
++setDescription(String description): void
++getTimeMade(): LocalDateTime
++setTimeMade(LocalDateTime timeMade): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>438</y>
+      <w>390</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>model::Business
+--
+-cvr: String
+-companyName: String
+--
++Business(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges, String cvr, String companyName): ctor
++getCvr(): String
++setCvr(String cvr): void
++getCompanyName(): String
++setCompanyName(String companyName): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
