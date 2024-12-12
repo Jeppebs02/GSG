@@ -8,11 +8,22 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import model.Report;
 import model.Task;
 import ctrl.TaskCtrl;
 import sqlscripts.SQLManager;
 
 class ReportCtrlTest {
+	private Report testReport; 
+	private ReportCtrl rc;
+	private TaskCtrl tc;
+	private int rejectionsAge;
+	private int rejectionsAttitude;
+	private int rejectionsAlternative;
+	private String alternativeRemarks;
+	private String empSig;
+	private String cusSig;
+	private Task testTask;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -24,15 +35,15 @@ class ReportCtrlTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		ReportCtrl rc = new ReportCtrl();
-		TaskCtrl tc = new TaskCtrl(); 
-		int rejectionsAge = 4;
-		int rejectionsAttitude = 2;
-		int rejectionsAlternative = 1;
-		String alternativeRemarks = "Generelt god aften";
-		String empSig = "OH";
-		String cusSig = "KL";
-		Task testTask = tc.findTaskByID(1);
+		rc = new ReportCtrl();
+		tc = new TaskCtrl();
+		rejectionsAge = 4;
+		rejectionsAttitude = 2;
+		rejectionsAlternative = 1;
+		alternativeRemarks = "Generelt god aften";
+		empSig = "OH";
+		cusSig = "KL";
+		testTask = tc.findTaskByID(1);
 	}
 
 	@AfterEach
@@ -41,8 +52,14 @@ class ReportCtrlTest {
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testCreateReport() {
+		// arrange
+		
+		// act
+		testReport = rc.createReport(rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, empSig, cusSig);
+		
+		// assert
+		assertEquals("OH", testReport.getEmployeeSignature());
 	}
 
 }
