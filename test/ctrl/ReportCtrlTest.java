@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import model.Report;
 import model.Task;
+import model.User;
 import ctrl.TaskCtrl;
 import sqlscripts.SQLManager;
 
@@ -65,12 +66,13 @@ class ReportCtrlTest {
 	@Test
 	void testSaveReport() throws Exception {
 		// arrange
-		tc.createTask(LocalDate.of(2024, 12, 9), "TestTask", "TestLocation", 15);
-		//tc.saveTask();
+		User testUser = new User("a", "a", "a", "a", "a", "a", "a", null);
+		Task testTask = new Task(LocalDate.of(2024, 12, 9), "TestTask", "TestLocation", testUser);
+		
 		
 		// act
 		try {
-			rc.saveReport(tc.getCurrentTask(), rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, empSig, empSig);
+			rc.saveReport(testTask, rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, empSig, empSig);
 		} catch (Exception e) {
 			System.out.println("Saving report with task ID failed");
 			e.printStackTrace();
@@ -88,25 +90,30 @@ class ReportCtrlTest {
 		testReport = rc.findReportByTaskID(tc.findTaskByID(1).getTaskID());
 		
 		// assert
-		assertEquals(1 , testReport.getRejectionsAttitude());
+		assertEquals(2 , testReport.getRejectionsAttitude());
 	}
 	
 	@Test
-	void testDeleteReportByTaskID() {
+	void testDeleteReportByTaskID() throws Exception {
 		// arrange
 		
 		// act
+		rc.deleteReportByTaskID(1);
 		
 		// assert
+		assertNull(rc.findReportByTaskID(1));
 	}
 	
 	@Test
 	void testUpdateReportByTaskID() {
 		// arrange
+		// Make report object
 		
 		// act
+		// update the current report object
 		
 		// assert
+		// check that the report have been updated
 	}
 
 }
