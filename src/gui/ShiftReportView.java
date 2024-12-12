@@ -328,8 +328,9 @@ public class ShiftReportView extends JDialog {
 		} else if (textFieldAge.getText().isBlank()) {
 			age = 0;
 		} else {
-			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the age rejections.", "Invalid Input",
+			JOptionPane.showMessageDialog(this, "Please enter a valid number for the age rejections.", "Invalid Input",
 					JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 
 		// Validate attitude input
@@ -339,8 +340,9 @@ public class ShiftReportView extends JDialog {
 		} else if (textFieldAttitude.getText().isBlank()) {
 			attitude = 0;
 		} else {
-			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the attitude rejections.",
+			JOptionPane.showMessageDialog(this, "Please enter a valid number for the attitude rejections.",
 					"Invalid Input", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 
 		// Validate other input
@@ -350,8 +352,9 @@ public class ShiftReportView extends JDialog {
 		} else if (textFieldOther.getText().isBlank()) {
 			other = 0;
 		} else {
-			JOptionPane.showMessageDialog(this, "Please enter a valid integer for the other rejections.",
+			JOptionPane.showMessageDialog(this, "Please enter a valid number for the other rejections.",
 					"Invalid Input", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 
 		// Update the report with the validated data
