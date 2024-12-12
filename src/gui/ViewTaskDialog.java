@@ -49,7 +49,7 @@ public class ViewTaskDialog extends JDialog {
 		ShiftDB sdb = new ShiftDB();
 		allShiftsOnTask = sdb.findAllShiftsByTaskIDFromDB(task.getTaskID());
 
-		setTitle("Vis Opgave");
+		setTitle("Show Task");
 		setBounds(100, 100, 600, 600);
 		setResizable(false);
 		getContentPane().setLayout(null);
@@ -63,7 +63,7 @@ public class ViewTaskDialog extends JDialog {
 		txtDescription.setEditable(false); // Read-only
 		getContentPane().add(txtDescription);
 
-		JLabel lblLocation = new JLabel("Lokation:");
+		JLabel lblLocation = new JLabel("Location:");
 		lblLocation.setBounds(20, 60, 100, 25);
 		getContentPane().add(lblLocation);
 
