@@ -105,15 +105,15 @@ class ReportCtrlTest {
 	}
 	
 	@Test
-	void testUpdateReportByTaskID() {
+	void testUpdateReportByTaskID() throws Exception {
 		// arrange
-		// Make report object
+		Task testTask = tc.findTaskByID(1);
 		
 		// act
-		// update the current report object
+		rc.updateReportByTaskID(rejectionsAlternative, rejectionsAge, rejectionsAge, alternativeRemarks, empSig, cusSig, testTask);
 		
 		// assert
-		// check that the report have been updated
+		assertEquals("Generelt god aften", rc.findReportByTaskID(1).getAlternativeRemarks());
 	}
 
 }
