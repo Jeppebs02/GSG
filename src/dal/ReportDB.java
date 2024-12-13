@@ -112,7 +112,7 @@ public class ReportDB implements ReportDBIF {
 
 		try {
 			deleteReportByTaskID.setInt(1, taskID);
-			dbConnection.executeSqlInsertWithIdentityPS(deleteReportByTaskID);
+			dbConnection.executeSqlInsertPS(deleteReportByTaskID);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
