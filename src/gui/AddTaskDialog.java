@@ -64,7 +64,7 @@ public class AddTaskDialog extends JDialog {
 		txtDescription.setBounds(130, 20, 400, 25);
 		getContentPane().add(txtDescription);
 
-		JLabel lblLocation = new JLabel("Lokation:");
+		JLabel lblLocation = new JLabel("Location:");
 		lblLocation.setBounds(20, 60, 100, 25);
 		getContentPane().add(lblLocation);
 
