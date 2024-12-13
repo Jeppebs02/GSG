@@ -23,7 +23,7 @@ public class AlarmExtraDB implements AlarmExtraDBIF {
 
 	// SQL queries for inserting and finding AlarmExtra records
 	private static final String insert_alarm_extra = "INSERT INTO [AlarmExtra] (Time, AlarmID, Description) VALUES (?, ?, ?);";
-	private static final String find_all_alarm_extra_from_alarm_id = "SELECT ID AS AlarmExtraID, AlarmID, Description, Time FROM [AlarmExtra] WHERE AlarmID = ?;";
+	private static final String find_all_alarm_extra_from_alarm_id = "SELECT ID AS AlarmExtraID, Alarm_ID, Description, Time FROM [AlarmExtra] WHERE Alarm_ID = ?;";
 
 	private PreparedStatement insertAlarmExtra;
 	private PreparedStatement findAllAlarmExtraFromAlarmID;
