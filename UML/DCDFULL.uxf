@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="15.1.0">
-  <zoom_level>3</zoom_level>
+<diagram program="umlet" version="15.1">
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>393</x>
-      <y>633</y>
-      <w>108</w>
-      <h>165</h>
+      <x>3036</x>
+      <y>6</y>
+      <w>216</w>
+      <h>306</h>
     </coordinates>
     <panel_attributes>gui::SchedulingApp
 --
@@ -25,7 +25,7 @@
 -createTaskItem: JMenuItem
 -showTasksItem: JMenuItem
 --
-+SchedulingApp(): ctor
++SchedulingApp()
 +main(String[] args): void
 -initialize(): void
 -isValidDateCell(int row, int col): boolean
@@ -41,17 +41,17 @@
 -getYearRange(): Integer[]
 -getMonths(): String[]
 -getMonthIndex(String monthName): int
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>633</y>
-      <w>75</w>
-      <h>123</h>
+      <x>3540</x>
+      <y>0</y>
+      <w>150</w>
+      <h>228</h>
     </coordinates>
     <panel_attributes>gui::ShiftReportView
 --
@@ -72,22 +72,22 @@
 -rc: ReportCtrl
 -alarmTable: JTable
 --
-+ShiftReportView(Task task): ctor
++ShiftReportView(Task task)
 -addAlarmView(Task task): void
 -numberOfAlarms(Task task): void
 -saveReport(Task task): void
 -refreshAlarmTable(Task task): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>582</x>
-      <y>633</y>
-      <w>117</w>
-      <h>108</h>
+      <x>2850</x>
+      <y>1962</y>
+      <w>234</w>
+      <h>216</h>
     </coordinates>
     <panel_attributes>dal::DBConnection
 --
@@ -99,7 +99,7 @@
 -USERNAME = "DMA-CSD-V24_10519150": String
 -PASSWORD = "Password1!": String
 --
--DBConnection(): ctor
+-DBConnection()
 +getInstance(): DBConnection
 +getConnection(): Connection
 +startTransaction(): void
@@ -110,17 +110,16 @@
 +executeSqlInsertWithIdentityPS(PreparedStatement ps): int
 +executeSqlInsertPS(PreparedStatement ps): int
 +getResultSetWithPS(PreparedStatement ps): ResultSet
---
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>702</x>
-      <y>633</y>
-      <w>303</w>
-      <h>105</h>
+      <x>5112</x>
+      <y>720</y>
+      <w>606</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>dal::AlarmDB
 --
@@ -136,23 +135,23 @@
 -findAllAlarmsFromReportID: PreparedStatement
 -aedb: AlarmExtraDB
 --
-+AlarmDB(): ctor
++AlarmDB()
 +saveAlarmToDB(Alarm alarm, int reportID): Alarm
 +createAlarmFromResultSet(ResultSet rs): Alarm
 +deleteAlarmFromDB(int alarmID): void
 +findAlarmByID(int alarmID): Alarm
 +findAllAlarmsByReportID(int reportID): List&lt;Alarm&gt;
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1008</x>
-      <y>633</y>
-      <w>243</w>
-      <h>105</h>
+      <x>2220</x>
+      <y>828</y>
+      <w>486</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>dal::ShiftDB
 --
@@ -167,63 +166,77 @@
 -findShiftsFromTaskID: PreparedStatement
 -getShiftFromShiftID: PreparedStatement
 --
-+ShiftDB(): ctor
++ShiftDB()
 +saveShiftWithEmployee(Shift shift, int taskID): Shift
 +saveShiftWithoutEmployee(Shift shift, int taskID): Shift
 +saveShift(Shift shift, int taskID): Shift
 +findAllShiftsByTaskIDFromDB(int taskID): List&lt;Shift&gt;
 +createShiftFromResultSet(ResultSet rs): Shift
 +getShiftByID(int shiftID): Shift
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1254</x>
-      <y>633</y>
-      <w>1518</w>
-      <h>93</h>
+      <x>4482</x>
+      <y>996</y>
+      <w>462</w>
+      <h>270</h>
     </coordinates>
     <panel_attributes>dal::RatingDB
 --
 -connection: Connection
 -dbConnection: DBConnection
--save_rating = "INSERT INTO [Rating] (SecurityScore,SecurityComment,ServiceScore,ServiceComment,ReportNr,Employee_ID) VALUES(?,?,?,?,?,?);": String
+-save_rating = "INSERT INTO [Rating] (SecurityScore,SecurityComment,ServiceScore,
+ ServiceComment,ReportNr,Employee_ID) VALUES(?,?,?,?,?,?);": String
 -delete_rating_by_rating_id = "DELETE FROM [Rating] WHERE ID = ?;": String
--get_rating_info = "SELECT r.ID AS RatingID, r.SecurityScore, r.SecurityComment, r.ServiceScore, r.ServiceComment, r.ReportNr, " + "r.Employee_ID AS RatingEmployeeID, e.ID AS EmployeeID, e.CPR, e.SecurityClearance, e.AccountNr, e.Certification, " + "e.RegistrationNr, e.Department, eu.ID AS EmployeeUserID, eu.User_ID AS EmployeeUser_UserID, " + "eu.Employee_ID AS EmployeeUser_EmployeeID, u.ID AS UserID, u.UserName, u.Password, u.FirstName, u.LastName, " + "u.Email, u.PhoneNr, u.AccountPrivileges, u.Type, u.Address_ID AS UserAddressID " + "FROM Rating AS r " + "INNER JOIN Employee AS e ON r.Employee_ID = e.ID " + "INNER JOIN EmployeeUser AS eu ON e.ID = eu.Employee_ID " + "INNER JOIN [User] AS u ON eu.User_ID = u.ID " + "WHERE r.ReportNr = ?;": String
+-get_rating_info = "SELECT r.ID AS RatingID, r.SecurityScore, r.SecurityComment,
+ r.ServiceScore, r.ServiceComment, r.ReportNr, " + "r.Employee_ID AS RatingEmployeeID,
+ e.ID AS EmployeeID, e.CPR, e.SecurityClearance, e.AccountNr, e.Certification,
+ " + "e.RegistrationNr, e.Department, eu.ID AS EmployeeUserID, eu.User_ID AS EmployeeUser_UserID,
+ " + "eu.Employee_ID AS EmployeeUser_EmployeeID, u.ID AS UserID, u.UserName, u.Password, u.FirstName,
+ u.LastName, " + "u.Email, u.PhoneNr, u.AccountPrivileges, u.Type,
+ u.Address_ID AS UserAddressID " + "FROM Rating AS r " + "INNER JOIN Employee AS e ON r.Employee_ID = e.ID 
+ " + "INNER JOIN EmployeeUser AS eu ON e.ID = eu.Employee_ID " + "INNER JOIN [User] AS u ON eu.User_ID = u.ID
+ " + "WHERE r.ReportNr = ?;": String
 -saveRating: PreparedStatement
 -deleteRatingByRatingID: PreparedStatement
 -getRatingInfo: PreparedStatement
 -edb: EmployeeDB
 --
-+RatingDB(): ctor
++RatingDB()
 +saveRatingToDB(Rating rating, int reportNr): Rating
 +deleteRatingByRatingID(int ratingID): void
 +findRatingsByReportID(int reportID): List&lt;Rating&gt;
 +createRatingFromResultSet(ResultSet rs): Rating
 +findRatingByReportID(int reportID): ResultSet
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>393</x>
-      <y>801</y>
-      <w>426</w>
-      <h>93</h>
+      <x>3690</x>
+      <y>786</y>
+      <w>360</w>
+      <h>240</h>
     </coordinates>
     <panel_attributes>dal::ReportDB
 --
 -dbConnection = DBConnection.getInstance(): DBConnection
 -connection = DBConnection.getInstance().getConnection(): Connection
 -delete_report_by_taskid = "DELETE FROM [Report] WHERE [Task_ID] = ?;": String
--find_report_by_taskid = "SELECT * FROM Report INNER JOIN Task ON Report.Task_ID = Task.ID WHERE Task.ID = ?;": String
--save_report_to_db = "INSERT INTO [Report] (RejectionAge, RejectionAttitude, RejectionAlternative, " + "AlternativeRemarks, EmployeeSignature, CustomerSignature, Task_ID) " + "VALUES (?,?,?,?,?,?,?)": String
--update_report_by_taskid = "UPDATE dbo.[Report] SET RejectionAge = ?, RejectionAttitude = ?, RejectionAlternative = ?, AlternativeRemarks = ?, EmployeeSignature = ?, CustomerSignature = ? WHERE Task_ID = ?;": String
+-find_report_by_taskid = "SELECT * FROM Report INNER JOIN Task ON Report.Task_ID = 
+ Task.ID WHERE Task.ID = ?;": String
+-save_report_to_db = "INSERT INTO [Report] (RejectionAge, RejectionAttitude,
+ RejectionAlternative, " + "AlternativeRemarks, EmployeeSignature, CustomerSignature,
+ Task_ID) " + "VALUES (?,?,?,?,?,?,?)": String
+-update_report_by_taskid = "UPDATE dbo.[Report] SET RejectionAge = ?,
+ RejectionAttitude = ?, RejectionAlternative = ?, AlternativeRemarks = ?,
+ EmployeeSignature = ?, CustomerSignature = ? WHERE Task_ID = ?;": String
 -saveReportToDB: PreparedStatement
 -findReportByTaskID: PreparedStatement
 -deleteReportByTaskID: PreparedStatement
@@ -233,46 +246,49 @@
 +findReportByTaskID(int taskID): Report
 +deleteReportByTaskID(int taskID): void
 +createReportFromResultSet(ResultSet rs): Report
-+updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative, String alternativeRemarks, String employeeSignature, String customerSignature, int taskID): void
---
++updateReportByTaskID(int rejectionAge, int rejectionAttitude,
+int rejectionAlternative, String alternativeRemarks, String employeeSignature,
+String customerSignature, int taskID): void
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>822</x>
-      <y>801</y>
-      <w>330</w>
-      <h>84</h>
+      <x>2802</x>
+      <y>894</y>
+      <w>444</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>dal::TaskDB
 --
 -connection: Connection
 -dbConnection: DBConnection
 -insert_task = "INSERT INTO [Task] (Description, Location, Approval, Date, User_ID) VALUES (?, ?, ?, ?, ?);": String
--find_all_tasks_per_month = "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE YEAR(Date) = ? AND MONTH(Date) = ?;": String
--get_task_from_id = "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE ID=?;": String
+-find_all_tasks_per_month = "SELECT ID AS Task_ID, Description, Location, Approval,
+Date, User_ID FROM [Task] WHERE YEAR(Date) = ? AND MONTH(Date) = ?;": String
+-get_task_from_id = "SELECT ID AS Task_ID, Description, Location, Approval,
+Date, User_ID FROM [Task] WHERE ID=?;": String
 -insertTask: PreparedStatement
 -findAllTasks: PreparedStatement
 -getTaskFromTaskID: PreparedStatement
 --
-+TaskDB(): ctor
++TaskDB()
 +saveTask(Task task): Task
 +findAllTasksFromDB(int year, String month): List&lt;Task&gt;
 +createTaskFromResultSet(ResultSet rs): Task
 +findTaskByID(int taskID): Task
---
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1155</x>
-      <y>801</y>
-      <w>156</w>
-      <h>78</h>
+      <x>3042</x>
+      <y>486</y>
+      <w>312</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>ctrl::TaskCtrl
 --
@@ -281,7 +297,7 @@
 -tb: TaskDB
 -rc: ReportCtrl
 --
-+TaskCtrl(): ctor
++TaskCtrl()
 +createTask(LocalDate date, String description, String location, int userID): Task
 +addShift(LocalDateTime startTime, LocalDateTime expectedEndTime): Shift
 +addEmployeeToShift(int userID): void
@@ -289,17 +305,17 @@
 +getCurrentTask(): Task
 +findAllTasks(int year, String month): List&lt;Task&gt;
 +findTaskByID(int taskID): Task
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>393</x>
-      <y>897</y>
-      <w>162</w>
-      <h>72</h>
+      <x>3774</x>
+      <y>0</y>
+      <w>324</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>gui::AddAlarmView
 --
@@ -311,21 +327,21 @@
 -rc: ReportCtrl
 -textFieldTime: JTextField
 --
-+AddAlarmView(Task task): ctor
++AddAlarmView(Task task)
 -isOneColorSelected(JCheckBox chckbxGREEN, JCheckBox chckbxRED): boolean
 -getClassification(): Classification
 -saveAlarm(Task task): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>558</x>
-      <y>897</y>
-      <w>282</w>
-      <h>69</h>
+      <x>5112</x>
+      <y>540</y>
+      <w>564</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>dal::AlarmExtraDB
 --
@@ -336,46 +352,50 @@
 -insertAlarmExtra: PreparedStatement
 -findAllAlarmExtraFromAlarmID: PreparedStatement
 --
-+AlarmExtraDB(): ctor
++AlarmExtraDB()
 +saveAlarmExtra(AlarmExtra alarmExtra, int alarmID): AlarmExtra
 +findAllAlarmExtraFromAlarmID(int alarmID): List&lt;AlarmExtra&gt;
 +createAlarmExtraFromResultSet(ResultSet rs): AlarmExtra
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>843</x>
-      <y>897</y>
-      <w>918</w>
-      <h>69</h>
+      <x>522</x>
+      <y>750</y>
+      <w>480</w>
+      <h>162</h>
     </coordinates>
     <panel_attributes>dal::EmployeeDB
 --
 -dbConnection = DBConnection.getInstance(): DBConnection
 -connection = DBConnection.getInstance().getConnection(): Connection
 -find_employee_id_by_user_id = "SELECT User_ID, Employee_ID FROM EmployeeUser WHERE User_ID = ?;": String
--find_employee_info_from_user_id_and_employee_id = "SELECT Employee.ID AS EmployeeID, Employee.CPR, Employee.SecurityClearance, Employee.AccountNr, " + "Employee.Certification, Employee.RegistrationNr, Employee.Department, U.ID AS UserID, U.UserName, " + "U.Password, U.FirstName, U.LastName, U.Email, U.PhoneNr, U.Type, U.Address_ID, U.AccountPrivileges " + "FROM Employee CROSS JOIN [User] AS U " + "WHERE Employee.ID = ? AND U.ID = ?;": String
+-find_employee_info_from_user_id_and_employee_id = "SELECT Employee.ID AS EmployeeID, Employee.CPR,
+ Employee.SecurityClearance, Employee.AccountNr, " + "Employee.Certification, Employee.RegistrationNr,
+ Employee.Department, U.ID AS UserID, U.UserName, " + "U.Password, U.FirstName, U.LastName, U.Email, U.PhoneNr,
+ U.Type, U.Address_ID, U.AccountPrivileges " + "FROM Employee CROSS JOIN [User] AS U " + "WHERE Employee.ID = ?
+ AND U.ID = ?;": String
 -findEmployeeIDByUserID: PreparedStatement
 -findEmployeeInfoFromUserIDAndEmployeeID: PreparedStatement
 --
-+EmployeeDB(): ctor
++EmployeeDB()
 +findEmployeeByUserID(int userID): Employee
 +createEmployeeFromResultSet(ResultSet rs): Employee
 +findEmployeeIDFromUserID(int userID): int
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1764</x>
-      <y>897</y>
-      <w>162</w>
-      <h>69</h>
+      <x>2610</x>
+      <y>6</y>
+      <w>324</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>gui::AddTaskDialog
 --
@@ -390,17 +410,17 @@
 +AddTaskDialog(LocalDate date, HashMap&lt;LocalDate, List&lt;String&gt;&gt; taskMap): ctor
 -addShiftDialog(LocalDate date): void
 -saveTask(LocalDate date, HashMap&lt;LocalDate, List&lt;String&gt;&gt; taskMap): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>393</x>
-      <y>972</y>
-      <w>222</w>
-      <h>63</h>
+      <x>4494</x>
+      <y>552</y>
+      <w>444</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>ctrl::AlarmCtrl
 --
@@ -408,23 +428,23 @@
 -currentAlarm: Alarm
 -aedb: AlarmExtraDB
 --
-+AlarmCtrl(): ctor
++AlarmCtrl()
 +createAlarm(LocalDateTime time, Classification classification, String description, boolean notify, int reportNr): Alarm
 +AddAlarmEkstraDescription(int alarmID): Alarm
 +findAlarmsByReportID(int reportNr): List&lt;Alarm&gt;
 +deleteAlarmByAlarmID(int alarmID): void
 +saveAlarm(int reportNr): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>618</x>
-      <y>972</y>
-      <w>345</w>
-      <h>63</h>
+      <x>3846</x>
+      <y>546</y>
+      <w>378</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>ctrl::ReportCtrl
 --
@@ -432,46 +452,49 @@
 -ac: AlarmCtrl
 -rc: RatingCtrl
 --
-+ReportCtrl(): ctor
-+createReport(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks, String employeeSignature, String customerSignature): Report
-+saveReport(Task task, int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks, String employeeSignature, String customerSignature): void
++ReportCtrl()
++createReport(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative,
+String alternativeRemarks, String employeeSignature, String customerSignature): Report
++saveReport(Task task, int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative,
+String alternativeRemarks, String employeeSignature, String customerSignature): void
 +findReportByTaskID(int taskID): Report
 +deleteReportByTaskID(int taskID): void
-+updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative, String alternativeRemarks, String employeeSignature, String customerSignature, Task task): void
---
++updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative,
+String alternativeRemarks, String employeeSignature, String customerSignature, Task task): void
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>966</x>
-      <y>972</y>
-      <w>138</w>
-      <h>57</h>
+      <x>2262</x>
+      <y>504</y>
+      <w>276</w>
+      <h>114</h>
     </coordinates>
     <panel_attributes>ctrl::ShiftCtrl
 --
 -currentShift: Shift
 --
-+ShiftCtrl(): ctor
++ShiftCtrl()
 +createShift(LocalDateTime startTime, LocalDateTime endTime): Shift
 +addEmployeeToShift(Employee employee): void
 +saveShift(int taskID): void
 +getCurrentShift(): Shift
 +findShiftByShiftID(int shiftID): Shift
 +findAllShiftsByTaskID(int taskID): List&lt;Shift&gt;
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1107</x>
-      <y>972</y>
-      <w>69</w>
-      <h>57</h>
+      <x>3330</x>
+      <y>0</y>
+      <w>138</w>
+      <h>102</h>
     </coordinates>
     <panel_attributes>gui::ViewTaskDialog
 --
@@ -482,19 +505,19 @@
 -shiftsTable: JTable
 -allShiftsOnTask: List&lt;Shift&gt;
 --
-+ViewTaskDialog(Task task): ctor
++ViewTaskDialog(Task task)
 -viewReport(Task task): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>393</x>
-      <y>1038</y>
-      <w>108</w>
-      <h>54</h>
+      <x>2340</x>
+      <y>1116</y>
+      <w>216</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::ShiftDBIF
@@ -506,17 +529,17 @@ dal::ShiftDBIF
 ~findAllShiftsByTaskIDFromDB(int taskID): List&lt;Shift&gt;
 ~createShiftFromResultSet(ResultSet rs): Shift
 ~getShiftByID(int shiftID): Shift
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>1038</y>
-      <w>135</w>
-      <h>54</h>
+      <x>2244</x>
+      <y>6</y>
+      <w>270</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>gui::AddShiftDialog
 --
@@ -526,19 +549,19 @@ dal::ShiftDBIF
 -shiftsTable: JTable
 -tc: TaskCtrl
 --
-+AddShiftDialog(JTable shiftsTable, LocalDate date, TaskCtrl tc): ctor
++AddShiftDialog(JTable shiftsTable, LocalDate date, TaskCtrl tc)
 -saveShift(LocalDate date): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>642</x>
-      <y>1038</y>
-      <w>99</w>
-      <h>48</h>
+      <x>5868</x>
+      <y>834</y>
+      <w>198</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::AlarmDBIF
@@ -549,17 +572,17 @@ dal::AlarmDBIF
 ~deleteAlarmFromDB(int alarmID): void
 ~findAlarmByID(int alarmID): Alarm
 ~findAllAlarmsByReportID(int reportID): List&lt;Alarm&gt;
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>744</x>
-      <y>1038</y>
-      <w>105</w>
-      <h>48</h>
+      <x>4482</x>
+      <y>1362</y>
+      <w>210</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::RatingDBIF
@@ -570,17 +593,17 @@ dal::RatingDBIF
 +findRatingsByReportID(int reportID): List&lt;Rating&gt;
 +createRatingFromResultSet(ResultSet rs): Rating
 +findRatingByReportID(int reportID): ResultSet
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>852</x>
-      <y>1038</y>
-      <w>345</w>
-      <h>48</h>
+      <x>3744</x>
+      <y>1212</y>
+      <w>210</w>
+      <h>114</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::ReportDBIF
@@ -590,59 +613,62 @@ dal::ReportDBIF
 +findReportByTaskID(int taskID): Report
 +deleteReportByTaskID(int reportID): void
 +createReportFromResultSet(ResultSet rs): Report
-+updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative, String alternativeRemarks, String employeeSignature, String customerSignature, int taskID): void
---
++updateReportByTaskID(int rejectionAge,
+int rejectionAttitude, int rejectionAlternative,
+String alternativeRemarks, String employeeSignature,
+String customerSignature, int taskID): void
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1200</x>
-      <y>1038</y>
-      <w>261</w>
-      <h>48</h>
+      <x>1482</x>
+      <y>816</y>
+      <w>300</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>dal::UserDB
 --
 -dbConnection = DBConnection.getInstance(): DBConnection
 -connection = DBConnection.getInstance().getConnection(): Connection
--find_customer_info_by_user_id = "SELECT * FROM [User] WHERE ID = ? AND AccountPrivileges IN ('CUSTOMER', 'GUEST');": String
+-find_customer_info_by_user_id = "SELECT * FROM [User] WHERE ID = ?
+ AND AccountPrivileges IN ('CUSTOMER', 'GUEST');": String
 -findCustomerInfoByUserId: PreparedStatement
 --
 +findCustomerByUserID(int userID): User
 +createUserFromResultSet(ResultSet rs): User
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>393</x>
-      <y>1095</y>
-      <w>246</w>
-      <h>42</h>
+      <x>4482</x>
+      <y>780</y>
+      <w>492</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>ctrl::RatingCtrl
 --
 -rdb: RatingDB
 --
-+RatingCtrl(): ctor
++RatingCtrl()
 +createRating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee empolyee): Rating
 +findRatingsByReportID(int reportID): List&lt;Rating&gt;
 +deleteRatingByRatingID(int ratingID): void
---
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>642</x>
-      <y>1095</y>
-      <w>111</w>
-      <h>42</h>
+      <x>2874</x>
+      <y>1140</y>
+      <w>228</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::TaskDBIF
@@ -652,17 +678,17 @@ dal::TaskDBIF
 ~findAllTasksFromDB(int year, String month): List&lt;Task&gt;
 ~createTaskFromResultSet(ResultSet rs): Task
 ~findTaskByID(int taskID): Task
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>756</x>
-      <y>1095</y>
-      <w>129</w>
-      <h>36</h>
+      <x>5808</x>
+      <y>588</y>
+      <w>258</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::AlarmExtraDBIF
@@ -671,17 +697,17 @@ dal::AlarmExtraDBIF
 ~saveAlarmExtra(AlarmExtra alarmExtra, int alarmID): AlarmExtra
 ~findAllAlarmExtraFromAlarmID(int alarmID): List&lt;AlarmExtra&gt;
 ~createAlarmExtraFromResultSet(ResultSet rs): AlarmExtra
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>888</x>
-      <y>1095</y>
-      <w>114</w>
-      <h>36</h>
+      <x>648</x>
+      <y>1140</y>
+      <w>228</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::EmployeeDBIF
@@ -690,17 +716,17 @@ dal::EmployeeDBIF
 +findEmployeeByUserID(int userID): Employee
 +createEmployeeFromResultSet(ResultSet rs): Employee
 +findEmployeeIDFromUserID(int userID): int
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1005</x>
-      <y>1095</y>
-      <w>93</w>
-      <h>33</h>
+      <x>1542</x>
+      <y>1164</y>
+      <w>186</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::UserDBIF
@@ -708,112 +734,33 @@ dal::UserDBIF
 --
 +findCustomerByUserID(int userID): User
 ~createUserFromResultSet(ResultSet rs): User
---
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1101</x>
-      <y>1095</y>
-      <w>93</w>
-      <h>27</h>
+      <x>978</x>
+      <y>504</y>
+      <w>186</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>ctrl::UserCtrl
 --
 --
 +findCustomerByUserID(int userID): User
 +findEmployeeByUserID(int userID): Employee
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1197</x>
-      <y>1095</y>
-      <w>42</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dal::AvailabilityDBIF
---
---
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>393</x>
-      <y>1140</y>
-      <w>39</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dal::BusinessDBIF
---
---
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>435</x>
-      <y>1140</y>
-      <w>105</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>dal::DataAccessException
---
---
-+DataAccessException(String expl, Exception e): ctor
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>543</x>
-      <y>1140</y>
-      <w>39</w>
-      <h>18</h>
-    </coordinates>
-    <panel_attributes>dal::AvailabilityDB
---
---
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>585</x>
-      <y>1140</y>
-      <w>36</w>
-      <h>18</h>
-    </coordinates>
-    <panel_attributes>dal::BusinessDB
---
---
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>0</x>
-      <y>0</y>
-      <w>306</w>
-      <h>177</h>
+      <x>4122</x>
+      <y>1230</y>
+      <w>234</w>
+      <h>354</h>
     </coordinates>
     <panel_attributes>model::Report
 --
@@ -829,7 +776,9 @@ dal::BusinessDBIF
 -ratings: List&lt;Rating&gt;
 --
 +Report(): ctor
-+Report(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks, String employeeSignature, String customerSignature): ctor
++Report(int rejectionsAge, int rejectionsAttitude,
+int rejectionsAlternative, String alternativeRemarks,
+String employeeSignature, String customerSignature)
 +getTaskID(): int
 +setTaskID(int taskID): void
 +getReportNr(): int
@@ -850,17 +799,17 @@ dal::BusinessDBIF
 +getRatings(): List&lt;Rating&gt;
 +addAlarms(Alarm alarm): void
 +addRatings(Rating rating): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>309</x>
-      <y>0</y>
-      <w>321</w>
-      <h>156</h>
+      <x>1074</x>
+      <y>1050</y>
+      <w>342</w>
+      <h>312</h>
     </coordinates>
     <panel_attributes>model::User
 --
@@ -874,7 +823,8 @@ dal::BusinessDBIF
 -address: String
 -accountPrivileges: AccountPrivileges
 --
-+User(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges): ctor
++User(String userName, String passWord, String firstName, String lastName,
+String email, String phoneNr, String address, AccountPrivileges accountPrivileges)
 +getUserName(): String
 +setUserName(String userName): void
 +getPassWord(): String
@@ -893,17 +843,17 @@ dal::BusinessDBIF
 +setAccountPrivileges(AccountPrivileges accountPrivileges): void
 +getUserID(): int
 +setUserID(int userID): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>633</x>
-      <y>0</y>
-      <w>177</w>
-      <h>153</h>
+      <x>3282</x>
+      <y>1278</y>
+      <w>354</w>
+      <h>306</h>
     </coordinates>
     <panel_attributes>model::Task
 --
@@ -916,8 +866,8 @@ dal::BusinessDBIF
 -user: User
 -taskID: int
 --
-+Task(String description, String location, LocalDate date, Report report, User user): ctor
-+Task(LocalDate date, String description, String location, User userID): ctor
++Task(String description, String location, LocalDate date, Report report, User user): 
++Task(LocalDate date, String description, String location, User userID): 
 +getDescription(): String
 +setDescription(String description): void
 +getLocation(): String
@@ -935,7 +885,7 @@ dal::BusinessDBIF
 +getUser(): User
 +setUser(User user): void
 +toString(): String
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -943,9 +893,9 @@ dal::BusinessDBIF
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>180</y>
-      <w>573</w>
-      <h>141</h>
+      <y>1146</y>
+      <w>420</w>
+      <h>312</h>
     </coordinates>
     <panel_attributes>model::Employee
 --
@@ -958,8 +908,12 @@ dal::BusinessDBIF
 -department: String
 -unavailabilities: List&lt;Availability&gt;
 --
-+Employee(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges, int employeeID, String cpr, String securityClearance, String certification, String accountNr, String registrationNr, String department): ctor
-+Employee(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges, String cpr, String securityClearance, String certification, String accountNr, String registrationNr, String department): ctor
++Employee(String userName, String passWord, String firstName, String lastName, String email,
+String phoneNr, String address, AccountPrivileges accountPrivileges, int employeeID, String cpr,
+String securityClearance, String certification, String accountNr, String registrationNr, String department)
++Employee(String userName, String passWord, String firstName, String lastName, String email,
+String phoneNr, String address, AccountPrivileges accountPrivileges, String cpr, String securityClearance,
+String certification, String accountNr, String registrationNr, String department)
 +getCpr(): String
 +setCpr(String cpr): void
 +getSecurityClearance(): String
@@ -975,17 +929,16 @@ dal::BusinessDBIF
 +getEmployeeID(): int
 +setEmployeeID(int employeeID): void
 +getUnavailabilities(): List&lt;Availability&gt;
---
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>576</x>
-      <y>180</y>
-      <w>192</w>
-      <h>117</h>
+      <x>4560</x>
+      <y>204</y>
+      <w>384</w>
+      <h>234</h>
     </coordinates>
     <panel_attributes>model::Alarm
 --
@@ -996,7 +949,7 @@ dal::BusinessDBIF
 -classification: Classification
 -extraDecsription: List&lt;AlarmExtra&gt;
 --
-+Alarm(LocalDateTime time, Classification classification, String description, boolean notify): ctor
++Alarm(LocalDateTime time, Classification classification, String description, boolean notify)
 +getTime(): LocalDateTime
 +setTime(LocalDateTime time): void
 +getDescription(): String
@@ -1010,17 +963,17 @@ dal::BusinessDBIF
 +addExtra(List&lt;AlarmExtra&gt; extra): void
 +getAlarmID(): int
 +setAlarmID(int alarmID): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>324</y>
-      <w>237</w>
-      <h>111</h>
+      <x>5010</x>
+      <y>1302</y>
+      <w>474</w>
+      <h>222</h>
     </coordinates>
     <panel_attributes>model::Rating
 --
@@ -1031,7 +984,7 @@ dal::BusinessDBIF
 -serviceComment: String
 -employee: Employee
 --
-+Rating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee employee): ctor
++Rating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee employee)
 +getSecurityScore(): int
 +setSecurityScore(int securityScore): void
 +getSecurityComment(): String
@@ -1044,17 +997,17 @@ dal::BusinessDBIF
 +setEmployee(Employee employee): void
 +getRatingID(): int
 +setRatingID(int ratingID): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>240</x>
-      <y>324</y>
-      <w>129</w>
-      <h>81</h>
+      <x>1920</x>
+      <y>1272</y>
+      <w>258</w>
+      <h>162</h>
     </coordinates>
     <panel_attributes>model::Shift
 --
@@ -1063,7 +1016,7 @@ dal::BusinessDBIF
 -employee: Employee
 -shiftID: int
 --
-+Shift(LocalDateTime startTime, LocalDateTime endTime): ctor
++Shift(LocalDateTime startTime, LocalDateTime endTime)
 +getStartTime(): LocalDateTime
 +setStartTime(LocalDateTime startTime): void
 +getEndTime(): LocalDateTime
@@ -1072,43 +1025,17 @@ dal::BusinessDBIF
 +setEmployee(Employee employee): void
 +getShiftID(): int
 +setShiftID(int shiftID): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>372</x>
-      <y>324</y>
-      <w>162</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>model::Availability
---
--date: LocalDateTime
--time: LocalDateTime
--status: Unavailable
---
-+Availability(LocalDateTime date, LocalDateTime time, Unavailable status): ctor
-+getDate(): LocalDateTime
-+getTime(): LocalDateTime
-+getStatus(): Unavailable
-+setDate(LocalDateTime date): void
-+setTime(LocalDateTime time): void
-+setStatus(Unavailable status): void
-+toString(): String
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>537</x>
-      <y>324</y>
-      <w>102</w>
-      <h>66</h>
+      <x>5100</x>
+      <y>282</y>
+      <w>204</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>model::AlarmExtra
 --
@@ -1116,37 +1043,653 @@ dal::BusinessDBIF
 -description: String
 -timeMade: LocalDateTime
 --
-+AlarmExtra(String description): ctor
++AlarmExtra(String description)
 +getAlarmExtraID(): int
 +getDescription(): String
 +setAlarmExtraID(int alarmExtraID): void
 +setDescription(String description): void
 +getTimeMade(): LocalDateTime
 +setTimeMade(LocalDateTime timeMade): void
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>Relation</id>
     <coordinates>
-      <x>0</x>
-      <y>438</y>
-      <w>390</w>
-      <h>51</h>
+      <x>2928</x>
+      <y>48</y>
+      <w>120</w>
+      <h>18</h>
     </coordinates>
-    <panel_attributes>model::Business
---
--cvr: String
--companyName: String
---
-+Business(String userName, String passWord, String firstName, String lastName, String email, String phoneNr, String address, AccountPrivileges accountPrivileges, String cvr, String companyName): ctor
-+getCvr(): String
-+setCvr(String cvr): void
-+getCompanyName(): String
-+setCompanyName(String companyName): void
---
-</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2508</x>
+      <y>36</y>
+      <w>114</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3246</x>
+      <y>42</y>
+      <w>96</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3462</x>
+      <y>42</y>
+      <w>90</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3684</x>
+      <y>42</y>
+      <w>102</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3606</x>
+      <y>222</y>
+      <w>354</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>570.0;540.0;570.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3990</x>
+      <y>138</y>
+      <w>18</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;680.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4092</x>
+      <y>102</y>
+      <w>438</w>
+      <h>462</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>710.0;750.0;710.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2772</x>
+      <y>126</y>
+      <w>306</w>
+      <h>372</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>490.0;600.0;490.0;360.0;10.0;360.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2370</x>
+      <y>108</y>
+      <w>684</w>
+      <h>414</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1120.0;670.0;940.0;670.0;940.0;480.0;10.0;480.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3180</x>
+      <y>306</y>
+      <w>18</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;300.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2532</x>
+      <y>546</y>
+      <w>522</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;850.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2478</x>
+      <y>612</y>
+      <w>18</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;360.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1110</x>
+      <y>546</y>
+      <w>564</w>
+      <h>282</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>920.0;450.0;920.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1158</x>
+      <y>444</y>
+      <w>1896</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;140.0;1750.0;140.0;1750.0;10.0;2360.0;10.0;2360.0;130.0;3140.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1080</x>
+      <y>546</y>
+      <w>18</w>
+      <h>516</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;840.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>978</x>
+      <y>546</y>
+      <w>18</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;340.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>324</x>
+      <y>528</y>
+      <w>666</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;1030.0;10.0;10.0;1090.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>738</x>
+      <y>906</y>
+      <w>18</w>
+      <h>246</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;390.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1626</x>
+      <y>900</y>
+      <w>18</w>
+      <h>276</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;440.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2052</x>
+      <y>582</y>
+      <w>222</w>
+      <h>702</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;1150.0;10.0;10.0;350.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2430</x>
+      <y>1032</y>
+      <w>18</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2982</x>
+      <y>1056</y>
+      <w>18</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3846</x>
+      <y>1020</y>
+      <w>18</w>
+      <h>204</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;320.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4572</x>
+      <y>1260</y>
+      <w>18</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4908</x>
+      <y>672</y>
+      <w>216</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>340.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4932</x>
+      <y>582</y>
+      <w>192</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>300.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5670</x>
+      <y>618</y>
+      <w>150</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>230.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5712</x>
+      <y>888</y>
+      <w>168</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>260.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5346</x>
+      <y>660</y>
+      <w>18</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4728</x>
+      <y>432</y>
+      <w>18</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4218</x>
+      <y>612</y>
+      <w>288</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>460.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4206</x>
+      <y>690</y>
+      <w>288</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>460.0;200.0;10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3870</x>
+      <y>690</y>
+      <w>18</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4182</x>
+      <y>690</y>
+      <w>18</w>
+      <h>552</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;900.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4314</x>
+      <y>312</y>
+      <w>258</w>
+      <h>930</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>410.0;10.0;10.0;10.0;10.0;1530.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4356</x>
+      <y>1500</y>
+      <w>666</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1090.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3348</x>
+      <y>606</y>
+      <w>510</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>830.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3096</x>
+      <y>624</y>
+      <w>18</w>
+      <h>282</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;450.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3330</x>
+      <y>624</y>
+      <w>18</w>
+      <h>666</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;1090.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3630</x>
+      <y>1482</y>
+      <w>504</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>820.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2172</x>
+      <y>1356</y>
+      <w>1122</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;1850.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1410</x>
+      <y>1314</y>
+      <w>1884</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;10.0;180.0;370.0;3120.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>918</x>
+      <y>906</y>
+      <w>1944</w>
+      <h>1212</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>3220.0;1990.0;20.0;2000.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1758</x>
+      <y>900</y>
+      <w>1104</w>
+      <h>1188</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1820.0;1950.0;20.0;1960.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2634</x>
+      <y>1032</y>
+      <w>228</w>
+      <h>1008</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>360.0;1660.0;10.0;1660.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3078</x>
+      <y>1056</y>
+      <w>84</w>
+      <h>954</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;1570.0;110.0;1570.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3078</x>
+      <y>1020</y>
+      <w>654</w>
+      <h>1020</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;1680.0;1070.0;1680.0;1070.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3078</x>
+      <y>1260</y>
+      <w>1734</w>
+      <h>828</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;1350.0;2870.0;1360.0;2870.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4956</x>
+      <y>858</y>
+      <w>90</w>
+      <h>456</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>130.0;740.0;130.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4938</x>
+      <y>342</y>
+      <w>174</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>270.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3078</x>
+      <y>924</y>
+      <w>2550</w>
+      <h>1212</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;1990.0;4230.0;2000.0;4230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3078</x>
+      <y>642</y>
+      <w>2694</w>
+      <h>1530</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;2530.0;4470.0;2530.0;4470.0;10.0;4330.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5220</x>
+      <y>408</y>
+      <w>18</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>996</x>
+      <y>876</y>
+      <w>3498</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;720.0;10.0;720.0;190.0;1860.0;190.0;1860.0;360.0;2930.0;360.0;2930.0;400.0;5810.0;400.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>414</x>
+      <y>906</y>
+      <w>144</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;480.0;220.0;480.0;220.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1410</x>
+      <y>900</y>
+      <w>120</w>
+      <h>246</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;390.0;180.0;390.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>1452</y>
+      <w>4770</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;330.0;7930.0;330.0;7930.0;120.0</additional_attributes>
   </element>
 </diagram>
