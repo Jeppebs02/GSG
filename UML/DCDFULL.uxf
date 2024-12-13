@@ -25,7 +25,7 @@
 -createTaskItem: JMenuItem
 -showTasksItem: JMenuItem
 --
-+SchedulingApp()
++ &lt;&lt;create&gt;&gt; SchedulingApp()
 +main(String[] args): void
 -initialize(): void
 -isValidDateCell(int row, int col): boolean
@@ -72,7 +72,7 @@
 -rc: ReportCtrl
 -alarmTable: JTable
 --
-+ShiftReportView(Task task)
++ &lt;&lt;create&gt;&gt; ShiftReportView(Task task)
 -addAlarmView(Task task): void
 -numberOfAlarms(Task task): void
 -saveReport(Task task): void
@@ -99,7 +99,7 @@
 -USERNAME = "DMA-CSD-V24_10519150": String
 -PASSWORD = "Password1!": String
 --
--DBConnection()
+- &lt;&lt;create&gt;&gt; DBConnection()
 +getInstance(): DBConnection
 +getConnection(): Connection
 +startTransaction(): void
@@ -135,7 +135,7 @@
 -findAllAlarmsFromReportID: PreparedStatement
 -aedb: AlarmExtraDB
 --
-+AlarmDB()
++ &lt;&lt;create&gt;&gt; AlarmDB()
 +saveAlarmToDB(Alarm alarm, int reportID): Alarm
 +createAlarmFromResultSet(ResultSet rs): Alarm
 +deleteAlarmFromDB(int alarmID): void
@@ -166,7 +166,7 @@
 -findShiftsFromTaskID: PreparedStatement
 -getShiftFromShiftID: PreparedStatement
 --
-+ShiftDB()
++ &lt;&lt;create&gt;&gt; ShiftDB()
 +saveShiftWithEmployee(Shift shift, int taskID): Shift
 +saveShiftWithoutEmployee(Shift shift, int taskID): Shift
 +saveShift(Shift shift, int taskID): Shift
@@ -206,7 +206,7 @@
 -getRatingInfo: PreparedStatement
 -edb: EmployeeDB
 --
-+RatingDB()
++ &lt;&lt;create&gt;&gt; RatingDB()
 +saveRatingToDB(Rating rating, int reportNr): Rating
 +deleteRatingByRatingID(int ratingID): void
 +findRatingsByReportID(int reportID): List&lt;Rating&gt;
@@ -297,7 +297,7 @@ Date, User_ID FROM [Task] WHERE ID=?;": String
 -tb: TaskDB
 -rc: ReportCtrl
 --
-+TaskCtrl()
++ &lt;&lt;create&gt;&gt; ()
 +createTask(LocalDate date, String description, String location, int userID): Task
 +addShift(LocalDateTime startTime, LocalDateTime expectedEndTime): Shift
 +addEmployeeToShift(int userID): void
@@ -327,7 +327,7 @@ Date, User_ID FROM [Task] WHERE ID=?;": String
 -rc: ReportCtrl
 -textFieldTime: JTextField
 --
-+AddAlarmView(Task task)
++ &lt;&lt;create&gt;&gt; AddAlarmView(Task task)
 -isOneColorSelected(JCheckBox chckbxGREEN, JCheckBox chckbxRED): boolean
 -getClassification(): Classification
 -saveAlarm(Task task): void
@@ -352,7 +352,7 @@ Date, User_ID FROM [Task] WHERE ID=?;": String
 -insertAlarmExtra: PreparedStatement
 -findAllAlarmExtraFromAlarmID: PreparedStatement
 --
-+AlarmExtraDB()
++ &lt;&lt;create&gt;&gt; AlarmExtraDB()
 +saveAlarmExtra(AlarmExtra alarmExtra, int alarmID): AlarmExtra
 +findAllAlarmExtraFromAlarmID(int alarmID): List&lt;AlarmExtra&gt;
 +createAlarmExtraFromResultSet(ResultSet rs): AlarmExtra
@@ -381,7 +381,7 @@ Date, User_ID FROM [Task] WHERE ID=?;": String
 -findEmployeeIDByUserID: PreparedStatement
 -findEmployeeInfoFromUserIDAndEmployeeID: PreparedStatement
 --
-+EmployeeDB()
++ &lt;&lt;create&gt;&gt; EmployeeDB()
 +findEmployeeByUserID(int userID): Employee
 +createEmployeeFromResultSet(ResultSet rs): Employee
 +findEmployeeIDFromUserID(int userID): int
@@ -407,7 +407,7 @@ Date, User_ID FROM [Task] WHERE ID=?;": String
 -shifts: List&lt;String&gt;
 -tc: TaskCtrl
 --
-+AddTaskDialog(LocalDate date, HashMap&lt;LocalDate, List&lt;String&gt;&gt; taskMap): ctor
++ &lt;&lt;create&gt;&gt; AddTaskDialog(LocalDate date, HashMap&lt;LocalDate, List&lt;String&gt;&gt; taskMap): ctor
 -addShiftDialog(LocalDate date): void
 -saveTask(LocalDate date, HashMap&lt;LocalDate, List&lt;String&gt;&gt; taskMap): void
 
@@ -428,7 +428,7 @@ Date, User_ID FROM [Task] WHERE ID=?;": String
 -currentAlarm: Alarm
 -aedb: AlarmExtraDB
 --
-+AlarmCtrl()
++ &lt;&lt;create&gt;&gt; AlarmCtrl()
 +createAlarm(LocalDateTime time, Classification classification, String description, boolean notify, int reportNr): Alarm
 +AddAlarmEkstraDescription(int alarmID): Alarm
 +findAlarmsByReportID(int reportNr): List&lt;Alarm&gt;
@@ -452,7 +452,7 @@ Date, User_ID FROM [Task] WHERE ID=?;": String
 -ac: AlarmCtrl
 -rc: RatingCtrl
 --
-+ReportCtrl()
++ &lt;&lt;create&gt;&gt; ReportCtrl()
 +createReport(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative,
 String alternativeRemarks, String employeeSignature, String customerSignature): Report
 +saveReport(Task task, int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative,
@@ -477,7 +477,7 @@ String alternativeRemarks, String employeeSignature, String customerSignature, T
 --
 -currentShift: Shift
 --
-+ShiftCtrl()
++ &lt;&lt;create&gt;&gt; ShiftCtrl()
 +createShift(LocalDateTime startTime, LocalDateTime endTime): Shift
 +addEmployeeToShift(Employee employee): void
 +saveShift(int taskID): void
@@ -505,7 +505,7 @@ String alternativeRemarks, String employeeSignature, String customerSignature, T
 -shiftsTable: JTable
 -allShiftsOnTask: List&lt;Shift&gt;
 --
-+ViewTaskDialog(Task task)
++ &lt;&lt;create&gt;&gt; ViewTaskDialog(Task task)
 -viewReport(Task task): void
 
 </panel_attributes>
@@ -549,7 +549,7 @@ dal::ShiftDBIF
 -shiftsTable: JTable
 -tc: TaskCtrl
 --
-+AddShiftDialog(JTable shiftsTable, LocalDate date, TaskCtrl tc)
++ &lt;&lt;create&gt;&gt; AddShiftDialog(JTable shiftsTable, LocalDate date, TaskCtrl tc)
 -saveShift(LocalDate date): void
 
 </panel_attributes>
@@ -655,7 +655,7 @@ String customerSignature, int taskID): void
 --
 -rdb: RatingDB
 --
-+RatingCtrl()
++ &lt;&lt;create&gt;&gt; RatingCtrl()
 +createRating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee empolyee): Rating
 +findRatingsByReportID(int reportID): List&lt;Rating&gt;
 +deleteRatingByRatingID(int ratingID): void
@@ -775,8 +775,8 @@ dal::UserDBIF
 -alarms: List&lt;Alarm&gt;
 -ratings: List&lt;Rating&gt;
 --
-+Report(): ctor
-+Report(int rejectionsAge, int rejectionsAttitude,
++ &lt;&lt;create&gt;&gt; Report()
++ &lt;&lt;create&gt;&gt; Report(int rejectionsAge, int rejectionsAttitude,
 int rejectionsAlternative, String alternativeRemarks,
 String employeeSignature, String customerSignature)
 +getTaskID(): int
@@ -823,7 +823,7 @@ String employeeSignature, String customerSignature)
 -address: String
 -accountPrivileges: AccountPrivileges
 --
-+User(String userName, String passWord, String firstName, String lastName,
++ &lt;&lt;create&gt;&gt; User(String userName, String passWord, String firstName, String lastName,
 String email, String phoneNr, String address, AccountPrivileges accountPrivileges)
 +getUserName(): String
 +setUserName(String userName): void
@@ -866,8 +866,8 @@ String email, String phoneNr, String address, AccountPrivileges accountPrivilege
 -user: User
 -taskID: int
 --
-+Task(String description, String location, LocalDate date, Report report, User user): 
-+Task(LocalDate date, String description, String location, User userID): 
++ &lt;&lt;create&gt;&gt; Task(String description, String location, LocalDate date, Report report, User user): 
++ &lt;&lt;create&gt;&gt; Task(LocalDate date, String description, String location, User userID): 
 +getDescription(): String
 +setDescription(String description): void
 +getLocation(): String
@@ -908,10 +908,10 @@ String email, String phoneNr, String address, AccountPrivileges accountPrivilege
 -department: String
 -unavailabilities: List&lt;Availability&gt;
 --
-+Employee(String userName, String passWord, String firstName, String lastName, String email,
++ &lt;&lt;create&gt;&gt; Employee(String userName, String passWord, String firstName, String lastName, String email,
 String phoneNr, String address, AccountPrivileges accountPrivileges, int employeeID, String cpr,
 String securityClearance, String certification, String accountNr, String registrationNr, String department)
-+Employee(String userName, String passWord, String firstName, String lastName, String email,
++ &lt;&lt;create&gt;&gt; Employee(String userName, String passWord, String firstName, String lastName, String email,
 String phoneNr, String address, AccountPrivileges accountPrivileges, String cpr, String securityClearance,
 String certification, String accountNr, String registrationNr, String department)
 +getCpr(): String
@@ -949,7 +949,7 @@ String certification, String accountNr, String registrationNr, String department
 -classification: Classification
 -extraDecsription: List&lt;AlarmExtra&gt;
 --
-+Alarm(LocalDateTime time, Classification classification, String description, boolean notify)
++ &lt;&lt;create&gt;&gt; Alarm(LocalDateTime time, Classification classification, String description, boolean notify)
 +getTime(): LocalDateTime
 +setTime(LocalDateTime time): void
 +getDescription(): String
@@ -984,7 +984,7 @@ String certification, String accountNr, String registrationNr, String department
 -serviceComment: String
 -employee: Employee
 --
-+Rating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee employee)
++ &lt;&lt;create&gt;&gt; Rating(int securityScore, String securityComment, int serviceScore, String serviceComment, Employee employee)
 +getSecurityScore(): int
 +setSecurityScore(int securityScore): void
 +getSecurityComment(): String
@@ -1016,7 +1016,7 @@ String certification, String accountNr, String registrationNr, String department
 -employee: Employee
 -shiftID: int
 --
-+Shift(LocalDateTime startTime, LocalDateTime endTime)
++ &lt;&lt;create&gt;&gt; Shift(LocalDateTime startTime, LocalDateTime endTime)
 +getStartTime(): LocalDateTime
 +setStartTime(LocalDateTime startTime): void
 +getEndTime(): LocalDateTime
@@ -1043,7 +1043,7 @@ String certification, String accountNr, String registrationNr, String department
 -description: String
 -timeMade: LocalDateTime
 --
-+AlarmExtra(String description)
++ &lt;&lt;create&gt;&gt; AlarmExtra(String description)
 +getAlarmExtraID(): int
 +getDescription(): String
 +setAlarmExtraID(int alarmExtraID): void

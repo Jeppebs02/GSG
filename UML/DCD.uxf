@@ -1,55 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="15.1.0">
-  <zoom_level>3</zoom_level>
+<diagram program="umlet" version="15.1">
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>813</x>
-      <y>0</y>
-      <w>108</w>
-      <h>156</h>
-    </coordinates>
-    <panel_attributes>gui::SchedulingApp
---
--frame: JFrame
--calendarTable: JTable
--yearSelector: JComboBox&lt;Integer&gt;
--monthSelector: JComboBox&lt;String&gt;
--currentDate: LocalDate
--taskMap: HashMap&lt;LocalDate, List&lt;String&gt;&gt;
--calendarDates: LocalDate[][]
--tasks: List&lt;Task&gt;
--hoveredRow = -1: int
--hoveredCol = -1: int
--cellPopup: JPopupMenu
--createTaskItem: JMenuItem
--showTasksItem: JMenuItem
---
-+ &lt;&lt;create&gt;&gt; SchedulingApp()
-+main(String[] args): void
--initialize(): void
--isValidDateCell(int row, int col): boolean
--setupCellPopup(): void
--showCellPopup(MouseEvent evt, int row, int col): void
--updateCalendarView(): void
--renderMonthView(LocalDate date): void
--handleCalendarClick(int row, int col): void
--openAddTaskDialog(LocalDate date): void
--showAllTasksForDate(LocalDate date): void
--getYearRange(): Integer[]
--getMonths(): String[]
--getMonthIndex(String monthName): int
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>552</x>
-      <y>639</y>
-      <w>117</w>
-      <h>108</h>
+      <x>1496</x>
+      <y>1704</y>
+      <w>312</w>
+      <h>288</h>
     </coordinates>
     <panel_attributes>dal::DBConnection
 --
@@ -64,13 +22,13 @@
 -DBConnection(): ctor
 +getInstance(): DBConnection
 +getConnection(): Connection
-+executeSqlInsertWithIdentity(String sql): int
 +startTransaction(): void
 +commitTransaction(): void
--comTra(): void
 +rollbackTransaction(): void
 -rolTra(): void
+-comTra(): void
 +executeSqlInsertWithIdentityPS(PreparedStatement ps): int
++executeSqlInsertPS(PreparedStatement ps): int
 +getResultSetWithPS(PreparedStatement ps): ResultSet
 
 </panel_attributes>
@@ -79,10 +37,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>603</x>
-      <y>255</y>
-      <w>318</w>
-      <h>72</h>
+      <x>1632</x>
+      <y>680</y>
+      <w>416</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>ctrl::TaskCtrl
 --
@@ -95,7 +53,6 @@
 +addShift(LocalDateTime startTime, LocalDateTime expectedEndTime): Shift
 +addEmployeeToShift(int userID): void
 +saveTask(): void
-+createReport(int rejectionsAge, int rejectionsAttitude, int rejectionsAlternative, String alternativeRemarks, String employeeSignature, String customerSignature): Report
 +getCurrentTask(): Task
 +findAllTasks(int year, String month): List&lt;Task&gt;
 --
@@ -105,25 +62,27 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>432</x>
-      <y>357</y>
-      <w>330</w>
-      <h>72</h>
+      <x>1176</x>
+      <y>952</y>
+      <w>880</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>dal::TaskDB
 --
 -connection: Connection
+-dbConnection: DBConnection
 -insert_task = "INSERT INTO [Task] (Description, Location, Approval, Date, User_ID) VALUES (?, ?, ?, ?, ?);": String
 -find_all_tasks_per_month = "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE YEAR(Date) = ? AND MONTH(Date) = ?;": String
+-get_task_from_id = "SELECT ID AS Task_ID, Description, Location, Approval, Date, User_ID FROM [Task] WHERE ID=?;": String
 -insertTask: PreparedStatement
 -findAllTasks: PreparedStatement
--dbConnection: DBConnection
+-getTaskFromTaskID: PreparedStatement
 --
 + &lt;&lt;create&gt;&gt; TaskDB()
 +saveTask(Task task): Task
 +findAllTasksFromDB(int year, String month): List&lt;Task&gt;
 +createTaskFromResultSet(ResultSet rs): Task
-+getMonthInt(String month): int
++findTaskByID(int taskID): Task
 
 </panel_attributes>
     <additional_attributes/>
@@ -131,10 +90,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>582</x>
-      <y>54</y>
-      <w>162</w>
-      <h>72</h>
+      <x>1576</x>
+      <y>144</y>
+      <w>432</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>gui::AddTaskDialog
 --
@@ -157,10 +116,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1710</x>
-      <y>363</y>
-      <w>273</w>
-      <h>87</h>
+      <x>4584</x>
+      <y>968</y>
+      <w>728</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>dal::EmployeeDB
 --
@@ -185,10 +144,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>390</x>
-      <y>63</y>
-      <w>135</w>
-      <h>54</h>
+      <x>1064</x>
+      <y>168</y>
+      <w>360</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>gui::AddShiftDialog
 --
@@ -207,10 +166,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>87</x>
-      <y>255</y>
-      <w>138</w>
-      <h>48</h>
+      <x>256</x>
+      <y>680</y>
+      <w>368</w>
+      <h>136</h>
     </coordinates>
     <panel_attributes>ctrl::ShiftCtrl
 --
@@ -221,17 +180,18 @@
 +addEmployeeToShift(Employee employee): void
 +saveShift(int taskID): void
 +getCurrentShift(): Shift
-
++findShiftByShiftID(int shiftID): Shift
++findAllShiftsByTaskID(int taskID): List&lt;Shift&gt;
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>987</x>
-      <y>357</y>
-      <w>237</w>
-      <h>48</h>
+      <x>2656</x>
+      <y>952</y>
+      <w>632</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>dal::UserDB
 --
@@ -248,10 +208,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1302</x>
-      <y>270</y>
-      <w>93</w>
-      <h>27</h>
+      <x>3496</x>
+      <y>720</y>
+      <w>248</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>ctrl::UserCtrl
 --
@@ -265,10 +225,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>783</x>
-      <y>357</y>
-      <w>177</w>
-      <h>147</h>
+      <x>2112</x>
+      <y>952</y>
+      <w>472</w>
+      <h>392</h>
     </coordinates>
     <panel_attributes>model::Task
 --
@@ -299,17 +259,17 @@
 +setReport(Report report): void
 +getUser(): User
 +setUser(User user): void
-
++toString(): String
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1473</x>
-      <y>360</y>
-      <w>153</w>
-      <h>174</h>
+      <x>3952</x>
+      <y>960</y>
+      <w>408</w>
+      <h>464</h>
     </coordinates>
     <panel_attributes>model::Employee
 --
@@ -354,10 +314,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>357</y>
-      <w>129</w>
-      <h>81</h>
+      <x>24</x>
+      <y>952</y>
+      <w>344</w>
+      <h>216</h>
     </coordinates>
     <panel_attributes>model::Shift
 --
@@ -382,10 +342,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>741</x>
-      <y>81</y>
-      <w>78</w>
-      <h>12</h>
+      <x>2000</x>
+      <y>216</y>
+      <w>208</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -394,10 +354,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>522</x>
-      <y>78</y>
-      <w>66</w>
-      <h>12</h>
+      <x>1416</x>
+      <y>208</y>
+      <w>176</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -406,10 +366,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>450</x>
-      <y>114</y>
-      <w>192</w>
-      <h>147</h>
+      <x>1224</x>
+      <y>304</y>
+      <w>512</w>
+      <h>392</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -418,10 +378,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>666</x>
-      <y>123</y>
-      <w>72</w>
-      <h>138</h>
+      <x>1800</x>
+      <y>328</y>
+      <w>192</w>
+      <h>368</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -430,22 +390,22 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>777</x>
-      <y>153</y>
-      <w>66</w>
-      <h>108</h>
+      <x>2040</x>
+      <y>408</y>
+      <w>232</w>
+      <h>288</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>10.0;340.0;10.0;130.0;200.0;130.0;200.0;10.0</additional_attributes>
+    <additional_attributes>10.0;340.0;10.0;130.0;270.0;130.0;270.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>222</x>
-      <y>273</y>
-      <w>387</w>
-      <h>12</h>
+      <x>616</x>
+      <y>728</y>
+      <w>1032</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -454,22 +414,22 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>918</x>
-      <y>279</y>
-      <w>390</w>
-      <h>12</h>
+      <x>2040</x>
+      <y>744</y>
+      <w>1472</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>1280.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>1820.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>246</x>
-      <y>444</y>
-      <w>9</w>
-      <h>51</h>
+      <x>680</x>
+      <y>1184</y>
+      <w>24</w>
+      <h>136</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
@@ -477,34 +437,34 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>186</x>
-      <y>300</y>
-      <w>78</w>
-      <h>63</h>
+      <x>520</x>
+      <y>808</y>
+      <w>208</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>240.0;190.0;240.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>240.0;180.0;240.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>81</x>
-      <y>300</y>
-      <w>57</w>
-      <h>63</h>
+      <x>240</x>
+      <y>808</y>
+      <w>152</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>10.0;190.0;10.0;90.0;170.0;90.0;170.0;10.0</additional_attributes>
+    <additional_attributes>10.0;180.0;10.0;80.0;170.0;80.0;170.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1242</x>
-      <y>360</y>
-      <w>201</w>
-      <h>156</h>
+      <x>3336</x>
+      <y>960</y>
+      <w>536</w>
+      <h>416</h>
     </coordinates>
     <panel_attributes>model::User
 --
@@ -545,10 +505,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>666</x>
-      <y>402</y>
-      <w>357</w>
-      <h>282</h>
+      <x>1800</x>
+      <y>1072</y>
+      <w>952</w>
+      <h>752</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -557,10 +517,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>612</x>
-      <y>426</y>
-      <w>9</w>
-      <h>219</h>
+      <x>1656</x>
+      <y>1136</y>
+      <w>24</w>
+      <h>584</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -569,10 +529,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>333</x>
-      <y>447</y>
-      <w>225</w>
-      <h>237</h>
+      <x>912</x>
+      <y>1192</y>
+      <w>600</w>
+      <h>632</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -581,22 +541,22 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>666</x>
-      <y>447</y>
-      <w>1086</w>
-      <h>270</h>
+      <x>1800</x>
+      <y>1160</y>
+      <w>2896</w>
+      <h>752</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>10.0;880.0;3600.0;860.0;3600.0;10.0</additional_attributes>
+    <additional_attributes>10.0;920.0;3600.0;900.0;3600.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1353</x>
-      <y>294</y>
-      <w>210</w>
-      <h>72</h>
+      <x>3632</x>
+      <y>784</y>
+      <w>560</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -605,10 +565,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1332</x>
-      <y>294</y>
-      <w>9</w>
-      <h>72</h>
+      <x>3576</x>
+      <y>784</y>
+      <w>24</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -617,10 +577,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1380</x>
-      <y>294</y>
-      <w>396</w>
-      <h>75</h>
+      <x>3704</x>
+      <y>784</y>
+      <w>1056</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -629,10 +589,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1128</x>
-      <y>294</y>
-      <w>192</w>
-      <h>69</h>
+      <x>3032</x>
+      <y>784</y>
+      <w>512</w>
+      <h>184</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -641,10 +601,22 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>861</x>
-      <y>324</y>
-      <w>9</w>
-      <h>39</h>
+      <x>2040</x>
+      <y>832</y>
+      <w>304</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>360.0;150.0;360.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1744</x>
+      <y>864</y>
+      <w>24</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
@@ -653,22 +625,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>645</x>
-      <y>324</y>
-      <w>9</w>
-      <h>39</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-</panel_attributes>
-    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>510</x>
-      <y>426</y>
-      <w>9</w>
-      <h>54</h>
+      <x>1384</x>
+      <y>1136</y>
+      <w>24</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
@@ -676,10 +636,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1095</x>
-      <y>402</y>
-      <w>9</w>
-      <h>45</h>
+      <x>2944</x>
+      <y>1072</y>
+      <w>24</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
@@ -687,21 +647,21 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1830</x>
-      <y>447</y>
-      <w>9</w>
-      <h>42</h>
+      <x>4904</x>
+      <y>1160</y>
+      <w>24</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1767</x>
-      <y>483</y>
-      <w>126</w>
-      <h>33</h>
+      <x>4736</x>
+      <y>1288</y>
+      <w>336</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::EmployeeDBIF
@@ -717,10 +677,10 @@ dal::EmployeeDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>456</x>
-      <y>474</y>
-      <w>123</w>
-      <h>33</h>
+      <x>1240</x>
+      <y>1264</y>
+      <w>328</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::TaskDBIF
@@ -729,17 +689,17 @@ dal::TaskDBIF
 ~saveTask(Task task): Task
 ~findAllTasksFromDB(int year, String month): List&lt;Task&gt;
 ~createTaskFromResultSet(ResultSet rs): Task
-
+~findTaskByID(int taskID): Task
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1053</x>
-      <y>441</y>
-      <w>96</w>
-      <h>30</h>
+      <x>2832</x>
+      <y>1176</y>
+      <w>256</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::UserDBIF
@@ -753,10 +713,10 @@ dal::UserDBIF
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>141</x>
-      <y>357</y>
-      <w>255</w>
-      <h>93</h>
+      <x>400</x>
+      <y>952</y>
+      <w>680</w>
+      <h>248</h>
     </coordinates>
     <panel_attributes>dal::ShiftDB
 --
@@ -771,24 +731,24 @@ dal::UserDBIF
 -findShiftsFromTaskID: PreparedStatement
 -getShiftFromShiftID: PreparedStatement
 --
-+ShiftDB(): ctor
++ &lt;&lt;create&gt;&gt; ShiftDB()
 +saveShiftWithEmployee(Shift shift, int taskID): Shift
 +saveShiftWithoutEmployee(Shift shift, int taskID): Shift
 +saveShift(Shift shift, int taskID): Shift
 +findAllShiftsByTaskIDFromDB(int taskID): List&lt;Shift&gt;
 +createShiftFromResultSet(ResultSet rs): Shift
 +getShiftByID(int id): Shift
---
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>192</x>
-      <y>489</y>
-      <w>114</w>
-      <h>48</h>
+      <x>536</x>
+      <y>1304</y>
+      <w>304</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 dal::ShiftDBIF
@@ -803,5 +763,116 @@ dal::ShiftDBIF
 --
 </panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2192</x>
+      <y>0</y>
+      <w>304</w>
+      <h>416</h>
+    </coordinates>
+    <panel_attributes>gui::SchedulingApp
+--
+-frame: JFrame
+-calendarTable: JTable
+-yearSelector: JComboBox&lt;Integer&gt;
+-monthSelector: JComboBox&lt;String&gt;
+-currentDate: LocalDate
+-taskMap: HashMap&lt;LocalDate, List&lt;String&gt;&gt;
+-calendarDates: LocalDate[][]
+-tasks: List&lt;Task&gt;
+-hoveredRow = -1: int
+-hoveredCol = -1: int
+-cellPopup: JPopupMenu
+-createTaskItem: JMenuItem
+-showTasksItem: JMenuItem
+--
++ &lt;&lt;create&gt;&gt; SchedulingApp()
++main(String[] args): void
+-initialize(): void
+-isValidDateCell(int row, int col): boolean
+-setupCellPopup(): void
+-showCellPopup(MouseEvent evt, int row, int col): void
+-updateCalendarView(): void
+-renderMonthView(LocalDate date): void
+-fetchTasksInBackground(LocalDate date): void
+-updateCellRendering(LocalDate date): void
+-handleCalendarClick(int row, int col): void
+-openAddTaskDialog(LocalDate date): void
+-showAllTasksForDate(LocalDate date): void
+-getYearRange(): Integer[]
+-getMonths(): String[]
+-getMonthIndex(String monthName): int
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2600</x>
+      <y>144</y>
+      <w>200</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>gui::ViewTaskDialog
+--
+-txtDescription: JTextField
+-txtLocation: JTextField
+-txtUser: JTextField
+-txtDate: JTextField
+-shiftsTable: JTable
+-allShiftsOnTask: List&lt;Shift&gt;
+--
++ &lt;&lt;create&gt;&gt; ViewTaskDialog(Task task)
+-viewReport(Task task): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2488</x>
+      <y>200</y>
+      <w>120</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4352</x>
+      <y>1056</y>
+      <w>248</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;290.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3240</x>
+      <y>1072</y>
+      <w>112</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>120.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2576</x>
+      <y>1312</y>
+      <w>776</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>950.0;10.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
