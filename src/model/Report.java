@@ -34,9 +34,6 @@ public class Report {
     	this.ratings = new ArrayList<>();
 	}
 
-
-
-
 	public int getTaskID() {
 		return taskID;
 	}
