@@ -101,7 +101,7 @@ class ReportCtrlTest {
 		rc.deleteReportByTaskID(1);
 		
 		// assert
-		assertNull(rc.findReportByTaskID(1));
+		assertNull(rc.findReportByTaskID(1).getReportNr());
 	}
 	
 	@Test
