@@ -63,24 +63,24 @@ class ReportCtrlTest {
 		assertEquals("OH", testReport.getEmployeeSignature());
 	}
 	
-//	@Test
-//	void testSaveReport() throws Exception {
-//		// arrange
-//		User testUser = new User("a", "a", "a", "a", "a", "a", "a", null);
-//		Task testTask = new Task(LocalDate.of(2024, 12, 9), "TestTask", "TestLocation", testUser);
-//		
-//		
-//		// act
-//		try {
-//			rc.saveReport(testTask, rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, empSig, empSig);
-//		} catch (Exception e) {
-//			System.out.println("Saving report with task ID failed");
-//			e.printStackTrace();
-//		}
-//		
-//		// assert
-//		assertEquals(4 ,rc.findReportByTaskID(7).getRejectionsAge());
-//	}
+	@Test
+	void testSaveReport() throws Exception {
+		// arrange
+		User testUser = new User("a", "a", "a", "a", "a", "a", "a", null);
+		Task testTask = new Task(LocalDate.of(2024, 12, 9), "TestTask", "TestLocation", testUser);
+		
+		
+		// act
+		try {
+			rc.saveReport(testTask, rejectionsAge, rejectionsAttitude, rejectionsAlternative, alternativeRemarks, empSig, empSig);
+		} catch (Exception e) {
+			System.out.println("Saving report with task ID failed");
+			e.printStackTrace();
+		}
+		
+		// assert
+		assertEquals(4 ,rc.findReportByTaskID(7).getRejectionsAge());
+	}
 	
 	@Test 
 	void testFindReportByTaskID() throws Exception {
