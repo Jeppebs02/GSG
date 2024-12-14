@@ -42,7 +42,7 @@ public class EmployeeDB implements EmployeeDBIF {
 	 *                      statements cannot be created.
 	 */
 	public EmployeeDB() throws SQLException {
-		connection = DBConnection.getInstance().getConnection();
+		
 
 		findEmployeeIDByUserID = connection.prepareStatement(find_employee_id_by_user_id);
 		findEmployeeInfoFromUserIDAndEmployeeID = connection
