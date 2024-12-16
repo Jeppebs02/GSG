@@ -8,6 +8,7 @@ import java.util.List;
 import dal.TaskDB;
 import model.Report;
 import dal.ReportDB;
+import model.AccountPrivileges;
 import model.Employee;
 import model.Shift;
 import model.Task;
@@ -56,7 +57,9 @@ public class TaskCtrl {
 		User u = uc.findCustomerByUserID(userID);
 
 		currentTask = new Task(date, description, location, u);
+		if(u != null && u.getAccountPrivileges() == AccountPrivileges.CUSTOMER) {
 		saveTask();
+		}
 		return currentTask;
 	}
 

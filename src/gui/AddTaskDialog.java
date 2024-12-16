@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import ctrl.TaskCtrl;
+import model.Task;
 
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
@@ -162,8 +163,14 @@ public class AddTaskDialog extends JDialog {
 	private void saveTask(LocalDate date, HashMap<LocalDate, List<String>> taskMap)
 			throws NumberFormatException, Exception {
 		// Create and save the task via TaskCtrl
-		tc.createTask(date, txtDescription.getText(), txtLocation.getText(),
+		Task t = tc.createTask(date, txtDescription.getText(), txtLocation.getText(),
 				Integer.parseInt(txtUser.getText().trim()));
+		
+		if (t.getUser() == null) {
+	        JOptionPane.showMessageDialog(this, "Error: User assignment failed. Please assign a valid user.", 
+	                                      "User Assignment Error", JOptionPane.ERROR_MESSAGE);
+	        return; // Exit the method to prevent saving an invalid task
+	    }
 
 		String description = txtDescription.getText();
 		String location = txtLocation.getText();
