@@ -21,7 +21,9 @@ import model.Classification;
 import model.Task;
 
 import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 import java.awt.Font;
+import javax.swing.ButtonGroup;
 
 /**
  * The {@code AddAlarmView} class provides a GUI dialog that allows the user to
@@ -36,176 +38,161 @@ import java.awt.Font;
  * </p>
  */
 public class AddAlarmView extends JDialog {
-	private JTextArea txtCommentsArea;
-	private JCheckBox chckbxGREEN;
-	private JCheckBox chckbxRed;
-	private JCheckBox chckbxNotify;
-	private AlarmCtrl ac;
-	private ReportCtrl rc;
-	private JTextField textFieldTime;
+    private JTextArea txtCommentsArea;
+    private JRadioButton rdbtnGREEN;
+    private JRadioButton rdbtnRED;
+    private JCheckBox chckbxNotify;
+    private AlarmCtrl ac;
+    private ReportCtrl rc;
+    private JTextField textFieldTime;
 
-	/**
-	 * Constructs an {@code AddAlarmView} dialog for adding an alarm to the given
-	 * task.
-	 * 
-	 * @param task the {@link Task} for which the alarm is to be created.
-	 * @throws Exception if there's an issue initializing the controllers or
-	 *                   fetching report data.
-	 */
-	public AddAlarmView(Task task) throws Exception {
-		ac = new AlarmCtrl();
-		rc = new ReportCtrl();
+    /**
+     * Constructs an {@code AddAlarmView} dialog for adding an alarm to the given
+     * task.
+     * 
+     * @param task the {@link Task} for which the alarm is to be created.
+     * @throws Exception if there's an issue initializing the controllers or
+     *                   fetching report data.
+     */
+    public AddAlarmView(Task task) throws Exception {
+        ac = new AlarmCtrl();
+        rc = new ReportCtrl();
 
-		setTitle("Add Alarm");
-		setResizable(false);
-		setBounds(100, 100, 400, 300);
-		getContentPane().setLayout(null);
-		setModal(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setTitle("Add Alarm");
+        setResizable(false);
+        setBounds(100, 100, 400, 300);
+        getContentPane().setLayout(null);
+        setModal(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-		JLabel lblalarm = new JLabel("Alarm");
-		lblalarm.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblalarm.setBounds(20, 20, 100, 37);
-		getContentPane().add(lblalarm);
+        JLabel lblalarm = new JLabel("Alarm");
+        lblalarm.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblalarm.setBounds(20, 20, 100, 37);
+        getContentPane().add(lblalarm);
 
-		JLabel lblcomments = new JLabel("Comments");
-		lblcomments.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblcomments.setBounds(20, 131, 100, 25);
-		getContentPane().add(lblcomments);
+        JLabel lblcomments = new JLabel("Comments");
+        lblcomments.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblcomments.setBounds(20, 131, 100, 25);
+        getContentPane().add(lblcomments);
 
-		txtCommentsArea = new JTextArea();
-		txtCommentsArea.setLineWrap(true);
-		txtCommentsArea.setWrapStyleWord(true);
+        txtCommentsArea = new JTextArea();
+        txtCommentsArea.setLineWrap(true);
+        txtCommentsArea.setWrapStyleWord(true);
 
-		// Place the JTextArea into a JScrollPane for scrolling:
-		JScrollPane scrollPaneComments = new JScrollPane(txtCommentsArea,
-		    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPaneComments.setBounds(130, 131, 200, 63);
-		getContentPane().add(scrollPaneComments);
+        // Place the JTextArea into a JScrollPane for scrolling:
+        JScrollPane scrollPaneComments = new JScrollPane(txtCommentsArea,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneComments.setBounds(130, 131, 200, 63);
+        getContentPane().add(scrollPaneComments);
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.setBounds(276, 222, 100, 30);
-		btnAdd.addActionListener(e -> {
-			try {
-				if (!isOneColorSelected(chckbxGREEN, chckbxRed)) {
-					JOptionPane.showMessageDialog(this, "You can only select one of the GREEN or RED options.",
-							"Invalid Selection", JOptionPane.WARNING_MESSAGE);
-					return; // Stop execution here
-				}
-				saveAlarm(task);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});
-		getContentPane().add(btnAdd);
+        JButton btnAdd = new JButton("Add");
+        btnAdd.setBounds(276, 222, 100, 30);
+        btnAdd.addActionListener(e -> {
+            try {
+                // Check that one of the radio buttons is selected
+                if (getClassification() == null) {
+                    JOptionPane.showMessageDialog(this, "Please select a classification (GREEN or RED).",
+                            "Invalid Selection", JOptionPane.WARNING_MESSAGE);
+                    return; 
+                }
+                saveAlarm(task);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+        getContentPane().add(btnAdd);
 
-		chckbxGREEN = new JCheckBox("GREEN");
-		chckbxGREEN.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxGREEN.setBounds(126, 21, 99, 23);
-		getContentPane().add(chckbxGREEN);
+        rdbtnGREEN = new JRadioButton("GREEN");
+        rdbtnGREEN.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        rdbtnGREEN.setBounds(126, 21, 99, 23);
+        getContentPane().add(rdbtnGREEN);
 
-		chckbxRed = new JCheckBox("RED");
-		chckbxRed.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxRed.setBounds(126, 52, 99, 23);
-		getContentPane().add(chckbxRed);
+        rdbtnRED = new JRadioButton("RED");
+        rdbtnRED.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        rdbtnRED.setBounds(126, 52, 99, 23);
+        getContentPane().add(rdbtnRED);
 
-		chckbxNotify = new JCheckBox("Notify");
-		chckbxNotify.setBounds(130, 226, 99, 23);
-		getContentPane().add(chckbxNotify);
+        // Button group to ensure only one can be selected
+        ButtonGroup classificationGroup = new ButtonGroup();
+        classificationGroup.add(rdbtnGREEN);
+        classificationGroup.add(rdbtnRED);
 
-		JLabel lblTimeOfAlarm = new JLabel("Time of alarm");
-		lblTimeOfAlarm.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblTimeOfAlarm.setBounds(20, 95, 100, 25);
-		getContentPane().add(lblTimeOfAlarm);
+        chckbxNotify = new JCheckBox("Notify");
+        chckbxNotify.setBounds(130, 226, 99, 23);
+        getContentPane().add(chckbxNotify);
 
-		textFieldTime = new JTextField();
-		textFieldTime.setBounds(130, 93, 100, 25);
-		getContentPane().add(textFieldTime);
-		
-	}
+        JLabel lblTimeOfAlarm = new JLabel("Time of alarm");
+        lblTimeOfAlarm.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblTimeOfAlarm.setBounds(20, 95, 100, 25);
+        getContentPane().add(lblTimeOfAlarm);
 
-	/**
-	 * Checks if exactly one of the provided checkboxes (GREEN, RED) is selected.
-	 * 
-	 * @param chckbxGREEN the checkbox representing GREEN classification.
-	 * @param chckbxRED   the checkbox representing RED classification.
-	 * @return {@code true} if exactly one checkbox is selected, {@code false}
-	 *         otherwise.
-	 */
-	private boolean isOneColorSelected(JCheckBox chckbxGREEN, JCheckBox chckbxRED) {
-		boolean greenSelected = chckbxGREEN.isSelected();
-		boolean redSelected = chckbxRED.isSelected();
+        textFieldTime = new JTextField();
+        textFieldTime.setBounds(130, 93, 100, 25);
+        getContentPane().add(textFieldTime);
+    }
 
-		// Check if exactly one is selected
-		return (greenSelected && !redSelected) || (!greenSelected && redSelected);
-	}
+    /**
+     * Determines the alarm classification based on which radio button is selected.
+     * 
+     * @return a {@link Classification} enum (GREEN or RED) depending on the
+     *         selected radio button, or {@code null} if none is selected.
+     */
+    private Classification getClassification() {
+        if (rdbtnGREEN.isSelected()) {
+            return Classification.GREEN;
+        } else if (rdbtnRED.isSelected()) {
+            return Classification.RED;
+        }
+        return null;
+    }
 
-	/**
-	 * Determines the alarm classification based on which checkbox is selected.
-	 * 
-	 * @return a {@link Classification} enum (GREEN or RED) depending on the
-	 *         selected checkbox, or {@code null} if none is selected.
-	 */
-	private Classification getClassification() {
-		Classification c = null;
+    /**
+     * Validates and saves the alarm to the database. It checks the time format,
+     * ensures a valid {@link Classification} is selected, and then calls the
+     * {@link AlarmCtrl} to create and persist the alarm.
+     * 
+     * @param task the {@link Task} to which the alarm is associated.
+     */
+    private void saveAlarm(Task task) {
+        boolean notify = chckbxNotify.isSelected();
+        int reportID;
+        try {
+            reportID = rc.findReportByTaskID(task.getTaskID()).getReportNr();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Could not find report for this task: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-		if (chckbxGREEN.isSelected()) {
-			c = Classification.GREEN;
-		} else if (chckbxRed.isSelected()) {
-			c = Classification.RED;
-		}
+        LocalDateTime localTimeDate;
+        String startTime = textFieldTime.getText().trim();
 
-		return c;
-	}
+        // Validate and parse the start time
+        String regex = "^([01]\\d|2[0-3]):[0-5]\\d$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher startMatcher = pattern.matcher(startTime);
 
-	/**
-	 * Validates and saves the alarm to the database. It checks the time format,
-	 * ensures a valid {@link Classification} is selected, and then calls the
-	 * {@link AlarmCtrl} to create and persist the alarm.
-	 * 
-	 * @param task the {@link Task} to which the alarm is associated.
-	 */
-	private void saveAlarm(Task task) {
-		boolean notify = chckbxNotify.isSelected();
-		int reportID;
-		try {
-			reportID = rc.findReportByTaskID(task.getTaskID()).getReportNr();
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, "Could not find report for this task: " + ex.getMessage(), "Error",
-					JOptionPane.ERROR_MESSAGE);
-			return;
-		}
+        if (!startMatcher.matches()) {
+            JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-		LocalDateTime localTimeDate = null;
-		String startTime = textFieldTime.getText().trim();
+        try {
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
+            localTimeDate = LocalDateTime.of(task.getDate(), localTime);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-		// Validate and parse the start time
-		String regex = "^([01]\\d|2[0-3]):[0-5]\\d$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher startMatcher = pattern.matcher(startTime);
-
-		if (!startMatcher.matches()) {
-			JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-
-		try {
-			DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-			LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
-			localTimeDate = LocalDateTime.of(task.getDate(), localTime);
-		} catch (DateTimeParseException e) {
-			JOptionPane.showMessageDialog(this, "Invalid time format. Use HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-
-		try {
-			ac.createAlarm(localTimeDate, getClassification(), txtCommentsArea.getText(), notify, reportID);
-			this.dispose();
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, "Error creating alarm: " + ex.getMessage(), "Error",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
-
+        try {
+            ac.createAlarm(localTimeDate, getClassification(), txtCommentsArea.getText(), notify, reportID);
+            this.dispose();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error creating alarm: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
