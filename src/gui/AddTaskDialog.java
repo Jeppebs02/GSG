@@ -163,6 +163,12 @@ public class AddTaskDialog extends JDialog {
 	private void saveTask(LocalDate date, HashMap<LocalDate, List<String>> taskMap)
 			throws NumberFormatException, Exception {
 		// Create and save the task via TaskCtrl
+		 if(txtUser.getText().isEmpty()) {
+			 JOptionPane.showMessageDialog(this, "Error: Please enter a userID.", 
+                     "User Assignment Error", JOptionPane.ERROR_MESSAGE);
+			 return; // Exit the method to prevent saving an invalid task
+		 }
+		
 		Task t = tc.createTask(date, txtDescription.getText(), txtLocation.getText(),
 				Integer.parseInt(txtUser.getText().trim()));
 		
