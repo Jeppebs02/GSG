@@ -106,16 +106,21 @@ public class ReportDB implements ReportDBIF {
 	 * @param taskID the ID of the task whose associated report is to be deleted.
 	 * @throws Exception if a database or other error occurs during the deletion.
 	 */
+	
 	@Override
-	public void deleteReportByTaskID(int taskID) throws Exception {
+	public boolean deleteReportByTaskID(int taskID) throws Exception {
 		deleteReportByTaskID = connection.prepareStatement(delete_report_by_taskid);
-
+		boolean result = false;
 		try {
 			deleteReportByTaskID.setInt(1, taskID);
 			dbConnection.executeSqlInsertPS(deleteReportByTaskID);
+			result = true;
 		} catch (Exception e) {
+			result = false;
 			e.printStackTrace();
+			
 		}
+		return result;
 	}
 
 	/**

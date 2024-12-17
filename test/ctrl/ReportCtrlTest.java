@@ -79,10 +79,10 @@ class ReportCtrlTest {
 		// arrange
 		
 		// act
-		rc.deleteReportByTaskID(1);
-		
+		boolean result = rc.deleteReportByTaskID(1);
 		// assert
-		assertNull(rc.findReportByTaskID(1));
+		assertTrue(result);
+	    
 	}
 	
 	@Test

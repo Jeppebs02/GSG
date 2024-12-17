@@ -104,9 +104,10 @@ public class ReportCtrl {
 	 *               deleted.
 	 * @throws Exception if the report or related data cannot be deleted.
 	 */
-	public void deleteReportByTaskID(int taskID) throws Exception {
+	public boolean deleteReportByTaskID(int taskID) throws Exception {
 		Report report = findReportByTaskID(taskID);
 
+		
 		// Delete associated alarms
 		report.getAlarms().forEach(a -> {
 			try {
@@ -125,7 +126,8 @@ public class ReportCtrl {
 			}
 		});
 
-		repDB.deleteReportByTaskID(taskID);
+		return repDB.deleteReportByTaskID(taskID);
+		
 	}
 
 	/**
