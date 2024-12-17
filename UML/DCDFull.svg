@@ -882,7 +882,7 @@
       ><text x="5" font-size="14px" y="75.875" clip-path="url(#clipPath17)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >+findReportByTaskID(int taskID): Report</text
       ><text x="5" font-size="14px" y="91.8438" clip-path="url(#clipPath17)" font-family="sans-serif" stroke="none" xml:space="preserve"
-      >+deleteReportByTaskID(int reportID): void</text
+      >+deleteReportByTaskID(int reportID): boolean</text
       ><text x="5" font-size="14px" y="107.8125" clip-path="url(#clipPath17)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >+createReportFromResultSet(ResultSet rs): Report</text
       ><text x="5" font-size="14px" y="123.7812" clip-path="url(#clipPath17)" font-family="sans-serif" stroke="none" xml:space="preserve"
@@ -1066,7 +1066,7 @@
       ><text x="5" font-size="14px" y="171.6875" clip-path="url(#clipPath24)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >+findReportByTaskID(int taskID): Report</text
       ><text x="5" font-size="14px" y="187.6562" clip-path="url(#clipPath24)" font-family="sans-serif" stroke="none" xml:space="preserve"
-      >+deleteReportByTaskID(int taskID): void</text
+      >+deleteReportByTaskID(int taskID): boolean</text
       ><text x="5" font-size="14px" y="203.625" clip-path="url(#clipPath24)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >+updateReportByTaskID(int rejectionAge, int rejectionAttitude, int rejectionAlternative,</text
       ><text x="5" font-size="14px" y="219.5938" clip-path="url(#clipPath24)" font-family="sans-serif" stroke="none" xml:space="preserve"
@@ -1348,7 +1348,7 @@
       ><text x="5" font-size="14px" y="299.4375" clip-path="url(#clipPath32)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >+findReportByTaskID(int taskID): Report</text
       ><text x="5" font-size="14px" y="315.4062" clip-path="url(#clipPath32)" font-family="sans-serif" stroke="none" xml:space="preserve"
-      >+deleteReportByTaskID(int taskID): void</text
+      >+deleteReportByTaskID(int taskID): boolean</text
       ><text x="5" font-size="14px" y="331.375" clip-path="url(#clipPath32)" font-family="sans-serif" stroke="none" xml:space="preserve"
       >+createReportFromResultSet(ResultSet rs): Report</text
       ><text x="5" font-size="14px" y="347.3438" clip-path="url(#clipPath32)" font-family="sans-serif" stroke="none" xml:space="preserve"
