@@ -4,22 +4,22 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>664</x>
-      <y>144</y>
-      <w>568</w>
+      <x>976</x>
+      <y>136</y>
+      <w>480</w>
       <h>216</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-1. findReportByTaskID(task.getTaskID())
-3. updateReportByTaskID(age, attitude, other, textAreaOtherComments.getText(), textFieldEmpSign.getText(),
-				textFieldManaSign.getText(), task)</panel_attributes>
+1. findReportByTaskID(taskID:int)
+3. updateReportByTaskID(rejectionAge:int, rejectionAttitude:int, rejectionAlternative:int, 
+alternativeRemarks:String, employeeSignature:String, customerSignature:String, task:Task)</panel_attributes>
     <additional_attributes>10.0;250.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>632</x>
-      <y>344</y>
+      <x>944</x>
+      <y>336</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -29,8 +29,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>248</x>
-      <y>344</y>
+      <x>528</x>
+      <y>336</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -40,61 +40,56 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>336</y>
-      <w>328</w>
-      <h>72</h>
+      <x>600</x>
+      <y>328</y>
+      <w>360</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-
-1.3 findAlarmsByReportID(report.getReportNr())
+1.3 findAlarmsByReportID(reportNr:int)
 
 
 </panel_attributes>
-    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;430.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>664</x>
-      <y>360</y>
-      <w>520</w>
-      <h>200</h>
+      <x>976</x>
+      <y>352</y>
+      <w>480</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
+1.1 findReportByTaskID(taskID:int);
 
-
-
-
-
-
-1.1 findReportByTaskID(taskID);
-2.1 updateReportByTaskID(rejectionAge, rejectionAttitude, rejectionAlternative, alternativeRemarks,
-				employeeSignature, customerSignature, task.getTaskID())
+2.1 updateReportByTaskID(rejectionAge:int, rejectionAttitude:int, rejectionAlternative:int, 
+alternativeRemarks:String, employeeSignature:String, customerSignature:String, task:Task)
 
 
 </panel_attributes>
-    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>704</x>
-      <y>536</y>
-      <w>176</w>
-      <h>48</h>
+      <x>1016</x>
+      <y>456</y>
+      <w>504</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 
-1.2.1 &lt;&lt;create&gt;&gt;
+1.2.1 &lt;&lt;create&gt;&gt; Report(rejectionsAge:int, rejectionsAttitude:int, rejectionsAlternative:int, 
+alternativeRemarks:String, employeeSignature:String, customerSignature:String)
 </panel_attributes>
-    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>610.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>864</x>
-      <y>544</y>
+      <x>1504</x>
+      <y>464</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -104,8 +99,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>632</x>
-      <y>544</y>
+      <x>944</x>
+      <y>464</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -115,8 +110,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>248</x>
-      <y>472</y>
+      <x>528</x>
+      <y>464</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -126,35 +121,35 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>360</y>
-      <w>224</w>
+      <x>560</x>
+      <y>352</y>
+      <w>240</w>
       <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-1.3.1 findAllAlarmsByReportID(reportNr)
+1.3.1 findAllAlarmsByReportID(reportID:int)
 </panel_attributes>
     <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>704</x>
-      <y>336</y>
-      <w>504</w>
+      <x>1016</x>
+      <y>328</y>
+      <w>632</w>
       <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-1.4 findRatingsByReportID(report.getReportNr())
+1.5 findRatingsByReportID(reportID:int)
 
 </panel_attributes>
-    <additional_attributes>610.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>770.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1192</x>
-      <y>344</y>
+      <x>1632</x>
+      <y>336</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -164,21 +159,21 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1224</x>
-      <y>360</y>
-      <w>216</w>
-      <h>144</h>
+      <x>1664</x>
+      <y>352</y>
+      <w>224</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-1.4.1 findRatingsByReportID(reportID)
+1.4.1 findRatingsByReportID(reportID:int)
 </panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1192</x>
-      <y>488</y>
+      <x>1632</x>
+      <y>464</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -188,10 +183,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
-      <y>504</y>
-      <w>200</w>
-      <h>112</h>
+      <x>904</x>
+      <y>440</y>
+      <w>272</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 
@@ -199,28 +194,28 @@
 
 
 
-
-
-1.2  s = CreateReportFromResultset</panel_attributes>
-    <additional_attributes>80.0;50.0;80.0;30.0;10.0;30.0;10.0;100.0;80.0;100.0;80.0;80.0</additional_attributes>
+1.2  r = CreateReportFromResultset(rs:ResultSet)</panel_attributes>
+    <additional_attributes>60.0;30.0;60.0;10.0;10.0;10.0;10.0;80.0;60.0;80.0;60.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>208</y>
-      <w>136</w>
-      <h>152</h>
+      <x>560</x>
+      <y>136</y>
+      <w>248</w>
+      <h>216</h>
     </coordinates>
-    <panel_attributes>2. *[i=0..N]createAlarm
+    <panel_attributes>2. *[i=0..N]createAlarm(time:LocalDateTime, 
+classification:Classification, description:String, 
+notify:boolean, reportNr:int)
 lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;250.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>72</x>
-      <y>472</y>
+      <x>200</x>
+      <y>464</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -230,13 +225,41 @@ lt=&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>80</x>
-      <y>336</y>
-      <w>184</w>
+      <x>184</x>
+      <y>328</y>
+      <w>360</w>
       <h>152</h>
     </coordinates>
-    <panel_attributes>2.1 createAlarm
-lt=&lt;-</panel_attributes>
-    <additional_attributes>40.0;170.0;40.0;20.0;210.0;20.0</additional_attributes>
+    <panel_attributes>lt=&lt;-
+                      2.1 &lt;&lt;create&gt;&gt; Alarm(time:LocalDateTime, 
+classification:Classification, 
+          description:String, notify:boolean)</panel_attributes>
+    <additional_attributes>70.0;170.0;70.0;20.0;430.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>440</y>
+      <w>304</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.4  a = createAlarmFromResultSet(rs:ResultSet)</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0;60.0;10.0;60.0;80.0;10.0;80.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>272</x>
+      <y>464</y>
+      <w>272</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.4.1 &lt;&lt;create&gt;&gt; Alarm(time:LocalDateTime, 
+classification:Classification, 
+description:String, notify:boolean)</panel_attributes>
+    <additional_attributes>10.0;20.0;320.0;20.0</additional_attributes>
   </element>
 </diagram>
