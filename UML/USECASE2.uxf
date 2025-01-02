@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>7</x>
+      <y>364</y>
+      <w>315</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Operationskontrakt
+
+Operation: addEmployee(userID:int)
+
+Use case: Create Task
+Prebetingelse: Task t er blevet oprettet
+Shift s er blevet oprettet og assosieret med Task t
+ 
+
+Postbetingelse:
+Employee e er blevet assosieret med Shift s
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>357</x>
+      <y>0</y>
+      <w>42</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>CEO</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>609</x>
+      <y>35</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:System
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>49</y>
+      <w>21</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>371</x>
+      <y>42</y>
+      <w>21</w>
+      <h>259</h>
+    </coordinates>
+    <panel_attributes>lt=.
+layer=0</panel_attributes>
+    <additional_attributes>10.0;350.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>371</x>
+      <y>161</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>addShift(startTime, expectedEndTime)
+lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>371</x>
+      <y>84</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>createTask(date, desciption,location, userID)
+lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>476</x>
+      <y>35</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Larman 173-184</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>21</y>
+      <w>322</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Operationskontrakt
+
+Operation: createTask(date, desciption,
+location, userID)
+Use case: Create Task
+Præbetingelser: En instans af Employee e og 
+User u eksistere allerede i systemet. 
+
+
+Postbetingelser:
+Task t er blevet oprettet
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>189</y>
+      <w>322</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>Operationskontrakt
+
+Operation: addShift(startTime,
+expectedEndTime)
+Use case: Create Task
+Præbetingelser: Task t er blevet oprettet.
+ 
+
+
+Postbetingelse:
+Shift s er blevet oprettet
+Shift s er blevet assosieret med Task t
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>350</x>
+      <y>140</y>
+      <w>329</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>Loop (more shifts)
+layer=-1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>371</x>
+      <y>196</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>addEmployeeToShift(userID)
+lt=&lt;&lt;&lt;-
+layer=2</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1218</x>
+      <y>210</y>
+      <w>21</w>
+      <h>203</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+</panel_attributes>
+    <additional_attributes>10.0;270.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1197</x>
+      <y>399</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:TaskCtrl</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1281</x>
+      <y>630</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:Task</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1120</x>
+      <y>630</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:TaskDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1148</x>
+      <y>413</y>
+      <w>84</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;80.0;10.0;80.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1225</x>
+      <y>413</y>
+      <w>105</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+
+
+
+
+
+
+
+
+
+</panel_attributes>
+    <additional_attributes>130.0;310.0;130.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1260</x>
+      <y>392</y>
+      <w>588</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>820.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1834</x>
+      <y>399</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:ReportCtrl</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2114</x>
+      <y>637</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:RatingCtrl</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2219</x>
+      <y>805</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:RatingDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1890</x>
+      <y>413</y>
+      <w>273</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+</panel_attributes>
+    <additional_attributes>370.0;320.0;370.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2177</x>
+      <y>637</y>
+      <w>91</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>110.0;240.0;110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1372</x>
+      <y>791</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:Alarm</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1526</x>
+      <y>630</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:AlarmCtrl</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>630</y>
+      <w>140</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1554</x>
+      <y>413</y>
+      <w>301</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+
+</panel_attributes>
+    <additional_attributes>10.0;310.0;10.0;30.0;410.0;30.0;410.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>371</x>
+      <y>112</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+System confirms task is saved</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>371</x>
+      <y>224</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+System confirms shift is saved</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1799</x>
+      <y>413</y>
+      <w>70</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;80.0;80.0;80.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1876</x>
+      <y>413</y>
+      <w>77</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>90.0;230.0;90.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1904</x>
+      <y>574</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:Report</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1771</x>
+      <y>574</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:ReportDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2037</x>
+      <y>637</y>
+      <w>91</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;240.0;10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2009</x>
+      <y>805</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:Rating</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1463</x>
+      <y>868</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:AlarmDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1736</x>
+      <y>791</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:AlarmEkstra</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1603</x>
+      <y>868</y>
+      <w>77</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:AlarmEkstraDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1589</x>
+      <y>623</y>
+      <w>203</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>270.0;240.0;270.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1491</x>
+      <y>644</y>
+      <w>63</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;320.0;10.0;80.0;70.0;80.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1568</x>
+      <y>644</y>
+      <w>84</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>100.0;320.0;100.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
