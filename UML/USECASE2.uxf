@@ -2,31 +2,9 @@
 <diagram program="umlet" version="15.1">
   <zoom_level>7</zoom_level>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>7</x>
-      <y>364</y>
-      <w>315</w>
-      <h>133</h>
-    </coordinates>
-    <panel_attributes>Operationskontrakt
-
-Operation: addEmployee(userID:int)
-
-Use case: Create Task
-Prebetingelse: Task t er blevet oprettet
-Shift s er blevet oprettet og assosieret med Task t
- 
-
-Postbetingelse:
-Employee e er blevet assosieret med Shift s
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>357</x>
+      <x>518</x>
       <y>0</y>
       <w>42</w>
       <h>77</h>
@@ -37,7 +15,7 @@ Employee e er blevet assosieret med Shift s
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>609</x>
+      <x>770</x>
       <y>35</y>
       <w>70</w>
       <h>21</h>
@@ -49,54 +27,44 @@ Employee e er blevet assosieret med Shift s
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>637</x>
+      <x>798</x>
       <y>49</y>
       <w>21</w>
-      <h>252</h>
+      <h>273</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;340.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;370.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
+      <x>532</x>
       <y>42</y>
       <w>21</w>
-      <h>259</h>
+      <h>280</h>
     </coordinates>
     <panel_attributes>lt=.
 layer=0</panel_attributes>
-    <additional_attributes>10.0;350.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;380.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
-      <y>161</y>
+      <x>532</x>
+      <y>210</y>
       <w>287</w>
-      <h>28</h>
+      <h>42</h>
     </coordinates>
-    <panel_attributes>addShift(startTime, expectedEndTime)
-lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>371</x>
-      <y>84</y>
-      <w>287</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes>createTask(date, desciption,location, userID)
+    <panel_attributes>updateReportByTaskID(rejectionAge, rejectionAttitude,
+rejectionAlternative, alternativeRemarks,
+employeeSignature, customerSignature, task)
 lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>476</x>
+      <x>637</x>
       <y>35</y>
       <w>98</w>
       <h>21</h>
@@ -107,79 +75,53 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>21</y>
+      <x>161</x>
+      <y>28</y>
       <w>322</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>Operationskontrakt
 
-Operation: createTask(date, desciption,
-location, userID)
-Use case: Create Task
-Præbetingelser: En instans af Employee e og 
-User u eksistere allerede i systemet. 
-
+Operation: createAlarm(time, classification, description,
+notify, reportNr)
+Use case: Opdater Rapport
+Præbetingelser: En instans af Task t og 
+Rapport r eksistere allerede i systemet. 
 
 Postbetingelser:
-Task t er blevet oprettet
-
+Alarm a er blevet oprettet
+Alarm a er blevet assosieret med r
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
+      <x>161</x>
       <y>189</y>
       <w>322</w>
       <h>147</h>
     </coordinates>
     <panel_attributes>Operationskontrakt
 
-Operation: addShift(startTime,
-expectedEndTime)
-Use case: Create Task
-Præbetingelser: Task t er blevet oprettet.
+Operation: updateReportByTaskID(rejectionAge, rejectionAttitude,
+rejectionAlternative, alternativeRemarks,
+employeeSignature, customerSignature, task)
+Use case: Opdater rapport
+Præbetingelser:  En instans af Task t og 
+Rapport r eksistere allerede i systemet. 
  
-
-
 Postbetingelse:
-Shift s er blevet oprettet
-Shift s er blevet assosieret med Task t
+Rapport r er blevet opdateret
+
 
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLFrame</id>
-    <coordinates>
-      <x>350</x>
-      <y>140</y>
-      <w>329</w>
-      <h>119</h>
-    </coordinates>
-    <panel_attributes>Loop (more shifts)
-layer=-1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
-      <y>196</y>
-      <w>287</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes>addEmployeeToShift(userID)
-lt=&lt;&lt;&lt;-
-layer=2</panel_attributes>
-    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1218</x>
+      <x>1379</x>
       <y>210</y>
       <w>21</w>
       <h>203</h>
@@ -192,7 +134,7 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1197</x>
+      <x>1358</x>
       <y>399</y>
       <w>70</w>
       <h>21</h>
@@ -203,8 +145,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1281</x>
-      <y>630</y>
+      <x>1428</x>
+      <y>602</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -214,8 +156,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1120</x>
-      <y>630</y>
+      <x>1281</x>
+      <y>602</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -225,22 +167,22 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1148</x>
+      <x>1309</x>
       <y>413</y>
       <w>84</w>
-      <h>231</h>
+      <h>203</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 </panel_attributes>
-    <additional_attributes>100.0;10.0;100.0;80.0;10.0;80.0;10.0;310.0</additional_attributes>
+    <additional_attributes>100.0;10.0;100.0;80.0;10.0;80.0;10.0;270.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1225</x>
+      <x>1386</x>
       <y>413</y>
-      <w>105</w>
-      <h>231</h>
+      <w>91</w>
+      <h>203</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 
@@ -254,12 +196,12 @@ layer=2</panel_attributes>
 
 
 </panel_attributes>
-    <additional_attributes>130.0;310.0;130.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>110.0;270.0;110.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1260</x>
+      <x>1421</x>
       <y>392</y>
       <w>588</w>
       <h>28</h>
@@ -271,7 +213,7 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1834</x>
+      <x>1995</x>
       <y>399</y>
       <w>70</w>
       <h>21</h>
@@ -282,7 +224,7 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2114</x>
+      <x>2275</x>
       <y>637</y>
       <w>70</w>
       <h>21</h>
@@ -293,7 +235,7 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2219</x>
+      <x>2380</x>
       <y>805</y>
       <w>70</w>
       <h>21</h>
@@ -304,7 +246,7 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1890</x>
+      <x>2051</x>
       <y>413</y>
       <w>273</w>
       <h>238</h>
@@ -317,7 +259,7 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2177</x>
+      <x>2338</x>
       <y>637</y>
       <w>91</w>
       <h>182</h>
@@ -329,8 +271,8 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1372</x>
-      <y>791</y>
+      <x>1512</x>
+      <y>784</y>
       <w>70</w>
       <h>21</h>
     </coordinates>
@@ -340,7 +282,7 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1526</x>
+      <x>1687</x>
       <y>630</y>
       <w>70</w>
       <h>21</h>
@@ -351,19 +293,19 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1400</x>
+      <x>1540</x>
       <y>630</y>
-      <w>140</w>
-      <h>175</h>
+      <w>161</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>10.0;230.0;10.0;10.0;180.0;10.0</additional_attributes>
+    <additional_attributes>10.0;220.0;10.0;10.0;210.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1554</x>
+      <x>1715</x>
       <y>413</y>
       <w>301</w>
       <h>231</h>
@@ -377,31 +319,19 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
-      <y>112</y>
+      <x>532</x>
+      <y>259</y>
       <w>287</w>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
-System confirms task is saved</panel_attributes>
+System confirms report is updated and saved in database</panel_attributes>
     <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
-      <y>224</y>
-      <w>287</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.
-System confirms shift is saved</panel_attributes>
-    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1799</x>
+      <x>1960</x>
       <y>413</y>
       <w>70</w>
       <h>175</h>
@@ -413,7 +343,7 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1876</x>
+      <x>2037</x>
       <y>413</y>
       <w>77</w>
       <h>175</h>
@@ -425,7 +355,7 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1904</x>
+      <x>2065</x>
       <y>574</y>
       <w>70</w>
       <h>21</h>
@@ -436,7 +366,7 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1771</x>
+      <x>1932</x>
       <y>574</y>
       <w>70</w>
       <h>21</h>
@@ -447,7 +377,7 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2037</x>
+      <x>2198</x>
       <y>637</y>
       <w>91</w>
       <h>182</h>
@@ -459,7 +389,7 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2009</x>
+      <x>2170</x>
       <y>805</y>
       <w>70</w>
       <h>21</h>
@@ -470,7 +400,7 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1463</x>
+      <x>1624</x>
       <y>868</y>
       <w>70</w>
       <h>21</h>
@@ -481,7 +411,7 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1736</x>
+      <x>1876</x>
       <y>791</y>
       <w>70</w>
       <h>21</h>
@@ -492,7 +422,7 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1603</x>
+      <x>1764</x>
       <y>868</y>
       <w>77</w>
       <h>21</h>
@@ -503,19 +433,19 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1589</x>
+      <x>1750</x>
       <y>623</y>
-      <w>203</w>
+      <w>182</w>
       <h>182</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>270.0;240.0;270.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>240.0;240.0;240.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1491</x>
+      <x>1652</x>
       <y>644</y>
       <w>63</w>
       <h>238</h>
@@ -527,7 +457,7 @@ System confirms shift is saved</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1568</x>
+      <x>1729</x>
       <y>644</y>
       <w>84</w>
       <h>238</h>
@@ -535,5 +465,249 @@ System confirms shift is saved</panel_attributes>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
     <additional_attributes>100.0;320.0;100.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>77</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>findReportByTaskID(taskID)</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>105</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+System returns report</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>140</y>
+      <w>287</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>createAlarm(time, classification, description,
+notify, reportNr)</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>511</x>
+      <y>126</y>
+      <w>329</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Loop(more alarms)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>168</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+System saves alarm in database</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>504</x>
+      <y>539</y>
+      <w>42</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>CEO</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>574</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>:System
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>798</x>
+      <y>588</y>
+      <w>21</w>
+      <h>273</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;370.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>581</y>
+      <w>21</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=.
+layer=0</panel_attributes>
+    <additional_attributes>10.0;380.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>756</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>saveReport(report)
+lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>637</x>
+      <y>574</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Larman 173-184</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>133</x>
+      <y>714</y>
+      <w>322</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Operationskontrakt
+
+Operation: createAlarm(time, classification, description,
+notify, reportNr)
+Use case: Opdater Raport
+Præbetingelser: En instans af Task t og 
+Rapport r eksistere allerede i systemet. 
+
+Postbetingelser:
+Alarm a er blevet oprettet
+Alarm a er blevet assosieret med Report r
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>518</y>
+      <w>322</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>Operationskontrakt
+
+Operation: createReport(task, rejectionsAge, rejectionsAttitude,
+rejectionsAlternative, alternativeRemarks,
+employeeSignature, customerSignature) 
+Use case: Opret rapport
+Præbetingelser:  En instans af Task t eksistere allerede i systemet. 
+ 
+Postbetingelse:
+Raport r er blevet oprettet
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>798</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+System confirms report is created and saved in database</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>616</y>
+      <w>287</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>createReport(task, rejectionsAge, rejectionsAttitude,
+rejectionsAlternative, alternativeRemarks,
+employeeSignature, customerSignature) </panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>651</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+System returns report</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>693</y>
+      <w>287</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>createAlarm(time, classification, description,
+notify, reportNr)</panel_attributes>
+    <additional_attributes>390.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>511</x>
+      <y>679</y>
+      <w>329</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Loop(more alarms)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>721</y>
+      <w>287</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.
+System saves alarm in database</panel_attributes>
+    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
   </element>
 </diagram>
