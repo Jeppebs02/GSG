@@ -4,7 +4,7 @@
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>495</x>
+      <x>774</x>
       <y>0</y>
       <w>54</w>
       <h>99</h>
@@ -15,7 +15,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>819</x>
+      <x>1098</x>
       <y>45</y>
       <w>90</w>
       <h>27</h>
@@ -27,7 +27,7 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>855</x>
+      <x>1134</x>
       <y>63</y>
       <w>27</w>
       <h>351</h>
@@ -38,7 +38,7 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>54</y>
       <w>27</w>
       <h>360</h>
@@ -50,7 +50,7 @@ layer=0</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>270</y>
       <w>369</w>
       <h>54</h>
@@ -64,7 +64,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>648</x>
+      <x>927</x>
       <y>45</y>
       <w>126</w>
       <h>27</h>
@@ -75,7 +75,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>36</x>
+      <x>315</x>
       <y>36</y>
       <w>414</w>
       <h>180</h>
@@ -97,7 +97,7 @@ Alarm a er blevet assosieret med r
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>36</x>
+      <x>315</x>
       <y>243</y>
       <w>414</w>
       <h>189</h>
@@ -121,7 +121,7 @@ Rapport r er blevet opdateret
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2394</x>
+      <x>2673</x>
       <y>513</y>
       <w>90</w>
       <h>27</h>
@@ -132,7 +132,7 @@ Rapport r er blevet opdateret
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1521</x>
+      <x>1800</x>
       <y>774</y>
       <w>90</w>
       <h>27</h>
@@ -143,7 +143,7 @@ Rapport r er blevet opdateret
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1737</x>
+      <x>2016</x>
       <y>513</y>
       <w>90</w>
       <h>27</h>
@@ -154,7 +154,7 @@ Rapport r er blevet opdateret
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1332</x>
+      <x>1611</x>
       <y>531</y>
       <w>513</w>
       <h>261</h>
@@ -176,7 +176,7 @@ lt=&lt;-
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1818</x>
+      <x>2097</x>
       <y>504</y>
       <w>594</w>
       <h>72</h>
@@ -191,7 +191,7 @@ notify:boolean, report:Report) : Alarm
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>333</y>
       <w>369</w>
       <h>36</h>
@@ -203,7 +203,7 @@ System confirms report is updated and saved in database</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2304</x>
+      <x>2583</x>
       <y>531</y>
       <w>279</w>
       <h>252</h>
@@ -215,7 +215,7 @@ System confirms report is updated and saved in database</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2466</x>
+      <x>2745</x>
       <y>495</y>
       <w>387</w>
       <h>297</h>
@@ -241,7 +241,7 @@ customerSignature:String)
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2538</x>
+      <x>2817</x>
       <y>774</y>
       <w>90</w>
       <h>27</h>
@@ -252,7 +252,7 @@ customerSignature:String)
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2268</x>
+      <x>2547</x>
       <y>765</y>
       <w>90</w>
       <h>27</h>
@@ -263,7 +263,7 @@ customerSignature:String)
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1845</x>
+      <x>2124</x>
       <y>774</y>
       <w>90</w>
       <h>27</h>
@@ -274,7 +274,7 @@ customerSignature:String)
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1800</x>
+      <x>2079</x>
       <y>531</y>
       <w>306</w>
       <h>261</h>
@@ -286,7 +286,7 @@ customerSignature:String)
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>99</y>
       <w>369</w>
       <h>36</h>
@@ -298,7 +298,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>135</y>
       <w>369</w>
       <h>36</h>
@@ -310,7 +310,7 @@ System returns report</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>180</y>
       <w>369</w>
       <h>45</h>
@@ -323,7 +323,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>486</x>
+      <x>765</x>
       <y>162</y>
       <w>423</w>
       <h>90</h>
@@ -334,7 +334,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>216</y>
       <w>369</w>
       <h>36</h>
@@ -346,7 +346,7 @@ System saves alarm in database</panel_attributes>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>477</x>
+      <x>756</x>
       <y>693</y>
       <w>54</w>
       <h>99</h>
@@ -357,7 +357,7 @@ System saves alarm in database</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>819</x>
+      <x>1098</x>
       <y>738</y>
       <w>90</w>
       <h>27</h>
@@ -369,7 +369,7 @@ System saves alarm in database</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>855</x>
+      <x>1134</x>
       <y>756</y>
       <w>27</w>
       <h>351</h>
@@ -380,7 +380,7 @@ System saves alarm in database</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>747</y>
       <w>27</w>
       <h>360</h>
@@ -392,7 +392,7 @@ layer=0</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>972</y>
       <w>369</w>
       <h>36</h>
@@ -404,7 +404,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>648</x>
+      <x>927</x>
       <y>738</y>
       <w>126</w>
       <h>27</h>
@@ -415,8 +415,8 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>918</y>
+      <x>288</x>
+      <y>882</y>
       <w>414</w>
       <h>180</h>
     </coordinates>
@@ -424,7 +424,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
 
 Operation: createAlarm(time, classification, description,
 notify, reportNr)
-Use case: Opret Raport
+Use case: Opret rapport
 Præbetingelser: En instans af Task t og 
 Rapport r eksistere allerede i systemet. 
 
@@ -437,7 +437,7 @@ Alarm a er blevet assosieret med Report r
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>9</x>
+      <x>288</x>
       <y>666</y>
       <w>414</w>
       <h>189</h>
@@ -460,7 +460,7 @@ Raport r er blevet oprettet
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>1017</y>
       <w>369</w>
       <h>36</h>
@@ -472,7 +472,7 @@ System confirms report is created and saved in database</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>792</y>
       <w>369</w>
       <h>54</h>
@@ -486,7 +486,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>837</y>
       <w>369</w>
       <h>36</h>
@@ -498,7 +498,7 @@ System returns report</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>891</y>
       <w>369</w>
       <h>45</h>
@@ -511,7 +511,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>486</x>
+      <x>765</x>
       <y>873</y>
       <w>423</w>
       <h>90</h>
@@ -522,7 +522,7 @@ lt=&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>1053</y>
       <w>369</w>
       <h>36</h>
@@ -534,7 +534,7 @@ System saves alarms in database</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2430</x>
+      <x>2709</x>
       <y>324</y>
       <w>540</w>
       <h>207</h>
@@ -553,7 +553,7 @@ notify:boolean, report:Report): Alarm
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>513</x>
+      <x>792</x>
       <y>927</y>
       <w>369</w>
       <h>36</h>
@@ -561,5 +561,29 @@ notify:boolean, report:Report): Alarm
     <panel_attributes>lt=&lt;&lt;.
 System adds alarm to list of alarms in report</panel_attributes>
     <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>1080</y>
+      <w>414</w>
+      <h>207</h>
+    </coordinates>
+    <panel_attributes>Operationskontrakt
+
+Operation: saveReport(report)
+Use case: Opret rapport
+Præbetingelser: I systemet eksistere 
+en instans af Task t, 
+Rapport r og 0 til mange Alarm a objekter, der
+er tilføjet til en liste, der er assosiceret med
+r. 
+
+Postbetingelser:
+Report r er blevet gemt i systemet
+alle Alarm a objekter er blevet gemt i databasen
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
