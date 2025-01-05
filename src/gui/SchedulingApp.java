@@ -369,12 +369,20 @@ public class SchedulingApp {
 	 * @param date the LocalDate representing the month to fetch tasks for.
 	 */
 	private void fetchTasksInBackground(LocalDate date) {
+		//Return type is a list of tasks, the second return type "Void" indicates no intermediate result.
 		SwingWorker<List<Task>, Void> worker = new SwingWorker<>() {
+			
+			//Here we override the doInBackground from the swingworker class. Basically we implement the doInBackground.
+			//This executes the statements on line 379 and 380 in a background thread.
 			@Override
 			protected List<Task> doInBackground() throws Exception {
 				TaskCtrl tc = new TaskCtrl();
 				return tc.findAllTasks(date.getYear(), date.getMonth().toString());
 			}
+			
+			//This runs on the EDT (Event Dispatch Thread) once doInBackground is complete.
+			//It sets the "tasks" (our list of task objects which is a field in SchedulingApp) equal to whatever is returned by doInBackground
+			//Using the "get()"
 
 			@Override
 			protected void done() {
@@ -386,6 +394,8 @@ public class SchedulingApp {
 				}
 			}
 		};
+		
+		//Here we execute the above code.
 		worker.execute();
 	}
 
